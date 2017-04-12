@@ -1,0 +1,170 @@
+@import "~./_common.scss";  
+
+
+/*
+ pc.css
+ * */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+ul,
+li,
+dl,
+dt,
+dd,
+p,
+span,
+strong,
+input,
+select,
+textarea {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	outline: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+	font-weight:normal; 
+}
+input[type=radio],
+input[type=checkbox],
+a {
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+	background: transparent;
+	color: inherit;
+	font-size: inherit
+}
+
+a img {
+	border: 0 none;
+}
+
+.box img {
+	vertical-align: bottom;
+	width: 100%;
+}
+
+ul {
+	list-style: none;
+}
+
+a,
+button,
+input[type=checkbox],
+input[type=radio] {
+	cursor: pointer;
+}
+
+html {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+audio,
+canvas,
+progress,
+video,
+.row {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	-webkit-box-sizing: inherit;
+}
+
+.row {
+	clear: both;
+	width: 100%;
+}
+
+*:after {
+	content: '';
+	clear: both;
+	height: 0;
+}
+
+
+/*font*/
+
+.small {
+	font-size: 12px;
+}
+
+.normal {
+	font-weight: normal;
+}
+
+.bold {
+	font-weight: 700;
+}
+
+.font-white {
+	color: #fff;
+}
+
+.font-blue {
+	color: #39f;
+}
+
+.font-red {
+	color: #f66;
+}
+
+.font-orange {
+	color: #ff9600;
+}
+
+
+/*container*/
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.img-box img {
+	display: block;
+	margin: 0 auto;
+}
+
+
+/*page*/

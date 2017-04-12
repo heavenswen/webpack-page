@@ -1,0 +1,80 @@
+//Q基础库
+//@import "*";
+//常量
+$sm: 768; //小屏幕比例
+$md: 992; //中屛
+$lg: 1200; //屏幕
+//标签
+$hs: h1,h2,h3,h4,h5,h6; 
+//定位
+// 利用absolute 上下居中
+@mixin pos-mid {
+    position: absolute;
+    top: 50%;
+    margin: auto;
+    @include transform(translateY(-50%));
+}
+//absolute and margin 上下左右居中
+@mixin pos-auto($t:0px, $b:0px, $l:0px, $r:0px) {
+    position: absolute;
+    top: $t;
+    bottom: $b;
+    left: $l;
+    right: $r;
+    margin: auto;
+}
+//给对象添加固定padding-data()
+@mixin padding-data($types:(top, left, bottom, right, ), $num:10px) {
+    @each $type in $types {
+        padding-#{$type}: $num;
+    }
+}
+//边框
+@mixin margin-data($types:(top, left, bottom, right, ), $num:10px) {
+    @each $type in $types {
+        margin-#{$type}: $num;
+    }
+}
+//外观
+//三角形 （方向，宽，高,颜色）
+@mixin triangle($t, $w, $h, $c) {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: $h $w;
+    border-color: transparent;
+    border-#{$t}-color: $c;
+}
+//圆角边框
+@mixin box-radius($r:50%) {
+    border-radius: $r;
+    overflow: hidden;
+}
+//变形
+//快速过渡
+@mixin transition($type:all, $s:0.3, $ease:linear) {
+    transition: $type $s $ease;
+    -webkit-transition: $type $s $ease;
+}
+//扭曲兼容
+@mixin transform($type...) {
+    transform: $type;
+    -webkit-transform: $type;
+}
+//媒体
+//最大尺寸（npx）
+@mixin max-media($w) {
+    @media( max-width: $w ) {
+        @content;
+    }
+}
+//最小尺寸小（npx）
+@mixin min-media($w) {
+    @media( min-width: $w ) {
+        @content;
+    }
+}
+//@content 可以用来解决css3的@media等带来的问题。它可以使@mixin接受一整块样式
+//@include max-media(480px) {
+//body { color: red }
+//}

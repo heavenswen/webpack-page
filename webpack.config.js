@@ -40,6 +40,7 @@ const config = {
         use: 'babel-loader',
         exclude: /node_modules/
       },
+      //提取css
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -47,14 +48,22 @@ const config = {
           use: 'css-loader'
         })
       },
-       {
-       	//修改html img路径
+      {
+        //编译sass 
+        test: /\.(scss|sass)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
+      },
+      {
+        //修改html img路径
         test: /\.html$/,
         use: [{
           loader: 'html-loader',
           options: {
             root: resolve(__dirname, 'src'),
-            attrs: ['img:src', 'img:data-src','link:href']
+            attrs: ['img:src', 'img:data-src', 'link:href']
           }
         }]
       },
@@ -65,19 +74,21 @@ const config = {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name:"[name].[ext]?[hash]"
+            name: "[name].[ext]?[hash]"
           }
         }]
       }
     ]
   },
   plugins: [
+    //合并公用js
     new CommonsChunkPlugin({
       name: 'vendors',
       filename: 'assets/js/vendors.js',
       chunks: chunks,
       minChunks: chunks.length
     }),
+    //自动合并合并公用css
     new ExtractTextPlugin({
       filename: 'assets/css/main.css',
       allChunks: true
