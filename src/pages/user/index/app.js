@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
 import App from './app.vue'
+import 'element-ui/lib/theme-default/index.css'
 import 'assets/css/react.scss'
-import "assets/css/index.scss"
+import "assets/css/demo.css"
 
 Vue.use(ElementUI)
 

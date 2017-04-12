@@ -32,7 +32,5 @@ export default {
 </script>
 
 <style lang='sass'>
-body {
-  font-family: Helvetica, sans-serif;
-}
+
 </style>

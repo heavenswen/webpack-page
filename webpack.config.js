@@ -45,7 +45,7 @@ const config = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
+          use: 'css-loader',
         })
       },
       {
@@ -53,7 +53,7 @@ const config = {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          use: ['css-loader', 'sass-loader'],
         })
       },
       {
@@ -81,16 +81,20 @@ const config = {
     ]
   },
   plugins: [
-    //合并公用js
+    //获取公用模块生成js
     new CommonsChunkPlugin({
       name: 'vendors',
       filename: 'assets/js/vendors.js',
       chunks: chunks,
       minChunks: chunks.length
     }),
-    //自动合并合并公用css
+    //获取公用模块生成css
     new ExtractTextPlugin({
-      filename: 'assets/css/main.css',
+      filename: (getPath) => {
+        let name = getPath('css/[name].css')
+        console.log(name)
+        return "assets/css/main.css";
+      },
       allChunks: true
     })
   ],

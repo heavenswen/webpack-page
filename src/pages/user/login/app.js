@@ -1,13 +1,9 @@
-import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-import App from './app.vue'
-import 'assets/css/react.scss'
-import 'assets/css/login.scss'
+import 'assets/css/react.scss' //公共
+import 'assets/css/login.scss'//当前
+//jquery 写法
+import $ from "jquery"
 
-Vue.use(ElementUI)
 
-new Vue({
-  el: '#app',
-  render: h => h(App)
-})
+(function($){
+  $('body').append("jquery 引入")
+})($)
