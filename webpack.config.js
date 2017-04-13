@@ -6,8 +6,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 
+//页面对应路口
 const entries = {}
 const chunks = []
+
+//获得入口
 glob.sync('./src/pages/**/*.js').forEach(path => {
   const chunk = path.split('./src/pages/')[1].split('.js')[0]
   entries[chunk] = path
@@ -19,7 +22,7 @@ const config = {
   output: {
     path: resolve(__dirname, './dist'),
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: ''
   },
   resolve: {
     extensions: ['.js', '.vue'],
@@ -41,13 +44,17 @@ const config = {
         exclude: /node_modules/
       },
       //提取css
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader',
-        })
-      },
+      // {
+      //   //编译sass 
+      //   test: /\.(scss|sass)$/,
+
+      //   use: ['style-loader', 'css-loader', 'sass-loader'],
+
+      // },
+      //  {
+      //   test: /\.css$/,
+      //   use: ['style-loader', 'css-loader'],
+      // },
       {
         //编译sass 
         test: /\.(scss|sass)$/,
@@ -55,7 +62,16 @@ const config = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader'],
         })
+
       },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        })
+      },
+
       {
         //修改html img路径
         test: /\.html$/,
@@ -88,14 +104,18 @@ const config = {
       chunks: chunks,
       minChunks: chunks.length
     }),
-    //获取公用模块生成css
+    //提取公用模块生成css
     new ExtractTextPlugin({
       filename: (getPath) => {
-        let name = getPath('css/[name].css')
-        console.log(name)
-        return "assets/css/main.css";
+        //获得地址
+        let name = getPath('[name]')
+        if (!name.match(/vendors/ig)) {
+          let arr = name.split('/')
+          name = arr[arr.length - 2]//获得文件名
+        }
+        return 'assets/css/' + name + '.css';
       },
-      allChunks: true
+      // allChunks: true //只留公共
     })
   ],
   devServer: {
@@ -115,15 +135,19 @@ const config = {
 }
 
 glob.sync('./src/pages/**/*.html').forEach(path => {
-  const filename = path.split('./src/pages/')[1].split('/app.html')[0] + '.html'
+  let filename = path.split('./src/pages/')[1].split('/app.html')[0] 
   const chunk = path.split('./src/pages/')[1].split('.html')[0]
+  if(filename.match(/\//ig)){
+    let arr = filename.split('/')
+    filename = arr[arr.length-1]
+  }
   const htmlConf = {
-    filename: filename,
+    filename: filename+".html",//文件名
     template: path,
     inject: 'body',
     favicon: './src/assets/img/logo.png',
     hash: process.env.NODE_ENV === 'production',
-    chunks: ['vendors', chunk]
+    chunks: ['vendors', chunk] //chunk
   }
   config.plugins.push(new HtmlWebpackPlugin(htmlConf))
 })

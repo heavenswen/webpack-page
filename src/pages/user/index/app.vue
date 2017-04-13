@@ -12,7 +12,7 @@
 <script>
 import logo from 'assets/img/logo.png'
 export default {
-  data () {
+  data() {
     return {
       msg: 'Use Vue 2.0 Today!',
       logoImg: logo
@@ -20,7 +20,7 @@ export default {
   },
 
   methods: {
-    startHacking () {
+    startHacking() {
       this.$notify({
         title: 'It Works',
         message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
@@ -31,6 +31,8 @@ export default {
 }
 </script>
 
-<style lang='sass'>
-
+<style>
+body {
+  font-family: Helvetica, sans-serif;
+}
 </style>

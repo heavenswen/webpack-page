@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="format-detection" content="telephone=no,email=no">
   <title>index</title>
 </head>
+
 <body>
-  <h1>11</h1>
+  <h1>index</h1>
   <div id="app"></div>
   <a href="login.html">login</a>
+  <ol>
+    <h3>htmlWebpackPlugin 参数<%= htmlWebpackPlugin %></h3>
+    <% for(var key in htmlWebpackPlugin){ %>
+
+      <li>
+        <strong><%= key %>:</strong>
+        <ul>
+          <% if(typeof htmlWebpackPlugin[key] =='object' ){ %>
+            <!--输出-->
+            <% for(var k in htmlWebpackPlugin[key]) {%>
+              <li>
+                <strong><%= k %></strong>:
+
+                <%= JSON.stringify(htmlWebpackPlugin[key][k] )%>
+
+              </li>
+
+              <% }%>
+                <% }%>
+        </ul>
+      </li>
+      <%}%>
+  </ol>
 </body>
+
 </html>
