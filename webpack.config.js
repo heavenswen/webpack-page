@@ -5,6 +5,7 @@ const glob = require('glob')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 //页面对应路口
 const entries = {}
@@ -115,8 +116,16 @@ const config = {
         }
         return 'assets/css/' + name + '.css';
       },
-      // allChunks: true //只留公共
-    })
+      allChunks: true 
+    }),
+    //压缩单独的css
+     new OptimizeCssAssetsPlugin({
+          assetNameRegExp: /\.css$/g,
+          cssProcessor: require('cssnano'),
+          cssProcessorOptions: { discardComments: {removeAll: true } },
+          canPrint: process.env.NODE_ENV === 'production'//是否开起
+     })
+
   ],
   devServer: {
     host: '127.0.0.1',

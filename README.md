@@ -1,4 +1,41 @@
-# vue-multiple-pages
+#webpack-page
+
+config说明：
+
+webpack 多页环境搭建 jquery,window引入方法 分离公用css、js,生成对应入口css、js ,压缩css、js， html生成对应页面,支持 vue ，sass，es6编译
+
+
+
+npm 操作
+
+<h4>下载依赖</h4>
+<pre>npm i</pre>
+
+<h4>测试服务器</h4>
+<pre>npm run dev</pre>
+//局域网地址 192.168.4.30 --host 192.168.4.30(去掉为127.0.0.1)
+//webpack-dev-server --inline --hot --host 192.168.4.30
+
+<h4>发布</h4>
+npm run build
+
+
+文件结构
+-dist //生成发布目录
+-src //源码
+--assets //资源库
+---img
+---js
+---css
+--components //组件模块 
+--pages //页面资源
+---user //页面库
+----index //单页面 生成时对应名称
+-----app.html//页面 必须为‘app’ 
+-----app.js //单页入口
+-----app.vue //入口vue 模版
+
+#参考vue-multiple-pages
 
 **This project is a modern Vue.js starter
 which uses Vue 2, Webpack2, and ElementUI**
