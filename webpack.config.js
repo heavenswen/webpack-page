@@ -9,9 +9,10 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 //页面对应路口
 const entries = {}
+//入口对象集
 const chunks = []
 
-//获得入口
+//获得入口js
 glob.sync('./src/pages/**/*.js').forEach(path => {
   const chunk = path.split('./src/pages/')[1].split('.js')[0]
   entries[chunk] = path
@@ -103,6 +104,7 @@ const config = {
       name: 'vendors',
       filename: 'assets/js/vendors.js',
       chunks: chunks,
+     
       minChunks: chunks.length
     }),
     //提取公用模块生成css
