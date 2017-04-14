@@ -1,9 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <div class="dd">
       Index
     </div>
     <img v-bind:src="logoImg">
+
     <h1>{{ msg }}</h1>
     <el-button @click.native="startHacking">Let's do it</el-button>
   </div>
@@ -15,10 +16,9 @@ export default {
   data() {
     return {
       msg: 'Use Vue 2.0 Today!',
-      logoImg: logo
+      logoImg: logo,
     }
   },
-
   methods: {
     startHacking() {
       this.$notify({
@@ -33,6 +33,6 @@ export default {
 
 <style>
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;  
 }
 </style>

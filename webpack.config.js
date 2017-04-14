@@ -23,9 +23,10 @@ const config = {
   output: {
     path: resolve(__dirname, './dist'),
     filename: '[name].js',
-    publicPath: ''
+    publicPath: '/'
   },
   resolve: {
+    //路径检索
     extensions: ['.js', '.vue'],
     alias: {
       assets: join(__dirname, '/src/assets'),
@@ -44,6 +45,11 @@ const config = {
         use: 'babel-loader',
         exclude: /node_modules/
       },
+      // {
+      //   //html-withimg-loader
+      //   test: /\.(htm|html|ejs)$/i,
+      //   use: 'html-withimg-loader'
+      // },
       //提取css
       // {
       //   //编译sass 
@@ -61,7 +67,7 @@ const config = {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
+          use: ['css-loader','sass-loader'],
         })
 
       },
@@ -69,7 +75,7 @@ const config = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader',
+          use: ['css-loader'],
         })
       },
 
@@ -85,13 +91,29 @@ const config = {
         }]
       },
       {
-        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+        //图形资源
+        test: /\.(png|jpg|jpeg|gif|svg|svgz)(\?.+)?$/,
         exclude: /favicon\.png$/,
         use: [{
           loader: 'url-loader',
           options: {
-            limit: 10000,
-            name: "[name].[ext]?[hash]"
+            limit: 1000,
+            name: "[name].[ext]?[hash]",
+            outputPath: "assets/img/",
+            publicPath: "/assets/img/"
+          }
+        }]
+      },
+      {
+        //文字资源
+        test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 1000,
+            name: "[name].[ext]?[hash]",
+            outputPath: "assets/fonts/",//产出目录
+            publicPath: "/assets/fonts/"
           }
         }]
       }
@@ -116,15 +138,15 @@ const config = {
         }
         return 'assets/css/' + name + '.css';
       },
-      allChunks: true 
+      allChunks: true
     }),
     //压缩单独的css
-     new OptimizeCssAssetsPlugin({
-          assetNameRegExp: /\.css$/g,
-          cssProcessor: require('cssnano'),
-          cssProcessorOptions: { discardComments: {removeAll: true } },
-          canPrint: process.env.NODE_ENV === 'production'//是否开起
-     })
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: process.env.NODE_ENV === 'production'//是否开起
+    })
 
   ],
   devServer: {
@@ -143,15 +165,17 @@ const config = {
   devtool: '#eval-source-map'
 }
 
-glob.sync('./src/pages/**/*.html').forEach(path => {
-  let filename = path.split('./src/pages/')[1].split('/app.html')[0] 
-  const chunk = path.split('./src/pages/')[1].split('.html')[0]
-  if(filename.match(/\//ig)){
+glob.sync("./src/pages/**/*.{ejs,html}").forEach(path => {
+  //HtmlWebpackPlugin 不支持 .html 编译 ejs 用.ejs
+  let filename = path.split('./src/pages/')[1].split(/\/app.(ejs|html)/)[0]
+  const chunk = path.split('./src/pages/')[1].split(".ejs")[0] //入口文件名
+
+  if (filename.match(/\//ig)) {
     let arr = filename.split('/')
-    filename = arr[arr.length-1]
+    filename = arr[arr.length - 1]
   }
   const htmlConf = {
-    filename: filename+".html",//文件名
+    filename: filename + ".html",//文件名
     template: path,
     inject: 'body',
     favicon: './src/assets/img/logo.png',
