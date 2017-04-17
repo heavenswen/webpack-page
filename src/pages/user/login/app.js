@@ -5,14 +5,13 @@ import "assets/css/demo.css"
 import $ from "jquery"
 window.$ = $
 window.jQuery = $
-var load =  require("assets/js/jq-load.js");
-
+var load =  require("assets/js/jq-load.js")
 
 (function($){
   //jquery
   var jq = "jquery 引入";
-
   $('body').append(jq)
-  new $.demo(`调用jq组件`)
+  new $.demo(`调用jq组件`)  
 
 })($)
+
