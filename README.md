@@ -17,24 +17,24 @@ npm 操作
 //webpack-dev-server --inline --hot --host 192.168.4.30
 
 <h4>发布</h4>
-npm run build
+<pre>npm run build</pre>
 
-
-文件结构
--dist //生成发布目录
--src //源码
---assets //资源库
----img
----js
----css
---components //组件模块 
---pages //页面资源
----user //页面库
-----index //单页面 生成时对应名称
------app.html//页面 必须为‘app’ 
------app.js //单页入口
------app.vue //入口vue 模版
-
+<ul>
+<h4>文件结构</h4>
+<li>-dist //生成发布目录
+<li>-src //源码
+<li>--assets //资源库
+<li>---img
+<li>---js
+<li>---css
+<li>--components //组件模块 
+<li>--pages //页面资源
+<li>---user //页面库
+<li>----index //单页面 生成时对应名称
+<li>-----app.html//页面 必须为‘app’ 
+<li>-----app.js //单页入口
+<li>-----app.vue //入口vue 模版
+</ul>
 #参考vue-multiple-pages
 
 **This project is a modern Vue.js starter
