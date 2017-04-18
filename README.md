@@ -2,7 +2,8 @@
 
 config说明：
 
-webpack 多页环境搭建 jquery,window引入方法 分离公用css、js,生成对应入口css、js ,压缩css、js， html生成对应页面,支持 vue ，sass，es6编译
+ab)
+webpack 多页环境搭建 jquery,window引入方法 分离公用css、js,生成对应入口css、js ,压缩css、js， html生成对应页面,支持 vue ，sass，es6编译,地址采用绝对地址，请使用绝对地址访问
 
 
 
@@ -21,7 +22,7 @@ npm run build
 
 
 文件结构
--dist //生成发布目录
+-static //生成发布目录
 -src //源码
 --assets //资源库
 ---img
