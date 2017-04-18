@@ -28,6 +28,7 @@ npm run build
 ---img
 ---js
 ---css
+---fonts
 --components //组件模块 
 --pages //页面资源
 ---user //页面库
