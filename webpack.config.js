@@ -5,7 +5,9 @@ const glob = require('glob')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');//压缩css
+const CopyWebpackPlugin = require('copy-webpack-plugin')//拷贝资源
+const cssLoader = process.env.NODE_ENV === 'production' ? 'css-loader?-url' : "css-loader"
 
 //页面对应路口
 const entries = {}
@@ -24,7 +26,7 @@ const config = {
   output: {
     path: resolve(__dirname, './dist'),
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: '' //'/'绝对路径
   },
   resolve: {
     //路径检索
@@ -46,29 +48,12 @@ const config = {
         use: 'babel-loader',
         exclude: /node_modules/
       },
-      // {
-      //   //html-withimg-loader
-      //   test: /\.(htm|html|ejs)$/i,
-      //   use: 'html-withimg-loader'
-      // },
-      //提取css
-      // {
-      //   //编译sass 
-      //   test: /\.(scss|sass)$/,
-
-      //   use: ['style-loader', 'css-loader', 'sass-loader'],
-
-      // },
-      //  {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader'],
-      // },
       {
         //编译sass 
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader','sass-loader'],
+          use: [cssLoader, 'sass-loader'],
         })
 
       },
@@ -76,7 +61,7 @@ const config = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader'],
+          use: [cssLoader],//'css-loader?-url' 地址不变 会导致不产出
         })
       },
 
@@ -100,8 +85,8 @@ const config = {
           options: {
             limit: 1000,
             name: "[name].[ext]?[hash]",
-            outputPath: "assets/img/",
-            publicPath: "/assets/img/"
+            outputPath: "/assets/img/",
+            //publicPath: "/assets/img/"
           }
         }]
       },
@@ -113,8 +98,8 @@ const config = {
           options: {
             limit: 1000,
             name: "[name].[ext]?[hash]",
-            outputPath: "assets/fonts/",//产出目录
-            publicPath: "/assets/fonts/"
+            outputPath: "/assets/css/",//产出目录
+            //publicPath: "./"
           }
         }]
       }
@@ -126,7 +111,7 @@ const config = {
       name: 'vendors',
       filename: 'assets/js/vendors.js',
       chunks: chunks,
-     
+
       minChunks: chunks.length
     }),
     //提取公用模块生成css
@@ -138,18 +123,10 @@ const config = {
           let arr = name.split('/')
           name = arr[arr.length - 2]//获得文件名
         }
-        return 'assets/css/' + name + '.css';
+        return "assets/css/" + name + '.css';
       },
       allChunks: true
     }),
-    //压缩单独的css
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: { removeAll: true } },
-      canPrint: process.env.NODE_ENV === 'production'//是否开起
-    })
-
   ],
   devServer: {
     host: '127.0.0.1',
@@ -188,11 +165,11 @@ glob.sync("./src/pages/**/*.{ejs,html}").forEach(path => {
 })
 
 module.exports = config
-
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
+    new CopyWebpackPlugin([{ from: './src/assets/img/', to: '/dist/assets/img/' }]),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
@@ -202,6 +179,13 @@ if (process.env.NODE_ENV === 'production') {
       compress: {
         warnings: false
       }
-    })
+    }),
+    //压缩单独的css
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
+    }),
   ])
 }

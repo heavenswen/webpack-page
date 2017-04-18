@@ -4,6 +4,7 @@ h1{
     border:1px solid #ccc;
 }
 body{
+    background: #fcc;
    background-image:url('../img/girl2.jpg');
 
 }
