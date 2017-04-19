@@ -84,9 +84,9 @@ const config = {
           loader: 'url-loader',
           options: {
             limit: 1000,
-            name: "[name].[ext]?[hash]",
-            outputPath: "/assets/img/",
-            //publicPath: "/assets/img/"
+            name: process.env.NODE_ENV ==='production'?"assets/img/[name].[ext]?[hash]":"[name].[ext]?[hash]",
+            //outputPath: "/assets/img/",//输出
+            //publicPath: "/assets/img/"//路径
           }
         }]
       },
@@ -97,9 +97,9 @@ const config = {
           loader: 'url-loader',
           options: {
             limit: 1000,
-            name: "[name].[ext]?[hash]",
-            outputPath: "/assets/css/",//产出目录
-            //publicPath: "./"
+            name: "assets/css/[name].[ext]?[hash]",
+            outputPath: "assets/css/",//产出目录
+            //publicPath: "../"
           }
         }]
       }
@@ -169,12 +169,22 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new CopyWebpackPlugin([{ from: './src/assets/img/', to: '/dist/assets/img/' }]),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
       }
     }),
+    //由于 css 中路径会生成绝对路径 导致404 用copy直接复制文件 css-loader?-url 资源路径不转换 保持同一结构
+    new CopyWebpackPlugin([
+      {
+        from: 'src/assets/img/',
+        to: 'assets/img/'
+      },
+      {
+        from: 'assets/css/fonts/',
+        to: 'assets/css/fonts/'
+      },
+    ]),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
