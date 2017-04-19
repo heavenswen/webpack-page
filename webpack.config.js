@@ -68,7 +68,7 @@ const config = {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader','sass-loader'],
+          use: ['css-loader', 'sass-loader'],
         })
 
       },
@@ -126,7 +126,7 @@ const config = {
       name: 'vendors',
       filename: 'assets/js/vendors.js',
       chunks: chunks,
-     
+
       minChunks: chunks.length
     }),
     //提取公用模块生成css
@@ -142,13 +142,6 @@ const config = {
       },
       allChunks: true
     }),
-    //压缩单独的css
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: { removeAll: true } },
-      canPrint: process.env.NODE_ENV === 'production'//是否开起
-    })
 
   ],
   devServer: {
@@ -203,5 +196,12 @@ if (process.env.NODE_ENV === 'production') {
         warnings: false
       }
     })
-  ])
+  ]),
+    //压缩单独的css
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
+    })
 }
