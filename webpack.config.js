@@ -53,7 +53,7 @@ const config = {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [cssLoader, 'sass-loader'],
+          use: [cssLoader,'postcss-loader' ,'sass-loader'],
         })
 
       },
@@ -61,7 +61,7 @@ const config = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [cssLoader],//'css-loader?-url' 地址不变 会导致不产出
+          use: [cssLoader,'postcss-loader'],//'css-loader?-url' 地址不变 会导致不产出
         })
       },
 
