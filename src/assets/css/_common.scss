@@ -4,11 +4,23 @@
 $sm: 768; //小屏幕比例
 $md: 992; //中屛
 $lg: 1200; //屏幕
+$mobile:true;//是否应用于手机端
 
 //font style
 $f-style:'Microsoft YaHei',Arial, Helvetica, sans-serif;
 $f:16px;//font default
 $f-sm:12px; //font small
+$rem:100;
+
+//size math rem
+@function size($p,$u:px,$r:$rem) {
+    @if $u == px{
+        //普通
+        @return $p+$u; 
+    }@else if $u == rem{
+        @return ($p/$r)+$u;
+    }
+}
 
 //color
 $blue:#39f;
@@ -19,6 +31,8 @@ $green:green;
 //标签  数组是从1开始的 引用nth($hs,1)
 $hs: h1,h2,h3,h4,h5,h6; 
 $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,textarea;
+
+
 
 //定位
 // 利用absolute 上下居中 @include pos-mid()

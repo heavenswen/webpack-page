@@ -131,9 +131,17 @@ video,
 .none{
 	display: none!important;
 }
+
+@if $mobile == true {
+	.container{
+		margin-left:15px;
+		margin-right:15px; 
+	}
+    
+} 
 /*page*/
 body{
 	font-family: $f-style;
-	font-size: $f;
+	font-size: size(14,px);
 }
 
