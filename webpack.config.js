@@ -7,6 +7,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const release = process.env.NODE_ENV === 'production' ? '/cxtdemo/' : '/'//域名文件夹
+const myHost = "192.168.4.30"
 //页面对应路口
 const entries = {}
 //入口对象集
@@ -24,7 +26,7 @@ const config = {
   output: {
     path: resolve(__dirname, './dist'),
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: release
   },
   resolve: {
     //路径检索
@@ -87,7 +89,7 @@ const config = {
           loader: 'html-loader',
           options: {
             root: resolve(__dirname, 'src'),
-            attrs: ['img:src', 'img:data-src', 'link:href']
+            attrs: ['img:src', 'img:data-src', 'img:data-background', 'link:href']
           }
         }]
       },
@@ -101,7 +103,7 @@ const config = {
             limit: 1000,
             name: "[name].[ext]?[hash]",
             outputPath: "assets/img/",
-            publicPath: "/assets/img/"
+            publicPath: release + "assets/img/"
           }
         }]
       },
@@ -114,7 +116,7 @@ const config = {
             limit: 1000,
             name: "[name].[ext]?[hash]",
             outputPath: "assets/fonts/",//产出目录
-            publicPath: "/assets/fonts/"
+            publicPath: release + "assets/fonts/"
           }
         }]
       }
@@ -124,9 +126,8 @@ const config = {
     //获取公用模块生成js
     new CommonsChunkPlugin({
       name: 'vendors',
-      filename: 'assets/js/vendors.js',
+      filename: 'assets/js/vendors.js?[hash]',
       chunks: chunks,
-
       minChunks: chunks.length
     }),
     //提取公用模块生成css
@@ -145,13 +146,13 @@ const config = {
 
   ],
   devServer: {
-    host: '127.0.0.1',
+    host: myHost,
     port: 8010,
     historyApiFallback: false,
     noInfo: true,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8080',
+        target: 'http://' + myHost + ':8010',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
       }

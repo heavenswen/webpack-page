@@ -5,25 +5,7 @@
  pc.css
  * */
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-label,
-ul,
-li,
-dl,
-dt,
-dd,
-p,
-span,
-strong,
-input,
-select,
-textarea {
+#{$all} {
 	margin: 0;
 	padding: 0;
 }
@@ -32,14 +14,10 @@ textarea {
 	outline: 0 !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6{
+#{$hs}{
 	font-weight:normal; 
 }
+button,
 input[type=radio],
 input[type=checkbox],
 a {
@@ -57,21 +35,10 @@ a img {
 	border: 0 none;
 }
 
-.box img {
-	vertical-align: bottom;
-	width: 100%;
-}
-
 ul {
 	list-style: none;
 }
 
-a,
-button,
-input[type=checkbox],
-input[type=radio] {
-	cursor: pointer;
-}
 
 html {
 	box-sizing: border-box;
@@ -111,7 +78,7 @@ video,
 /*font*/
 
 .small {
-	font-size: 12px;
+	font-size: $f-sm;
 }
 
 .normal {
@@ -122,22 +89,20 @@ video,
 	font-weight: 700;
 }
 
-.font-white {
-	color: #fff;
+.f-blue {
+	color: $blue;
 }
 
-.font-blue {
-	color: #39f;
+.f-red {
+	color:$red;
 }
 
-.font-red {
-	color: #f66;
+.f-orange {
+	color:$orange;
 }
-
-.font-orange {
-	color: #ff9600;
+.f-green{
+	color: $green
 }
-
 
 /*container*/
 
@@ -160,11 +125,15 @@ video,
 .pull-left {
 	float: left;
 }
-
-.img-box img {
-	display: block;
-	margin: 0 auto;
+.block{
+	display: block!important;
+}
+.none{
+	display: none!important;
+}
+/*page*/
+body{
+	font-family: $f-style;
+	font-size: $f;
 }
 
-
-/*page*/
