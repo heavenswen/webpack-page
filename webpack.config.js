@@ -176,6 +176,7 @@ glob.sync("./src/pages/**/*.{ejs,html}").forEach(path => {
     inject: 'body',
     favicon: './src/assets/img/logo.png',
     hash: process.env.NODE_ENV === 'production',
+    env: process.env.NODE_ENV === 'production',//HtmlWebpackPlugin.options.env 非打包时的处理
     chunks: ['vendors', chunk] //chunk
   }
   config.plugins.push(new HtmlWebpackPlugin(htmlConf))
