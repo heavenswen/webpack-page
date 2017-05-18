@@ -66,7 +66,7 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
     }
 }
 //外观
-//三角形 （方向，宽，高,颜色）
+//三角形 （方向，宽，高,颜色）@include triangle()
 @mixin triangle($t, $w, $h, $c) {
     width: 0;
     height: 0;
@@ -80,17 +80,62 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
     border-radius: $r;
     overflow: hidden;
 }
+//蒙板 透明度 ，离去显示，进入
+@mixin mask-bg($op:0,$leave:scale(.5),$enter:scale(1)){
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    @include transition();
+    z-index: 99;
+    opacity: $op;
+    transform: $leave;
+    pointer-events: none;
+    &[data-show='true'],&.active{
+        opacity:1;
+        transform:$enter;
+        pointer-events: auto;
+    }
+}
+
+//打×图标
+@mixin icon-close(){
+
+}
+
+//加载图标
+@mixin icon-loade(){
+
+}
+
+//生成一个 mask box 样式
+@mixin include-tip($o:mask){
+    .#{$o}-bg{
+        //主容器
+        @include mask-bg(); 
+
+    }
+
+} 
+
+//加载框
+@mixin inclued-load($o:load ){
+    .#{$o}-bg{
+        //主容器
+        @include mask-bg(); 
+        
+    }
+
+} 
 
 //变形
 
-//快速过渡
-@mixin transition($type:all, $s:0.3, $ease:linear) {
+//快速过渡@include transition()
+@mixin transition($type:all, $s:0.3, $ease:ease) {
     transition: $type $s+s $ease;
 }
-//扭曲兼容
-@mixin transform($type...) {
-    transform: $type;
-}
+
 
 //媒体
 //@content 可以用来解决css3的@media等带来的问题。它可以使@mixin接受一整块样式
@@ -110,6 +155,16 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
         @content;
     }
 }
+//animate
+
+//keyform 
+@mixin inclued-keyframes-scaleX(){
+    @keyframes scaleX{
+
+    }
+}
+
+
 
 //循环
 //@each $child in $array{ //child... }

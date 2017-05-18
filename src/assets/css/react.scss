@@ -126,10 +126,10 @@ video,
 	float: left;
 }
 .block{
-	display: block!important;
+	display: block;
 }
 .none{
-	display: none!important;
+	display: none;
 }
 
 @if $mobile == true {
