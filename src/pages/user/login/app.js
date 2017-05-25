@@ -5,22 +5,25 @@ import Rem from "assets/js/rem.js"
 
 //jquery 写法
 import $ from "jquery"
-window.$ = $
-window.jQuery = $
-var load = require("assets/js/jq-load.js");
 
-//font rem
-new Rem();
 //jquery
 (function ($) {
 
+  //font rem
+  new Rem();
+
+  window.$ = $
+  window.jQuery = $
+  var load = require("assets/js/jq-load.js");
   var jq = "jquery 引入";
   $('body').append(jq)
+ 
+ //jquery类
   new $.demo()
 
   document.querySelector('img').addEventListener("click", function (e) {
     console.log(e.bubbles)
-  }, false)
+  })
 
 })($)
 

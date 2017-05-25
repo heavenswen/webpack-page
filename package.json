@@ -1,7 +1,7 @@
 {
-  "name": "vue-multiple-pages",
-  "description": "A Vue2 starter",
-  "author": "plortinus@gmail.com",
+  "name": "webpack-page",
+  "description": "webpack page more ",
+  "author": "423822728@qq.com",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
