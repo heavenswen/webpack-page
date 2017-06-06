@@ -6,19 +6,34 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="format-detection" content="telephone=no,email=no">
   <title>webpack page more</title>
+    <%= require(`../../common/_meta.html`) %>
 </head>
 
 <body>
-  <h1>vue 引入演示</h1>
-  <div id="app"></div>
-  <a href="jquery.html">Jquery应用</a>
+  <nav class='nav'>
+    <a>其他效果演示</a>
+    <% for(let v of htmlWebpackPlugin.options.list){ %>
+      <% if( (v+'.html') != htmlWebpackPlugin.options.filename ){ %>
+
+        <a style='color:#f00' href="<%= v%>.html">
+          <%= v%>应用</a>
+
+        <%}%>
+          <%}%>
+  </nav>
+  <fieldset>
+    <legend>vue 引入演示</legend>
+    <div id="app"></div>
+  </fieldset>
   <ol>
-    <h3>htmlWebpackPlugin 参数<%= htmlWebpackPlugin %></h3>
+    <h3>htmlWebpackPlugin 参数
+      <%= htmlWebpackPlugin %>
+    </h3>
     <% for(var key in htmlWebpackPlugin){ %>
 
       <li>
         <strong><%= key %>:</strong>
-        <ul>
+        <ol>
           <% if(typeof htmlWebpackPlugin[key] =='object' ){ %>
             <!--输出-->
             <% for(var k in htmlWebpackPlugin[key]) {%>
@@ -31,7 +46,7 @@
 
               <% }%>
                 <% }%>
-        </ul>
+        </ol>
       </li>
       <%}%>
   </ol>

@@ -8,11 +8,12 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const release = process.env.NODE_ENV === 'production' ? '/cxtdemo/' : '/'//域名文件夹
-const myHost = "192.168.4.30"
 //页面对应路口
 const entries = {}
 //入口对象集
 const chunks = []
+//页面list
+const pagesList = []
 //logo
 const favicon = "./src/assets/img/logo.png"
 
@@ -163,13 +164,12 @@ glob.sync("./src/pages/user/**/*.{ejs,html}").forEach(path => {
   let chunk = path.split('./src/pages/')[1].split(".ejs")[0] //入口文件名
 
   //获得对应名称 产出到跟目录
-
-  console.log(path)
   if (filename.match(/\//ig)) {
     let arr = filename.split('/')
     filename = arr[arr.length - 1]
   }
-
+  //获得所有页面
+  pagesList.push(filename)
   let htmlConf = {
     filename: filename + ".html",//文件名
     template: path,
@@ -177,6 +177,7 @@ glob.sync("./src/pages/user/**/*.{ejs,html}").forEach(path => {
     favicon: favicon,
     hash: process.env.NODE_ENV === 'production',
     env: process.env.NODE_ENV === 'production',//HtmlWebpackPlugin.options.env 非打包时的处理
+    list: pagesList,
     chunks: ['vendors', chunk] //chunk
   }
   if (filename) config.plugins.push(new HtmlWebpackPlugin(htmlConf))

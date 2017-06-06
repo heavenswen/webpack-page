@@ -1,0 +1,267 @@
+<!doctype html>
+<html amp lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Hello, AMPs</title>
+    <!--非amp页面分发-->
+    <!--<link rel="amphtml" href="https://www.example.com/url/to/amp/document.html">-->
+    <!--amp 分发 没找到 着返回本身-->
+    <link rel="canonical" href="http://example.ampproject.org/article-metadata.html" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <!--<script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "headline": "Open-source framework for publishing content",
+        "datePublished": "2015-10-07T12:02:41Z",
+        "image": [
+          "logo.jpg"
+        ]
+      }
+    </script>-->
+
+    <style amp-boilerplate>
+        body {
+            -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            animation: -amp-start 8s steps(1, end) 0s 1 normal both
+        }
+
+        @-webkit-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+            to {
+                visibility: visible
+            }
+        }
+
+        @-moz-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+            to {
+                visibility: visible
+            }
+        }
+
+        @-ms-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+            to {
+                visibility: visible
+            }
+        }
+
+        @-o-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+            to {
+                visibility: visible
+            }
+        }
+
+        @keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+            to {
+                visibility: visible
+            }
+        }
+    </style>
+    <noscript>
+        <style amp-boilerplate>
+            body {
+                -webkit-animation: none;
+                -moz-animation: none;
+                -ms-animation: none;
+                animation: none;
+            }
+        </style>
+    </noscript>
+    <!--不能引用外部css-->
+    <!--amp ：只能有一个 max：50000  -->
+    <style amp-custom>
+        /* any custom style goes here */
+
+        body {
+            background-color: white;
+        }
+
+        amp-img {
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        .logo {
+            width: 20%;
+        }
+
+        fieldset {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
+    <script async custom-element="amp-audio" src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"></script>
+
+    <script async="" custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+    <script async="" custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <!--login-->
+    <script async="" custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
+    <!--live-->
+    <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+</head>
+
+<body>
+    <!--nav	-->
+    <nav class='nav'>
+        <a>其他效果演示</a>
+        <% for(let v of htmlWebpackPlugin.options.list){ %>
+            <% if( (v+'.html') != htmlWebpackPlugin.options.filename ){ %>
+
+                <a style='color:#f00' href="<%= v%>.html">
+                    <%= v%>应用</a>
+
+                <%}%>
+                    <%}%>
+    </nav>
+
+    <h1>Welcome to AMP</h1>
+    <fieldset>
+        <legend>AMP</legend>
+        <div class="content">
+            <ol>
+                <li>amp-(media) 必须有width and height </li>
+                <li>amp-img 外 必须 引入对应依赖</li>
+                <li>src https or relative or //： link</li>
+            </ol>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>amp-img 图片</legend>
+        <p>解决图片加载前后布局变化，layout="responsive" 时 为 自适应</p>
+        <div class="content">
+            <amp-img placeholder src='<%= require(`assets/img/logo.png`) %>' layout="responsive" alt="placeholder" width='200' height='200'
+                class="logo">
+                <noscript>
+                    <!--js 执行失败是显示-->
+                    <img src="<%= require(`assets/img/logo.png`) %>" width="200" height="200" />
+                </noscript>
+            </amp-img>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>amp-anim 预览图</legend>
+        <p>添加一个图片加载时的预览图片</p>
+        <p>
+            <label for="">依赖</label>
+            <input type="text" id='anim' value='<script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>'>
+            <button class="btn" type="buttom" data-clipboard-target="#anim">copy</button>
+        </p>
+        <div class="content">
+            <amp-anim width='240' height='240' src="https://media.giphy.com/media/W4wchZdqHhVyU/giphy.gif">
+                <amp-img placeholder layout="fill" src="https://tse2-mm.cn.bing.net/th?id=OIP.UmzhWs-gu94EhAUytKW2mQEoDS&w=300&h=300&p=0&pid=1.1"></amp-img>
+            </amp-anim>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>amp-video 视频资源</legend>
+        <p>
+            <label for="">依赖</label>
+            <input type="text" id='video' value='<script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>'>
+            <button class="btn" type="buttom" data-clipboard-target="#video">copy</button>
+        </p>
+        <p>poster 首屏图</p>
+        <div class="content">
+            <amp-video width="400" height="300" src="//www.w3school.com.cn/i/movie.ogg" poster="<%= require(`assets/img/girl2.jpg`) %>"
+                controls="controls" layout="responsive">
+                <div fallback>
+                    <p>Your browser doesn’t support HTML5 video</p>
+                </div>
+            </amp-video>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>amp-audio 音乐</legend>
+        <p>
+            <label for="">依赖</label>
+            <input type="text" id='audio' value='<script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"></script>'>
+            <button class="btn" type="buttom" data-clipboard-target="#audio">copy</button>
+        </p>
+        <div class="content">
+            <amp-audio width="400" height="50" src="//www.w3school.com.cn/i/movie.ogg">
+                <div fallback>
+                    <p>Your browser doesn’t support HTML5 video</p>
+                </div>
+            </amp-audio>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>amp-iframe 外嵌页面</legend>
+        <p>
+            <label for="">依赖</label>
+            <input type="text" id='iframe' value='<script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>'>
+            <button class="btn" type="buttom" data-clipboard-target="#iframe">copy</button>
+        </p>
+        <div class="content">
+            <amp-iframe width='640' height='440' sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                layout="responsive" frameborder="0" src="https://www.baidu.com/">
+                <!--加载时的图片-->
+                <amp-img layout="fill" src="<%= require(`assets/img/logo.png`) %>" placeholder></amp-img>
+            </amp-iframe>
+        </div>
+    </fieldset>
+    <h4>
+        <center>media end</center>
+    </h4>
+    <hr />
+    <fieldset>
+        <legend>login status</legend>
+        <p>
+            <label for="">依赖</label>
+            <input type="text" id='iframe' value='<script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>'>
+            <button class="btn" type="buttom" data-clipboard-target="#iframe">copy</button>
+        </p>
+        <p>必须依赖script id="amp-access" type="application/json 配置 并异步监控 登入后不显示</p>
+        <script id="amp-access" type="application/json">
+            {
+            "authorization": "https://ampbyexample.com/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+            "noPingback": "true",
+            "login": {
+            "sign-in": "https://ampbyexample.com/samples_templates/comment_section/login?rid=READER_ID&url=CANONICAL_URL",
+            "sign-out": "https://ampbyexample.com/samples_templates/comment_section/logout"
+            },
+            "authorizationFallbackResponse": {
+            "error": true,
+            "loggedIn": false
+            }
+        }
+        </script>
+        <!--登录状态判断 -->
+        <ul>
+            <li>产生一个计时器 发起状态请求 {loggedIn ：true}则 login隐藏</li>
+            <li>amp-access-hide 当true 则 display：none</li>
+        </ul>
+
+        <!--登录后隐藏-->
+        <div amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
+            <h2>Please login to comment</h2>
+            <!--打开配置login.sigin-in的链接-->
+            <button on="tap:amp-access.login-sign-in">Login</button>
+        </div>
+        <!--登出显示-->
+        <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out">Out</button>
+        <hr />
+    </fieldset>
+</body>
+
+</html>
