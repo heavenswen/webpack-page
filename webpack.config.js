@@ -13,6 +13,8 @@ const myHost = "192.168.4.30"
 const entries = {}
 //入口对象集
 const chunks = []
+//logo
+const favicon = "./src/assets/img/logo.png"
 
 //获得入口js
 glob.sync('./src/pages/**/*.js').forEach(path => {
@@ -98,7 +100,7 @@ const config = {
       {
         //图形资源
         test: /\.(png|jpg|jpeg|gif|svg|svgz)(\?.+)?$/,
-        exclude: /favicon\.png$/,
+        exclude: /favicon\.(png|ico)$/,
         use: [{
           loader: 'url-loader',
           options: {
@@ -155,25 +157,30 @@ const config = {
   devtool: '#eval-source-map'
 }
 
-glob.sync("./src/pages/**/*.{ejs,html}").forEach(path => {
+glob.sync("./src/pages/user/**/*.{ejs,html}").forEach(path => {
   //HtmlWebpackPlugin 不支持 .html 编译 ejs 用.ejs
   let filename = path.split('./src/pages/')[1].split(/\/app.(ejs|html)/)[0]
-  const chunk = path.split('./src/pages/')[1].split(".ejs")[0] //入口文件名
+  let chunk = path.split('./src/pages/')[1].split(".ejs")[0] //入口文件名
 
+  //获得对应名称 产出到跟目录
+
+  console.log(path)
   if (filename.match(/\//ig)) {
     let arr = filename.split('/')
     filename = arr[arr.length - 1]
   }
-  const htmlConf = {
+
+  let htmlConf = {
     filename: filename + ".html",//文件名
     template: path,
     inject: 'body',
-    favicon: './src/assets/img/logo.png',
+    favicon: favicon,
     hash: process.env.NODE_ENV === 'production',
     env: process.env.NODE_ENV === 'production',//HtmlWebpackPlugin.options.env 非打包时的处理
     chunks: ['vendors', chunk] //chunk
   }
-  config.plugins.push(new HtmlWebpackPlugin(htmlConf))
+  if (filename) config.plugins.push(new HtmlWebpackPlugin(htmlConf))
+
 })
 
 module.exports = config
