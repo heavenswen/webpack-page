@@ -250,8 +250,15 @@
         <ul>
             <li>产生一个计时器 发起状态请求 {loggedIn ：true}则 login隐藏</li>
             <li>amp-access-hide 当true 则 display：none</li>
+            <li>
+                <ul>
+                    <h4>配置</h4>
+                    <li>authorization 状态的地址</li>
+                    <li>login 触发对应页面 </li>
+                    <li>authorizationFallbackResponse 回退状态</li>
+                </ul>
+            </li>
         </ul>
-
         <!--登录后隐藏-->
         <div amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
             <h2>Please login to comment</h2>
