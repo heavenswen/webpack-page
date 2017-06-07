@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html mip>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://mipcache.bdstatic.com/static/v1/mip.css">
+    <!--添加关联标签后，MIP页的会继承原页面(移动端)的点击权重，同时MIP页将作为搜索引擎的首选导流页面-->
+    <!--canonical中的链接填写对应的非mip页地址-->
+    <!--<link rel="canonical" href="https://www.mipengine.org/test_xxx.html">-->
+    <!--反之-->
+    <link rel="miphtml">
+    <title>Hello World</title>
+    <!--所有样式 only one-->
+    <style mip-custom>
+        fieldset {
+            padding: 10px;
+        }
+
+        a {
+            color: #39f;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .blue {
+            color: #39c;
+        }
+
+        .blod {
+            font-weight: bold;
+        }
+
+        big {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="blue">
+        <center>MIP 百度的AMP方案</center>
+    </h1>
+    <ul>
+        <h4>
+            <center>MIP规范</center>
+        </h4>
+        <li> 只允许inline的css style mip-custom 只能有一个</li>
+        <li>目前MIP不允许用户自定义JavaScript，需要用MIP 组件的形式引进来，从而确保安全性和性能表现</li>
+        <li>所有静态资源需要标明尺寸</li>
+        <li>MIP只允许用transforms和opacity来完成动画效果，当动画能在GPU上执行时，仅触发渲染层合并。</li>
+        <li>不可以href="javascript:"，target必须设置为_blank</li>
+        <a href='https://www.mipengine.org/validator/validate' target="_blank">mip 页面验证</a>
+    </ul>
+
+    <fieldset>
+        <legend>mip-img 图片</legend>
+        <mip-img src="https://www.mipengine.org/static/img/mip_logo_3b722d7.png"></mip-img>
+    </fieldset>
+    <fieldset>
+        <legend>mip-share 分享</legend>
+        <mip-share title="分享：我的第一个MIP页面"></mip-share>
+    </fieldset>
+    <fieldset>
+        <legend><a href='https://www.mipengine.org/examples/mip/mip-carousel.html' target="_blank"> mip-carousel 轮播图</a></legend>
+        <mip-carousel autoplay defer="3000" layout="responsive" width="600" height="400" indicator buttonController>
+            <a target="_blank" href="http://wenda.tianya.cn/m/question/1almfj0foas94gc7vtoq6ejbfbmdk3e78ehaa">
+                <mip-img src="http://www.bz55.com/uploads/allimg/150305/139-1503051FS0.jpg" layout="responsive" width="600" height="400">
+                </mip-img>
+                <div class="mip-carousle-subtitle">这里是title2</div>
+            </a>
+            <mip-img src="http://www.bz55.com/uploads/allimg/150305/139-1503051FS0.jpg">
+            </mip-img>
+            <mip-img src="http://img3.3lian.com/2013/v9/58/d/25.jpg">
+            </mip-img>
+        </mip-carousel>
+    </fieldset>
+    <script src="https://mipcache.bdstatic.com/static/v1/mip.js"></script>
+    <script src="https://mipcache.bdstatic.com/static/v1/mip-share/mip-share.js"></script>
+    <script>
+        const h1 = document.querySelector('h1');
+        h1.classList.remove('blue');
+        h1.classList.add('blod');
+        //异步加载
+        define(function (require) {
+            var $ = require('jquery');
+
+            console.log($)
+        });
+    </script>
+</body>
+
+</html>
