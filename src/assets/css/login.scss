@@ -1,3 +1,5 @@
+@import "~./_common.scss";  
+
 /*login.css*/
 h1{
     border:1px solid #fcc;
@@ -5,4 +7,13 @@ h1{
 body{
    background-color: #f3f3f3;
 
+}
+
+@include include-tip(mask);//申明一个层
+@include new-animate-scaleY();//声明一个动画
+.loading{
+    width: 30px;
+    height: 30px;
+    @include position-mid();
+    @include icon-loading();
 }

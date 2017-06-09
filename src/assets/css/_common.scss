@@ -33,17 +33,21 @@ $hs: h1,h2,h3,h4,h5,h6;
 $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,textarea;
 
 
+//transition time
+$transition-t:.3;
 
 //定位
-// 利用absolute 上下居中 @include pos-mid()
-@mixin pos-mid($position:absolute){
+// 利用absolute 上下居中 @include position-mid()
+@mixin position-mid($position:absolute){
     position: $position;
     top: 50%;
+    left:0;
+    right:0;
     margin: auto;
-    @include transform(translateY(-50%));
+   transform: translateY(-50%);
 }
-//absolute and margin 上下左右居中 @include  pos-auto($w,$h) 必须有宽高
-@mixin pos-auto($w,$h,$position:absolute) {
+//absolute and margin 上下左右居中 必须有宽高
+@mixin position-auto($w,$h,$position:absolute) {
     position: $position;
     top: 0;
     bottom: 0;
@@ -53,18 +57,7 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
     height: $h;
     margin: auto;
 }
-//给对象添加固定padding-data()
-@mixin padding-data($types:(top, left, bottom, right, ), $num:10px) {
-    @each $type in $types {
-        padding-#{$type}: $num;
-    }
-}
-//边框
-@mixin margin-data($types:(top, left, bottom, right, ), $num:10px) {
-    @each $type in $types {
-        margin-#{$type}: $num;
-    }
-}
+
 //外观
 //三角形 （方向，宽，高,颜色）@include triangle()
 @mixin triangle($t, $w, $h, $c) {
@@ -75,13 +68,9 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
     border-color: transparent;
     border-#{$t}-color: $c;
 }
-//圆角边框
-@mixin box-radius($r:50%) {
-    border-radius: $r;
-    overflow: hidden;
-}
+
 //蒙板 透明度 ，离去显示，进入
-@mixin mask-bg($op:0,$leave:scale(.5),$enter:scale(1)){
+@mixin mask-bg($op:0,$c:rgba(0,0,0,.6),$leave:scale(1),$enter:scale(1)){
     position: fixed;
     left: 0;
     top:0;
@@ -91,6 +80,7 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
     z-index: 99;
     opacity: $op;
     transform: $leave;
+    background-color: $c;
     pointer-events: none;
     &[data-show='true'],&.active{
         opacity:1;
@@ -104,19 +94,60 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
 
 }
 
-//加载图标
-@mixin icon-loade(){
-
+//动画效果
+@mixin new-animate-scaleY(){
+     @keyframes scaleY {
+                    0%,100%{
+                        transform: scaleY(.3)
+                    }
+                    50%{
+                        transform: scaleY(1)
+                    }
+                }
 }
 
-//生成一个 mask box 样式
-@mixin include-tip($o:mask){
-    .#{$o}-bg{
-        //主容器
+//加载图标
+@mixin icon-loading($c:#39c,$n:3){
+            //kf end
+           
+            font-size:0;
+            $w :100%/($n+1);
+            &>i{
+                font-size:$f; 
+                display: inline-block;
+                width:$w;
+                height: 100%;
+                margin-right:$w/($n - 1) ;
+                background-color:$c; 
+                animation: scaleY 1s linear infinite;
+                transform-origin:center bottom; 
+                &:nth-last-of-type(1){
+                    margin-right: 0;
+                }
+                @for $i from 0 to $n{
+                    &:nth-of-type(#{$i+1}){
+                        animation-delay: -0.3*$i+s;
+                    }
+
+                }
+
+            }
+}
+
+//生成一个 mask box 样式 section.mask-bg>div.mask-con
+@mixin include-tip($o:mask,$bg:#fff,$w:(320-30)+px,$h:300px){
+    .#{$o}{
+        //bg 
         @include mask-bg(); 
 
+        &>.#{$o}-con{
+            //content
+            width:$w;
+            min-height:$h;
+            background-color: $bg;
+            @include position-mid();
+        }
     }
-
 } 
 
 //加载框
@@ -170,7 +201,7 @@ $all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,text
 //@each $child in $array{ //child... }
 //@for $i from 1 to 10{ //$i到9}
 
-//嵌套 @at-root
+//跳出嵌套 @at-root
 //@at-root (without: media)，@at-root (without: support)。这个语法的关键词有四个：all（表示所有），rule（表示常规css），media（表示media），support（表示support，因为@support目前还无法广泛使用，所以在此不表）。我们默认的@at-root其实就是@at-root (without:rule)。
 //继承 @extend h1; 继承选择器的样式
 
