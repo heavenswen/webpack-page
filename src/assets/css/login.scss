@@ -9,11 +9,20 @@ body{
 
 }
 
-@include include-tip(mask);//申明一个层
-@include new-animate-scaleY();//声明一个动画
+.mask{
+    @include mask-bg();
+}
+
 .loading{
     width: 30px;
     height: 30px;
     @include position-mid();
     @include icon-loading();
+}
+.close{
+    width: 30px;
+    height: 30px;
+    border :1px solid #fcc;
+    @include icon-close-btn();
+
 }

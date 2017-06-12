@@ -35,9 +35,15 @@
     <i></i>
     <i></i>
   </div>
-  
-  <div class="mask" >
-  </div>
+  <div class="close active"><i></i><i></i><i></i></div>
+
+  <div class="mask"></div>
+  <script>
+      document.querySelector('.close').addEventListener('click',function(){
+        this.classList.toggle('active');
+
+      })
+  </script>
 
 </body>
 

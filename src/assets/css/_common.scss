@@ -69,33 +69,42 @@ $transition-t:.3;
     border-#{$t}-color: $c;
 }
 
-//蒙板 透明度 ，离去显示，进入
-@mixin mask-bg($op:0,$c:rgba(0,0,0,.6),$leave:scale(1),$enter:scale(1)){
-    position: fixed;
-    left: 0;
-    top:0;
-    width: 100%;
-    height: 100%;
-    @include transition();
-    z-index: 99;
-    opacity: $op;
-    transform: $leave;
-    background-color: $c;
-    pointer-events: none;
-    &[data-show='true'],&.active{
-        opacity:1;
-        transform:$enter;
-        pointer-events: auto;
+
+
+//打×图标
+@mixin icon-close-btn($active:active,$c:#000){
+
+    &>i{
+        border-radius: 5px;
+        margin: 18% auto;
+        display:block;
+        width: 95%;
+        height: 3px;
+        background-color:$c;
+        @include transition();
+    }
+    &.#{$active}{
+        &>i{
+
+            &:nth-of-type(1){
+                transform-origin:0 center ;
+                transform: translate3D(14%,-35%,0) rotate(45deg) ;
+            }
+            &:nth-of-type(2){
+                transform: translate3D(100%,0,0);
+                opacity: 0;
+            }
+            &:nth-of-type(3){
+                transform-origin:0 center;
+                transform:translate3D(14%,35%,0) rotate(-45deg) ;
+            }
+
+        }
     }
 }
 
-//打×图标
-@mixin icon-close(){
-
-}
-
-//动画效果
-@mixin new-animate-scaleY(){
+//动画效果 新建一个动画
+@mixin new-ani-scaleY(){
      @keyframes scaleY {
                     0%,100%{
                         transform: scaleY(.3)
@@ -106,12 +115,17 @@ $transition-t:.3;
                 }
 }
 
-//加载图标
+//加载图标 @include new-ani-scaleY() 依赖 
 @mixin icon-loading($c:#39c,$n:3){
             //kf end
            
             font-size:0;
             $w :100%/($n+1);
+
+            @at-root(without:all){
+                 @include new-ani-scaleY();
+            }
+
             &>i{
                 font-size:$f; 
                 display: inline-block;
@@ -134,36 +148,31 @@ $transition-t:.3;
             }
 }
 
-//生成一个 mask box 样式 section.mask-bg>div.mask-con
-@mixin include-tip($o:mask,$bg:#fff,$w:(320-30)+px,$h:300px){
-    .#{$o}{
-        //bg 
-        @include mask-bg(); 
-
-        &>.#{$o}-con{
-            //content
-            width:$w;
-            min-height:$h;
-            background-color: $bg;
-            @include position-mid();
-        }
+//蒙板 (active焦点，背后颜色，进入效果，消失效果)
+//document.querySelector("").classList.toggle('active')
+@mixin mask-bg($showCl:active,$c:rgba(0,0,0,.6),$leave:scale(1),$enter:scale(1)){
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    @include transition();
+    z-index: 99;
+    opacity: 0;
+    transform: $leave;
+    background-color: $c;
+    pointer-events: none;
+    &.#{$showCl}{
+        opacity:1;
+        transform:$enter;
+        pointer-events: auto;
     }
-} 
-
-//加载框
-@mixin inclued-load($o:load ){
-    .#{$o}-bg{
-        //主容器
-        @include mask-bg(); 
-        
-    }
-
-} 
+}
 
 //变形
 
 //快速过渡@include transition()
-@mixin transition($type:all, $s:0.3, $ease:ease) {
+@mixin transition($type:all, $s:$transition-t, $ease:ease) {
     transition: $type $s+s $ease;
 }
 
@@ -187,15 +196,6 @@ $transition-t:.3;
     }
 }
 //animate
-
-//keyform 
-@mixin inclued-keyframes-scaleX(){
-    @keyframes scaleX{
-
-    }
-}
-
-
 
 //循环
 //@each $child in $array{ //child... }
