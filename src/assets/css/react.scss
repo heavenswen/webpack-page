@@ -75,7 +75,7 @@ video,
 }
 
 
-/*font*/
+/*text*/
 
 .small {
 	font-size: $f-sm;
@@ -104,8 +104,6 @@ video,
 	color: $green
 }
 
-/*container*/
-
 .text-left {
 	text-align: left;
 }
@@ -118,6 +116,7 @@ video,
 	text-align: center;
 }
 
+/*container*/
 .pull-right {
 	float: right;
 }
@@ -131,11 +130,47 @@ video,
 .none{
 	display: none;
 }
-.list-inline{
-	display: flex;		
+//flex 下 text-align pull-right 无效
+//并排
+.flex-center,.flex-left,.flex-right,.flex,.flex-auto{
+	display: flex;
 }
-.list-inline>*{
-	display: inline-flex;
+.flex-center{
+	justify-content:center;
+}
+.flex-left{
+	justify-content:flex-start;
+}
+.flex-right{
+	justify-content:flex-end;
+}
+
+//对子集效果
+//中对齐 
+.flex-auto{
+	justify-content:center;
+	align-items: center ;
+}
+.flex-middle{
+	align-items: center ;
+}
+//上对齐
+.flex-top{
+	align-items: flex-start ;
+}
+//下对齐
+.flex-bottom{
+	align-items: flex-end ;
+}
+//父级为flex 
+.item-center{
+
+}
+.item-top{
+	
+}
+.item-bottom{
+	
 }
 
 

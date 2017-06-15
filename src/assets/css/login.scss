@@ -8,21 +8,39 @@ body{
    background-color: #f3f3f3;
 
 }
-
+//遮罩
 .mask{
     @include mask-bg();
 }
+.sjx{
+    @include icon-sjx();
+}
 
+//icon
 .loading{
     width: 30px;
     height: 30px;
-    @include position-mid();
     @include icon-loading();
 }
 .close{
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     border :1px solid #fcc;
     @include icon-close-btn();
+
+}
+//flex
+.demo{
+    margin-bottom: 10px;
+    flex-wrap:wrap ;
+      a {
+        width: 33.3333%;
+        height: 40px;
+        background: #f99;
+        &:nth-of-type(odd) {
+            background: #ff9;
+            height: 60px;
+        }
+      }
 
 }

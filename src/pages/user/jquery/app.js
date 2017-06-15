@@ -2,9 +2,9 @@ import 'assets/css/react.scss' //公共
 import 'assets/css/login.scss'//当前
 import "assets/css/demo.css"
 import Rem from "assets/js/rem.js"
-
-//jquery 写法
 import $ from "jquery"
+
+
 //jquery
 (function ($) {
   function b() {

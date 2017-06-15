@@ -46,6 +46,13 @@ $transition-t:.3;
     margin: auto;
    transform: translateY(-50%);
 }
+
+//使用flex 父级
+@mixin flex-auto(){
+    display:flex;
+    align-content: center;
+}
+
 //absolute and margin 上下左右居中 必须有宽高
 @mixin position-auto($w,$h,$position:absolute) {
     position: $position;
@@ -57,10 +64,16 @@ $transition-t:.3;
     height: $h;
     margin: auto;
 }
+//使用flex 父级
+@mixin flex-auto(){
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
 
 //外观
 //三角形 （方向，宽，高,颜色）@include triangle()
-@mixin triangle($t, $w, $h, $c) {
+@mixin icon-sjx($t:bottom, $w:10px, $h:10px, $c:#000) {
     width: 0;
     height: 0;
     border-style: solid;
@@ -71,15 +84,17 @@ $transition-t:.3;
 
 
 
-//打×图标
+//打×图标 div>i*3 状态 颜色
 @mixin icon-close-btn($active:active,$c:#000){
+    overflow:hidden;
 
     &>i{
         border-radius: 5px;
-        margin: 18% auto;
         display:block;
-        width: 95%;
-        height: 3px;
+        margin: auto;
+        width: 80%;
+        height: 10%;
+        margin-top: 17.28%;
         background-color:$c;
         @include transition();
     }
@@ -87,43 +102,43 @@ $transition-t:.3;
         &>i{
 
             &:nth-of-type(1){
-                transform-origin:0 center ;
-                transform: translate3D(14%,-35%,0) rotate(45deg) ;
+                // width: calc( 100%*1.4142 );
+                // transform-origin:0 center ;
+                transform:translateY(272.8%) rotate(45deg) ;
             }
             &:nth-of-type(2){
                 transform: translate3D(100%,0,0);
                 opacity: 0;
             }
             &:nth-of-type(3){
-                transform-origin:0 center;
-                transform:translate3D(14%,35%,0) rotate(-45deg) ;
+                // width: calc( 100%*1.4142 );
+                // transform-origin:0 center;
+                transform:translateY(-272.8%)  rotate(-45deg);
             }
 
         }
     }
 }
 
-//动画效果 新建一个动画
-@mixin new-ani-scaleY(){
-     @keyframes scaleY {
-                    0%,100%{
-                        transform: scaleY(.3)
-                    }
-                    50%{
-                        transform: scaleY(1)
-                    }
-                }
-}
 
-//加载图标 @include new-ani-scaleY() 依赖 
-@mixin icon-loading($c:#39c,$n:3){
+//加载图标 div>i*3  @include new-ani-scaleY() 依赖 
+@mixin icon-loading($c:#39c,$n:3,$new:1){
             //kf end
            
             font-size:0;
             $w :100%/($n+1);
+            @if $new == 1 {
 
-            @at-root(without:all){
-                 @include new-ani-scaleY();
+                @at-root(without:all){
+                    @keyframes scaleY {
+                        0%,100%{
+                            transform: scaleY(.3)
+                        }
+                        50%{
+                            transform: scaleY(1)
+                        }
+                    }
+                }
             }
 
             &>i{
@@ -211,3 +226,5 @@ $transition-t:.3;
 //if @if $type == ocean {color: blue;} 
 //@else if $type == matador {color: red;}
 // @else {  color: black;}
+
+//@extend 引用已有的样式 @extend h1 

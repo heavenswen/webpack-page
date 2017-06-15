@@ -26,23 +26,63 @@
 
   <h1>Jquer应用</h1>
   <!--嵌入图片-->
-  <div>
-    <strong>webpack图片引入</strong>
-    <img src="<%= require(`assets/img/logo_green.png`) %>" alt="">
-  </div>
-  <div class="loading">
-    <i></i>
-    <i></i>
-    <i></i>
-  </div>
-  <div class="close active"><i></i><i></i><i></i></div>
+
+  <fieldset>
+    <legend>webpack图片引入</legend>
+    <img  src="<%= require(`assets/img/logo_green.png`) %>" alt="">
+  </fieldset>
+
+  <fieldset>
+    <legend>三角形</legend>
+    <div class="sjx"></div>
+  </fieldset>
+  <fieldset>
+    <legend>等待icon</legend>
+    <div class="loading">
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>删除icon</legend>
+    <div class="close active"><i></i><i></i><i></i></div>
+  </fieldset>
+
+  <fieldset>
+
+    <legend>flex 并排布局</legend>
+    <nav class="flex-center demo">
+      <a href="">第一个</a>
+    </nav>
+
+    <nav class="flex-left demo">
+      <a href="">第一个</a>
+      <a href="">第二个</a>
+    </nav>
+
+    <nav class="flex-right demo">
+      <a href="">第一个</a>
+      <a href="">第二个</a>
+    </nav>
+
+  </fieldset>
+  <fieldset>
+    <legend>
+      flex图片居中(能够很好的实现 居中溢出隐藏的样式)
+    </legend>
+    <div class="box flex-middle flex-center" style="height:100px;width:100px;overflow:hidden; border:1px solid #ccc;">
+      <img style="width:120px;height:120px;" src="<%= require(`assets/img/logo_green.png`) %>" alt="">
+    </div>
+  </fieldset>
 
   <div class="mask"></div>
   <script>
-      document.querySelector('.close').addEventListener('click',function(){
-        this.classList.toggle('active');
+    document.querySelector('.close').addEventListener('click', function () {
+      this.classList.toggle('active');
 
-      })
+    })
   </script>
 
 </body>
