@@ -131,6 +131,13 @@ video,
 .none{
 	display: none;
 }
+.list-inline{
+	display: flex;		
+}
+.list-inline>*{
+	display: inline-flex;
+}
+
 
 @if $mobile == true {
 	.container{
