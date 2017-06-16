@@ -29,7 +29,7 @@
 
   <fieldset>
     <legend>webpack图片引入</legend>
-    <img  src="<%= require(`assets/img/logo_green.png`) %>" alt="">
+    <img src="<%= require(`assets/img/logo_green.png`) %>" alt="">
   </fieldset>
 
   <fieldset>
@@ -59,12 +59,12 @@
 
     <nav class="flex-left demo">
       <a href="">第一个</a>
-      <a href="">第二个</a>
+      <a href="" class="item-bottom">下对齐</a>
     </nav>
 
     <nav class="flex-right demo">
       <a href="">第一个</a>
-      <a href="">第二个</a>
+      <a href="" class="flex-between" style='height:auto;'>height：auto 自适应高度</a>
     </nav>
 
   </fieldset>
@@ -72,9 +72,13 @@
     <legend>
       flex图片居中(能够很好的实现 居中溢出隐藏的样式)
     </legend>
-    <div class="box flex-middle flex-center" style="height:100px;width:100px;overflow:hidden; border:1px solid #ccc;">
-      <img style="width:120px;height:120px;" src="<%= require(`assets/img/logo_green.png`) %>" alt="">
+    <div class="flex-left flex-middle ">
+      <div class="box flex-auto" style="height:100px;width:100px;overflow:hidden; border:1px solid #ccc;">
+        <img style="width:120px;height:120px;" src="<%= require(`assets/img/logo_green.png`) %>" alt="">
+      </div>
+      <p class='' style='margin-left:20px;'>多行文字多行文字多行文字多行文字多行文字多行文字多行文字多行文字多行文字多行文字多行文字多行</p>
     </div>
+
   </fieldset>
 
   <div class="mask"></div>

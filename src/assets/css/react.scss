@@ -130,6 +130,7 @@ video,
 .none{
 	display: none;
 }
+@if $flex == true{
 //flex 下 text-align pull-right 无效
 //并排
 .flex-center,.flex-left,.flex-right,.flex,.flex-auto{
@@ -145,11 +146,12 @@ video,
 	justify-content:flex-end;
 }
 
-//对子集效果
+
 //中对齐 
 .flex-auto{
 	justify-content:center;
 	align-items: center ;
+	flex:0 0 auto;
 }
 .flex-middle{
 	align-items: center ;
@@ -162,18 +164,21 @@ video,
 .flex-bottom{
 	align-items: flex-end ;
 }
+.item-inline{
+	display: inline-flex;
+}
 //父级为flex 
 .item-center{
-
+align-self:center;
 }
 .item-top{
-	
+	align-self:flex-start;
 }
 .item-bottom{
-	
+	align-self:flex-end;
 }
 
-
+}
 @if $mobile == true {
 	.container{
 		margin-left:15px;
