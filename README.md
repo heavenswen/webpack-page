@@ -3,6 +3,8 @@
 config说明：
 
 webpack 多页环境搭建 jquery,window引入方法 分离公用css、js,生成对应入口css、js ,压缩css、js， html生成对应页面,支持 vue ，sass，es6编译
+--地址请使用绝对地址，可以修改webpack.config ：release
+
 
 
 
@@ -13,6 +15,9 @@ npm 操作
 
 <h4>测试服务器</h4>
 <pre>npm run dev</pre>
+//局域网地址 127.0.0.1:8010
+<h4>测试服务器</h4>
+<pre>npm run work</pre>
 //局域网地址 192.168.4.30 --host 192.168.4.30(去掉为127.0.0.1)
 //webpack-dev-server --inline --hot --host 192.168.4.30
 
