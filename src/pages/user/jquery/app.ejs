@@ -54,17 +54,17 @@
 
     <legend>flex 并排布局</legend>
     <nav class="flex-center demo">
-      <a href="">第一个</a>
+      <a>第一个</a>
     </nav>
 
     <nav class="flex-left demo">
-      <a href="">第一个</a>
-      <a href="" class="item-bottom">下对齐</a>
+      <a>第一个</a>
+      <a class="item-bottom">下对齐</a>
     </nav>
 
     <nav class="flex-right demo">
-      <a href="">第一个</a>
-      <a href="" class="flex-between" style='height:auto;'>height：auto 自适应高度</a>
+      <a>第一个</a>
+      <a class="flex-between" style='height:auto;'>height：auto 自适应高度</a>
     </nav>
 
   </fieldset>
@@ -80,12 +80,87 @@
     </div>
 
   </fieldset>
+  <fieldset class="trigger">
+    <legend id='dom'>事件代理</legend>
+    <div>
+
+    </div>
+  </fieldset>
 
   <div class="mask"></div>
   <script>
+    //close icon show
     document.querySelector('.close').addEventListener('click', function () {
       this.classList.toggle('active');
 
+    })
+    //事件代理 dom 演示
+    function obj(parent, dom, fun) {
+      //父级对象 
+      var parentDom = document.querySelector(parent);
+      //e.target 触发的对象
+      parentDom.addEventListener('click', function (e) {
+        //向下查询
+        var cl = e.target.classList;
+        var name = e.target.nodeName;
+        var id = e.target.attributes;
+        var type = 0;
+        var regs = { 1: /^\#/g, 2: /^\./g };
+        var v = dom;
+        //类型判断
+        for (var k in regs) {
+          var reg = regs[k];
+          if (dom.match(reg)) {
+            v = dom.replace(reg, '');
+            type = k;
+            break;
+          }
+
+        }
+        //执行事件
+
+        var num = 1;
+
+        if (type == 1 && id == v || type == 2 && cl.contains(v) || v.toUpperCase() == name && !type) {
+
+          if (num) {
+            //保证方法执行 一次
+            num--;
+            var ev = new Event("click");
+            e.target.addEventListener('click', fun, false);
+            e.target.dispatchEvent(ev);
+            //解放事件以免 在 查询事件和绑定的事件都发生执行
+            return e.target.removeEventListener('click', fun, false);
+          }
+
+        } else {
+          return;
+
+        }
+
+        //console.log(cl, name, id)
+
+
+      })
+    }
+    var btns = document.querySelectorAll("button,a");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        console.log(this);
+      })
+    }
+    //触发一个事件
+    var ev = new Event("click");
+    //btns[0].addEventListener('click', fun, false);
+    btns[0].dispatchEvent(ev);
+
+    //js 添加 dom
+    document.querySelector(".trigger div").innerHTML = `<button id='button'>事件代理-id</button>
+    <button class="button">事件代理-class</button>
+    <button>事件代理</button>`;
+    // 父级 目标 方法 
+    obj(".trigger", "button", function (e) {
+      console.log(this)
     })
   </script>
 

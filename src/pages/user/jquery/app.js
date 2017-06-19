@@ -55,7 +55,7 @@ import $ from "jquery"
   const dream = { firstName: 'apk', lastName: 'phone' };
   Object.defineProperty(dream, 'name', {
     //value: 'value', //dream.name return dreamapple  but not has get and set
-   // writable: true,//是否可写
+    // writable: true,//是否可写
     enumerable: true,//是否枚举，for 循环用 
     //configurable: false, //这个特性决定了对象的属性是否可以被删除,以及除writable特性外的其它特性是否可以被修改;并且writable特性值只可以是false
     get() {
@@ -68,7 +68,6 @@ import $ from "jquery"
     }
   });
 
-  console.log(Object.keys(dream))
 
   //dream.name return dreamapple
 
