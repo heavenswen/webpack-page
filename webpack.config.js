@@ -1,7 +1,7 @@
 const { join, resolve } = require('path')
 const webpack = require('webpack')
 const glob = require('glob')
-
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
@@ -98,19 +98,45 @@ const config = {
           }
         }]
       },
+      // {
+      //   //图形资源
+      //   test: /\.(png|jpg|jpeg|gif|svg|svgz)(\?.+)?$/,
+      //   exclude: /favicon\.(png|ico)$/,
+      //   use: [{
+      //     loader: 'url-loader',
+      //     options: {
+      //       limit: 1000,
+      //       name: "[name].[ext]?[hash]",
+      //       outputPath: "assets/img/",
+      //       publicPath: release + "assets/img/"
+      //     }
+      //   }]
+      // },
       {
-        //图形资源
         test: /\.(png|jpg|jpeg|gif|svg|svgz)(\?.+)?$/,
-        exclude: /favicon\.(png|ico)$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 1000,
-            name: "[name].[ext]?[hash]",
-            outputPath: "assets/img/",
-            publicPath: release + "assets/img/"
+        exclude: /favicon\.(png|ico)$/,//除外
+        loaders: [
+          'url-loader?limit=1000&outputPath=assets/img/&name=[name].[ext]?[hash]',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 1,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              },
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              }
+            }
           }
-        }]
+        ]
       },
       {
         //文字资源
@@ -121,7 +147,7 @@ const config = {
             limit: 1000,
             name: "[name].[ext]?[hash]",
             outputPath: "assets/fonts/",//产出目录
-            publicPath: release + "assets/fonts/"
+            //publicPath: release + "assets/fonts/"
           }
         }]
       }
@@ -211,13 +237,20 @@ if (process.env.NODE_ENV === 'production') {
         // 提取出出现多次但是没有定义成变量去引用的静态值
         reduce_vars: true,
       }
-    })
-  ]),
+    }),
+
     //压缩单独的css
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano'),
       cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: true
+    }),
+    new ImageminPlugin({
+      disable: process.env.NODE_ENV !== 'production', // Disable during development
+      pngquant: {
+        quality: '95-100'
+      }
     })
+  ])
 }

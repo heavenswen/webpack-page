@@ -2,7 +2,7 @@
 
 config说明：
 
-webpack 多页环境搭建 jquery,window引入方法 分离公用css、js,生成对应入口css、js ,压缩css、js， html生成对应页面,支持 vue ，sass，es6编译
+webpack 多页环境搭建 jquery,window引入方法 分离公用css、js,生成对应入口css、js ,压缩img,css、js， html生成对应页面,支持 vue ，sass，es6编译
 --地址请使用绝对地址，可以修改webpack.config ：release
 
 
