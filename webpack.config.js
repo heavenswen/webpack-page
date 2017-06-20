@@ -174,7 +174,8 @@ const config = {
       },
       allChunks: true
     }),
-
+    //webpack3.0
+    new webpack.optimize.ModuleConcatenationPlugin()
   ],
   devServer: {
     port: 8010,
