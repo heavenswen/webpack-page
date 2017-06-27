@@ -125,11 +125,8 @@ $transition-t:.3;
 //加载图标 div>i*3  @include new-ani-scaleY() 依赖 
 @mixin icon-loading($c:#39c,$n:3,$new:1){
             //kf end
-           
-            font-size:0;
-            $w :100%/($n+1);
+           display: flex;
             @if $new == 1 {
-
                 @at-root(without:all){
                     @keyframes scaleY {
                         0%,100%{
@@ -143,8 +140,7 @@ $transition-t:.3;
             }
 
             &>i{
-                font-size:$f; 
-                display: inline-block;
+
                 width:$w;
                 height: 100%;
                 margin-right:$w/($n - 1) ;
