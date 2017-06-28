@@ -55,21 +55,19 @@ $transition-t:.3;
 }
 
 //absolute and margin 上下左右居中 必须有宽高
-@mixin position-auto($w,$h,$position:absolute) {
+@mixin position-auto($position:absolute) {
     position: $position;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    width: $w;
-    height: $h;
     margin: auto;
 }
 //使用flex 父级
 @mixin flex-auto(){
     display:flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
 }
 
 //外观
@@ -126,6 +124,7 @@ $transition-t:.3;
 @mixin icon-loading($c:#39c,$n:3,$new:1){
             //kf end
            display: flex;
+           $w:100%/($n+1);
             @if $new == 1 {
                 @at-root(without:all){
                     @keyframes scaleY {
