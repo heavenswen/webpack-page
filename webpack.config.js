@@ -1,3 +1,5 @@
+//编译状态
+const Env = process.env.NODE_ENV === 'production'
 const { join, resolve } = require('path')
 const webpack = require('webpack')
 const glob = require('glob')
@@ -6,8 +8,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 const ROOT = process.cwd();  // 根目录
-//编译状态
-const Env = process.env.NODE_ENV === 'production'
+// 通过允许您并行转换多个文件， HappyPack使Webpack构建更快。
+const HappyPack = require('happypack');
+const HappyThreadPool = HappyPack.ThreadPool({ size: (Env ? 10 : 4) });
 const release = Env ? '/cxtdemo/' : '/'//域名文件夹
 //页面对应路口
 const entries = {}
@@ -18,44 +21,30 @@ const pagesList = []
 //logo
 const favicon = "./src/assets/img/logo.png"
 
-
-// //获得入口js
-// glob.sync('./src/pages/**/*.js').forEach(path => {
-//   const chunk = path.split('./src/js/')[1].split('.js')[0]
-//   entries[chunk] = path
-//   chunks.push(chunk)
-
-// })
-
 // 页面模版
 const entryHtml = []
 
 //页面模版
-glob.sync("./src/pages/user/**/*.{ejs,html}").forEach(path => {
+glob.sync("./src/pages/**/*.{ejs,html}").forEach(path => {
   //HtmlWebpackPlugin 不支持 .html 编译 ejs 用.ejs
   let filename = path.split('./src/pages/')[1]
 
   //入口js文件名 
-  let chunk = path.split('./src/pages/user/')[1].split(".ejs")[0]
-  chunk = chunk.replace(/\//ig, '_')
+  let chunk = path.split('./src/pages/')[1].split(/\.(ejs|html)/)[0]
+  //设置产出路径
+  chunk = 'assets/' + chunk
   // 入口js路径
   let js = path
+
   //默认路径
-  js = js.replace(/\/pages\/user/ig, '/assets/js');
-  js = js.replace(/\.ejs/ig, '.js');
+  js = js.replace(/\/pages/ig, '/assets/js');
+  js = js.replace(/\.(ejs|html)/gi, '.js');
   entries[chunk] = js
   //入口js名称名称
   chunks.push(chunk)
 
-  //获得对应名称 产出到跟目录
-  // if (filename.match(/\//ig)) {
-  //   let arr = filename.split('/')
-  //   filename = arr[arr.length - 1]
-  // }
-  filename = filename.replace(/user\//ig, '')
   filename = filename.replace(/\.ejs/ig, '.html')
   //获得所有页面 
-  console.log(filename)
   pagesList.push(filename)
   let htmlConf = {
     filename: filename,//文件名
@@ -63,9 +52,9 @@ glob.sync("./src/pages/user/**/*.{ejs,html}").forEach(path => {
     template: path,
     inject: 'body',
     favicon: favicon,
-    hash: process.env.NODE_ENV === 'production',
-    env: process.env.NODE_ENV === 'production',//HtmlWebpackPlugin.options.env 非打包时的处理
-    list: pagesList,
+    hash: Env,
+    env: Env,//HtmlWebpackPlugin.options.env 非打包时的处理
+    list: pagesList,//页面地址
     chunks: ['vendors', chunk] //chunk
   }
 
@@ -100,52 +89,40 @@ const config = {
       },
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: [{
+          loader: 'babel-loader?id=js',
+          options: {
+            presets: ['es2015']
+          }
+        }],
         exclude: /node_modules/
       },
-      // {
-      //   //html-withimg-loader
-      //   test: /\.(htm|html|ejs)$/i,
-      //   use: 'html-withimg-loader'
-      // },
-      //提取css
-      // {
-      //   //编译sass 
-      //   test: /\.(scss|sass)$/,
-
-      //   use: ['style-loader', 'css-loader', 'sass-loader'],
-
-      // },
-      //  {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader'],
-      // },
       {
         //编译sass 
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: 'style-loader?id=style',
           use: [{
-            loader: 'css-loader',
+            loader: 'css-loader?id=style',
             options: {
               //压缩css
               minimize: Env
             }
-          }, 'postcss-loader', 'sass-loader'],
+          }, 'postcss-loader?id=style', 'sass-loader?id=style'],
         })
 
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: 'style-loader?id=style',
           use: [{
-            loader: 'css-loader',
+            loader: 'css-loader?id=style',
             options: {
               //压缩css
               minimize: Env
             }
-          }, 'postcss-loader'],
+          }, 'postcss-loader?id=style'],
         })
       },
 
@@ -196,7 +173,6 @@ const config = {
             limit: 1000,
             name: "[name].[ext]?[hash]",
             outputPath: "assets/fonts/",//产出目录
-            //publicPath: release + "assets/fonts/"
           }
         }]
       },
@@ -207,14 +183,24 @@ const config = {
           loader: 'file-loader',
           options: {
             name: "[name].[ext]?[hash]",
-            outputPath: "assets/app/",//产出目录
-            //publicPath: release + "assets/fonts/"
+            outputPath: "assets/file/",//产出目录
           }
         }]
       }
     ]
   },
   plugins: [
+    new HappyPack({
+      id: 'js',
+      // @see https://github.com/amireh/happypack
+      threadPool: HappyThreadPool,
+      loaders: ['babel-loader']
+    }),
+    new HappyPack({
+      id: 'styles',
+      threadPool: HappyThreadPool,
+      loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
+    }),
     //获取公用模块生成js
     new CommonsChunkPlugin({
       name: 'vendors',
@@ -243,9 +229,10 @@ const config = {
       join(ROOT, 'src/')
     ],
     port: 8010,
-    historyApiFallback: false,
-    noInfo: true,
+    //historyApiFallback: false,
+    //noInfo: true,
     hot: false,
+    //允许其他电脑访问
     host: '0.0.0.0',
   },
   devtool: '#eval-source-map'
@@ -285,11 +272,6 @@ if (process.env.NODE_ENV === 'production') {
         reduce_vars: true,
       }
     }),
-    // new ImageminPlugin({
-    //   disable: process.env.NODE_ENV !== 'production', // Disable during development
-    //   pngquant: {
-    //     quality: '95-100'
-    //   }
-    // })
+
   ])
 }

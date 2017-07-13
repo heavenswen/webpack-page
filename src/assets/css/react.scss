@@ -186,6 +186,9 @@ align-self:center;
 	}
     
 } 
+.box img{
+	max-width:100%;
+}
 /*page*/
 body{
 	font-family: $f-style;
