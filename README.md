@@ -5,8 +5,7 @@ config说明：
 webpack 多页环境搭建 jquery,window引入方法 分离公用css、js,生成对应入口css、js ,压缩img,css、js， html生成对应页面,支持 vue ，sass，es6编译
 --地址请使用绝对地址，可以修改webpack.config ：release
 
-缺点：
-    webpack是根据配置编译后执行到缓存中，目前无法监控模版文件的添加和删除
+
 
 npm 操作
 
@@ -14,9 +13,11 @@ npm 操作
 <pre>npm i</pre>
 
 <h4>测试服务器</h4>
-<pre>npm run dev</pre>
+<pre>npm run dev </pre>
 //局域网地址<a href='http://127.0.0.1'>localhost:8010</a>
-
+<h4>npm start <h4>
+监控ser/pages 修改 并重启webopack dev
+<p>(因为监控的是修改，添加和删除无法触发)</p>
 
 <h4>发布</h4>
 <pre>npm run build</pre>

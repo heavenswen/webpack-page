@@ -11,7 +11,7 @@ const ROOT = process.cwd();  // 根目录
 // 通过允许您并行转换多个文件， HappyPack使Webpack构建更快。
 const HappyPack = require('happypack');
 const HappyThreadPool = HappyPack.ThreadPool({ size: (Env ? 10 : 4) });
-const release = Env ? '/cxtdemo/' : '/'//域名文件夹
+const release = Env ? '/' : '/'//域名文件夹
 //页面对应路口
 const entries = {}
 //入口对象集
@@ -32,12 +32,12 @@ glob.sync("./src/pages/**/*.{ejs,html}").forEach(path => {
   //入口js文件名 
   let chunk = path.split('./src/pages/')[1].split(/\.(ejs|html)/)[0]
   //设置产出路径
-  chunk = 'assets/' + chunk
+  chunk = 'js/' + chunk
   // 入口js路径
   let js = path
 
-  //默认路径
-  js = js.replace(/\/pages/ig, '/assets/js');
+  //js路径
+  js = js.replace(/\/pages/ig, '/user');
   js = js.replace(/\.(ejs|html)/gi, '.js');
   entries[chunk] = js
   //入口js名称名称
@@ -81,7 +81,7 @@ const config = {
   },
   module: {
     //忽略以下js
-    noParse: /node_modules\/(jquey|moment|chart\.js)/,
+    noParse: /node_modules\/(jquey|zepto|moment|chart\.js)/,
     rules: [
       {
         test: /\.vue$/,
@@ -92,6 +92,7 @@ const config = {
         use: [{
           loader: 'babel-loader?id=js',
           options: {
+            //es6
             presets: ['es2015']
           }
         }],
@@ -213,9 +214,10 @@ const config = {
       filename: (getPath) => {
         //获得地址
         let name = getPath('[name]')
+        
         if (!name.match(/vendors/ig)) {
           let arr = name.split('/')
-          name = arr[arr.length - 2]//获得文件名
+          name = arr[arr.length - 1]//获得文件名
         }
         return 'assets/css/' + name + '.css';
       },
@@ -229,6 +231,7 @@ const config = {
       join(ROOT, 'src/')
     ],
     port: 8010,
+    //启动路由功能
     //historyApiFallback: false,
     //noInfo: true,
     hot: false,

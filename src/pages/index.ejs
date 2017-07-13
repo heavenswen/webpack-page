@@ -5,14 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>index</title>
+    <%= require(`../common/_meta.html`)  %>
+    <title>webpack 多页应用</title>
 </head>
 
 <body>
     <h1>webpack 多页</h1>
-    <div class="box" >
+    <p>
+        集成了js、css、images压缩
+
+    </p>
+    <h2>图片引入</h2>
+    <div class="box">
+        <!-- 引入图片 -->
         <img src="<%= require(`assets/img/big.png`) %>" alt="">
     </div>
+    <h2>vue引入</h2>
     <div id="app"></div>
 </body>
 
