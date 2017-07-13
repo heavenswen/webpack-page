@@ -1,13 +1,14 @@
 const { join, resolve } = require('path')
 const webpack = require('webpack')
 const glob = require('glob')
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
+// const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-const release = process.env.NODE_ENV === 'production' ? '/cxtdemo/' : '/'//域名文件夹
+const ROOT = process.cwd();  // 根目录
+//编译状态
+const Env = process.env.NODE_ENV === 'production'
+const release = Env ? '/cxtdemo/' : '/'//域名文件夹
 //页面对应路口
 const entries = {}
 //入口对象集
@@ -17,11 +18,60 @@ const pagesList = []
 //logo
 const favicon = "./src/assets/img/logo.png"
 
-//获得入口js
-glob.sync('./src/pages/**/*.js').forEach(path => {
-  const chunk = path.split('./src/pages/')[1].split('.js')[0]
-  entries[chunk] = path
+
+// //获得入口js
+// glob.sync('./src/pages/**/*.js').forEach(path => {
+//   const chunk = path.split('./src/js/')[1].split('.js')[0]
+//   entries[chunk] = path
+//   chunks.push(chunk)
+
+// })
+
+// 页面模版
+const entryHtml = []
+
+//页面模版
+glob.sync("./src/pages/user/**/*.{ejs,html}").forEach(path => {
+  //HtmlWebpackPlugin 不支持 .html 编译 ejs 用.ejs
+  let filename = path.split('./src/pages/')[1]
+
+  //入口js文件名 
+  let chunk = path.split('./src/pages/user/')[1].split(".ejs")[0]
+  chunk = chunk.replace(/\//ig, '_')
+  // 入口js路径
+  let js = path
+  //默认路径
+  js = js.replace(/\/pages\/user/ig, '/assets/js');
+  js = js.replace(/\.ejs/ig, '.js');
+  entries[chunk] = js
+  //入口js名称名称
   chunks.push(chunk)
+
+  //获得对应名称 产出到跟目录
+  // if (filename.match(/\//ig)) {
+  //   let arr = filename.split('/')
+  //   filename = arr[arr.length - 1]
+  // }
+  filename = filename.replace(/user\//ig, '')
+  filename = filename.replace(/\.ejs/ig, '.html')
+  //获得所有页面 
+  console.log(filename)
+  pagesList.push(filename)
+  let htmlConf = {
+    filename: filename,//文件名
+    //模版位置
+    template: path,
+    inject: 'body',
+    favicon: favicon,
+    hash: process.env.NODE_ENV === 'production',
+    env: process.env.NODE_ENV === 'production',//HtmlWebpackPlugin.options.env 非打包时的处理
+    list: pagesList,
+    chunks: ['vendors', chunk] //chunk
+  }
+
+  //保存配置
+  entryHtml.push(htmlConf)
+
 })
 
 const config = {
@@ -75,7 +125,13 @@ const config = {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'sass-loader'],
+          use: [{
+            loader: 'css-loader',
+            options: {
+              //压缩css
+              minimize: Env
+            }
+          }, 'postcss-loader', 'sass-loader'],
         })
 
       },
@@ -83,7 +139,13 @@ const config = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader'],
+          use: [{
+            loader: 'css-loader',
+            options: {
+              //压缩css
+              minimize: Env
+            }
+          }, 'postcss-loader'],
         })
       },
 
@@ -98,26 +160,13 @@ const config = {
           }
         }]
       },
-      // {
-      //   //图形资源
-      //   test: /\.(png|jpg|jpeg|gif|svg|svgz)(\?.+)?$/,
-      //   exclude: /favicon\.(png|ico)$/,
-      //   use: [{
-      //     loader: 'url-loader',
-      //     options: {
-      //       limit: 1000,
-      //       name: "[name].[ext]?[hash]",
-      //       outputPath: "assets/img/",
-      //       publicPath: release + "assets/img/"
-      //     }
-      //   }]
-      // },
       {
         test: /\.(png|jpg|jpeg|gif|svg|svgz)(\?.+)?$/,
         exclude: /favicon\.(png|ico)$/,//除外
         loaders: [
           'url-loader?limit=1000&outputPath=assets/img/&name=[name].[ext]?[hash]',
           {
+            //图片压缩
             loader: 'image-webpack-loader',
             options: {
               gifsicle: {
@@ -150,6 +199,18 @@ const config = {
             //publicPath: release + "assets/fonts/"
           }
         }]
+      },
+      {
+        //资源
+        test: /\.(apk|docx|doc|exe)(\?.+)?$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: "[name].[ext]?[hash]",
+            outputPath: "assets/app/",//产出目录
+            //publicPath: release + "assets/fonts/"
+          }
+        }]
       }
     ]
   },
@@ -178,38 +239,23 @@ const config = {
     new webpack.optimize.ModuleConcatenationPlugin()
   ],
   devServer: {
+    contentBase: [
+      join(ROOT, 'src/')
+    ],
     port: 8010,
     historyApiFallback: false,
     noInfo: true,
+    hot: false,
+    host: '0.0.0.0',
   },
   devtool: '#eval-source-map'
 }
 
-glob.sync("./src/pages/user/**/*.{ejs,html}").forEach(path => {
-  //HtmlWebpackPlugin 不支持 .html 编译 ejs 用.ejs
-  let filename = path.split('./src/pages/')[1].split(/\/app.(ejs|html)/)[0]
-  let chunk = path.split('./src/pages/')[1].split(".ejs")[0] //入口文件名
 
-  //获得对应名称 产出到跟目录
-  if (filename.match(/\//ig)) {
-    let arr = filename.split('/')
-    filename = arr[arr.length - 1]
-  }
-  //获得所有页面
-  pagesList.push(filename)
-  let htmlConf = {
-    filename: filename + ".html",//文件名
-    template: path,
-    inject: 'body',
-    favicon: favicon,
-    hash: process.env.NODE_ENV === 'production',
-    env: process.env.NODE_ENV === 'production',//HtmlWebpackPlugin.options.env 非打包时的处理
-    list: pagesList,
-    chunks: ['vendors', chunk] //chunk
-  }
-  if (filename) config.plugins.push(new HtmlWebpackPlugin(htmlConf))
-
-})
+//页面模版
+entryHtml.forEach(function (v) {
+  config.plugins.push(new HtmlWebpackPlugin(v));
+});
 
 module.exports = config
 
@@ -239,19 +285,11 @@ if (process.env.NODE_ENV === 'production') {
         reduce_vars: true,
       }
     }),
-
-    //压缩单独的css
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: { removeAll: true } },
-      canPrint: true
-    }),
-    new ImageminPlugin({
-      disable: process.env.NODE_ENV !== 'production', // Disable during development
-      pngquant: {
-        quality: '95-100'
-      }
-    })
+    // new ImageminPlugin({
+    //   disable: process.env.NODE_ENV !== 'production', // Disable during development
+    //   pngquant: {
+    //     quality: '95-100'
+    //   }
+    // })
   ])
 }

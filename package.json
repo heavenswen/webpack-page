@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "work": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --host 192.168.1.107",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server ",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules  --colors "
   },
   "dependencies": {
@@ -39,6 +39,6 @@
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.1",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.4.1"
+    "webpack-dev-server": "^2.5.1"
   }
 }
