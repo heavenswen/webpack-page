@@ -15,11 +15,8 @@ npm 操作
 
 <h4>测试服务器</h4>
 <pre>npm run dev</pre>
-//局域网地址 127.0.0.1:8010
-<h4>测试服务器</h4>
-<pre>npm run work</pre>
-//局域网地址 192.168.4.30 --host 192.168.4.30(去掉为127.0.0.1)
-//webpack-dev-server --inline --hot --host 192.168.4.30
+//局域网地址<a href='http://127.0.0.1'>localhost:8010</a>
+
 
 <h4>发布</h4>
 <pre>npm run build</pre>

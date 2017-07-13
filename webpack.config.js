@@ -232,6 +232,8 @@ const config = {
     //historyApiFallback: false,
     //noInfo: true,
     hot: false,
+    //真实地址 可以用局域访问
+    disableHostCheck: true,
     //允许其他电脑访问
     host: '0.0.0.0',
   },
