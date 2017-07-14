@@ -34,3 +34,52 @@ npm 操作
 <li>---user //页面库
 <li>----index.ejs //单页面 生成时对应名称 ejs将生成html
 </ul>
+
+ 
+//使用nodemon 监控文件webpack.config ，页面模版 在变化时重新执行 webpack
+
+$ npm i nodemon -D
+
+
+package.json
+//命令
+"scripts": {
+     "start": "nodemon "
+ }
+
+nodemon.json
+//配置
+{
+    "restartable": "rs",
+    //忽略
+    "ignore": [
+        ".git",
+        "node_modules/"
+    ],
+    //输出详细启动与重启信息
+    "verbose": true,
+    //运行服务的后缀名和对应的运行命令
+    "execMap": {
+        "js": "webpack-dev-server"
+    },
+    //运行到某些状态时的一些触发事件
+    "events": {
+        //开始
+        "start":"webpack-dev-server", 
+        //重新启动
+        "restart": "webpack-dev-server"
+    },
+    //
+    "runOnChangeOnly":true, 
+    //监控目标
+    "watch": [
+        "webpack.config.js"
+    ],
+    "env": {
+        "NODE_ENV": "development",
+        "PORT": "3000"
+    },
+    //监控的后缀
+    "ext": "ejs html js",
+    "legacy-watch": false
+}

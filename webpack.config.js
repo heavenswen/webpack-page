@@ -200,7 +200,7 @@ const config = {
     new HappyPack({
       id: 'styles',
       threadPool: HappyThreadPool,
-      loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
+      loaders: ['style-loader', 'css-loader', 'postcss-loader','sass-loader']
     }),
     //获取公用模块生成js
     new CommonsChunkPlugin({

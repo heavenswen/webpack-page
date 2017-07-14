@@ -4,7 +4,8 @@
   "author": "423822728@qq.com",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon  --watch src/pages/ --exec \"webpack-dev-server --env development\"",
+    "start": "nodemon",
+    "mon": "nodemon  --watch src/pages/ --exec \"webpack-dev-server --env development\"",
     "dev": "webpack-dev-server --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules  --colors "
   },
