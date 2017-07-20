@@ -2,10 +2,11 @@ import 'assets/css/react.scss'
 import 'assets/css/index.scss'
 
 import $ from "jquery"
+import filters from 'assets/js/filters'
 
 //引入jQ
 $(function () {
-    console.log('jquery')
+  console.log('jquery')
 })
 
 
@@ -18,3 +19,7 @@ new Vue({
   el: '#app',
   render: h => h(App)
 })
+
+ let str = filters.cntpy("你好!")
+
+ console.log(str)
