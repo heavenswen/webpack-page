@@ -14,7 +14,7 @@
     },
     "runOnChangeOnly":true, 
     "watch": [
-        "/src/pages/",
+        
         "webpack.config.js"
     ],
     "env": {

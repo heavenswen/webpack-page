@@ -15,9 +15,10 @@ npm 操作
 <h4>测试服务器</h4>
 <pre>npm run dev </pre>
 //局域网地址<a href='http://127.0.0.1'>localhost:8010</a>
+
 <h4>npm start <h4>
-监控ser/pages 修改 并重启webopack dev
-<p>(因为监控的是修改，添加和删除无法触发)</p>
+监控webpack.config修改 并重启webopack dev
+<p>(如果页面是新添加的会被获取到)</p>
 
 <h4>发布</h4>
 <pre>npm run build</pre>

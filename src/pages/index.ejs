@@ -10,11 +10,14 @@
 </head>
 
 <body>
-    <h1>webpack 多页</h1>
-    <p>
-        集成了js、css、images压缩
-
-    </p>
+    <h1>webpack 多页应用</h1>
+    <ol>
+        <li>集成了js、css、img压缩</li>
+        <li>编译es6、sass、vue</li>
+        <li>自动添浏览器前缀postcss</li>
+        <li>资源小于100时自动嵌入</li>
+        <li>修改webpack.config自动重启webpack（$ node start），js热更新，页面需改自动刷新 http://localhost:35729/livereload.js</li>
+    </ol>
     <h2>图片引入</h2>
     <div class="box">
         <!-- 引入图片 -->
@@ -22,6 +25,10 @@
     </div>
     <h2>vue引入</h2>
     <div id="app"></div>
+    <% if(!htmlWebpackPlugin.options.env){ %>
+        <!-- 页面自动刷新 -->
+        <script src="http://localhost:35729/livereload.js"></script>
+    <%}%>
 </body>
 
 </html>

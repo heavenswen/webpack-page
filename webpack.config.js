@@ -7,6 +7,7 @@ const glob = require('glob')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
+const LiveReloadPlugin = require('webpack-livereload-plugin')
 const ROOT = process.cwd();  // 根目录
 // 通过允许您并行转换多个文件， HappyPack使Webpack构建更快。
 const HappyPack = require('happypack');
@@ -191,6 +192,9 @@ const config = {
     ]
   },
   plugins: [
+      new LiveReloadPlugin({
+        
+      }),
     new HappyPack({
       id: 'js',
       // @see https://github.com/amireh/happypack
