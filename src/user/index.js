@@ -20,6 +20,4 @@ new Vue({
   render: h => h(App)
 })
 
- let str = filters.cntpy("你好!")
 
- console.log(str)
