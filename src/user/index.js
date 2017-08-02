@@ -1,6 +1,5 @@
 import 'assets/css/react.scss'
 import 'assets/css/index.scss'
-
 import $ from "jquery"
 import filters from 'assets/js/filters'
 
@@ -9,7 +8,7 @@ $(function () {
   console.log('jquery')
 })
 
-
+//vue
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'

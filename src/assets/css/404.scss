@@ -1,0 +1,11 @@
+@import "~./_common.scss"; //引入sass 依赖 webapck ~
+
+.page404{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  .small{
+      color: rgba(0,0,0,.5);
+  }
+}
