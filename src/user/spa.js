@@ -3,9 +3,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from 'assets/js/routes'
 import App from 'components/index.vue'
+
+import ElementUi from 'element-ui'
+import "element-ui/lib/theme-default/index.css"
 //css
 import 'assets/css/react.scss'
 
+Vue.use(ElementUi)
 //路由配置
 var router = new VueRouter({
     routes,
@@ -24,6 +28,7 @@ var router = new VueRouter({
 });
 
 //全局插件
+Vue.use(VueRouter)
 Vue.use(VueRouter)
 
 const app = new Vue({

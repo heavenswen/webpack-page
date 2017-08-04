@@ -1,6 +1,6 @@
 // 底层
 <template>
-    <div id="app">
+    <div id="app" refs="app">
         <!--内容过渡层 appear 开始执行过渡-->
         <transition name="load" mode="out-in" appear>
             <router-view ref="con"></router-view>
@@ -35,43 +35,46 @@ export default {
     created() {
 
     },
+    // watch:{
+    //监控data变化
+    // },
     methods: {
         //通用方法
 
         // $root.[name] 调用 
+        //this.$root.$children[0].[name] 下级调用
         //加载等待
-        maskshow() {
-
-            return this.mask = true;
-        },
-        maskAdd() {
-            //添加一个任务记数
-            this.maskNum++;
-            return this.maskshow();
-
-        },
-        maskRemove() {
-            //减少一个任务记数
-            this.maskNum--;
-            //当0是关闭
-            if (!this.maskNum) this.maskHide()
-        },
         maskHide() {
             //直接关闭
             return this.mask = false;
         },
-        ajax(mode = 'get', url = '#', thenfun, catchfun) {
-            this.maskAdd();
-            let that = this
+        searchParams(data) {
+            //处理 application / x-www-form-urlencoded格式 (axios)
+            let params = new URLSearchParams()
+            for (let k in data) {
+                params.append(k, data[k])
+            }
 
-            Axios[mode].then((json) => {
-                //减少一个任务计数
-                that.maskRemove();
+            return params
+        },
+        maskRemove() {
+            this.maskNum--
+            if (!this.maskNum) this.maskHide()
+        },
+        //ajax 显示 等待
+        ajax(mode = 'get', url = '#', data = {}, thenfun, catchfun) {
+            let that = this
+            this.maskNum++
+            this.mask = true
+
+            let params = mode == 'get' ? { params: data } : this.searchParams(data)
+
+            Axios[mode](url, params).then((json) => {
+                this.maskRemove()
                 //callback
                 if (thenfun) thenfun(json)
             }).catch((e) => {
-                //减少一个任务计数                
-                that.maskRemove();
+                this.maskRemove()
                 if (thenfun) catchfun(e)
 
             })

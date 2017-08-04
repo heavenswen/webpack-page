@@ -1,15 +1,17 @@
 @import "~./_common.scss";  
 
+
 .mask{
     position: fixed;
     left: 0;
     top:0;
     width: 100%;
     height: 100%;
-    background: #fff;
+    background-color: rgba(255,255,255,.8);
     display: flex;
-        justify-content: center;
-        align-items: center;
+    justify-content: center;
+    align-items: center;
+    
     .mask-tip{
         display: flex;
         justify-content: center;
@@ -24,3 +26,18 @@
     }
 
 }
+//过渡动画
+.show-enter-active,.show-leave-active{
+    transition: all .5s;
+}
+
+//离开的初始效果和进入的结束效果
+.show-leave,.show-enter-to{
+    opacity: 1;
+}
+
+//进入的初始效果和离开的结束效果
+.show-enter,.show-leave-to{
+    opacity: 0;
+}
+
