@@ -1,15 +1,24 @@
-.readPdf{
+.pdf-container{
     width: 100%;
     height: 100%;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    #canvas{
+    // display: flex;
+    // justify-content: center;
+    // align-content: center;
+    .canvas{
         display: none;
     }
-    .view{
-        width: 80%;
+    .pdf-head{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 40px;
+        background: #f3f3f3;
+        border-bottom:1px solid #f3f3f3;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .pdf-view{
         height: auto;
         border:1px solid #39f;
         img{

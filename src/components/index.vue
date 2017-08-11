@@ -38,7 +38,7 @@ export default {
     methods: {
         //通用方法
 
-        // $root.[name] 调用 
+        //this.$root.$children[0] 调用当前下的方法 
         //加载等待
         maskshow() {
 
