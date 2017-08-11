@@ -19,12 +19,13 @@ var router = new VueRouter({
             }
         }
     },
-
     //mode: 'history',
 });
 
 //全局插件
 Vue.use(VueRouter)
+
+
 
 const app = new Vue({
     router,

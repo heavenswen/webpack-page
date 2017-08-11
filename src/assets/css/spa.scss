@@ -1,0 +1,38 @@
+//SPA 页面所需的元素
+@import "~./_common.scss"; //引入sass 依赖 webapck ~
+
+//添加过渡动画
+.show-enter-active,.show-leave-active,.swiper-enter-active,.swiper-leave-active,.swiper-left-enter-active,.swiper-right-enter-active{
+    transition: all .5s;
+}
+
+//进入开始效果, 离开结束效果
+
+// 透明
+.show-enter,.show-leave-to{
+    opacity: 0;
+}
+
+//滑动显示
+.swiper-enter,.show-leave-to,
+.swiper-leave-to,
+{
+    transform: translate3d(100%,0,0)
+
+}
+
+
+//开始结束效果，进入开始效果
+
+//透明
+.show-enter-to,.show-leave{
+    opacity: 1;
+}
+
+//滑动显示
+.swiper-enter-to,.show-leave,
+.swiper-leave
+{
+    transform: translate3d(0,0,0)
+
+}

@@ -2,8 +2,8 @@
 <template>
     <div id="app">
         <!--内容过渡层 appear 开始执行过渡-->
-        <transition name="load" mode="out-in" appear>
-            <router-view ref="con"></router-view>
+        <transition name='show' mode="out-in" appear >
+            <router-view ></router-view>
         </transition>
         <!--全局加载-->
         <transition name="show" mode="out-in">
@@ -25,19 +25,23 @@
 //axios
 import Axios from "axios"
 import 'assets/css/mask-tip.scss'
+import 'assets/css/spa.scss'
 
 //计时器
 let maskTimeout
 export default {
     data() {
-        return { mask: false, maskNum: 0, }
+        return {
+            //加载等待
+            mask: false,
+            maskNum: 0,
+        }
     },
-    created() {
 
-    },
     methods: {
-        //通用方法
 
+
+        //通用方法
         //this.$root.$children[0] 调用当前下的方法 
         //加载等待
         maskshow() {
