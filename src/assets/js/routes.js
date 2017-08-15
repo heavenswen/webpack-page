@@ -1,17 +1,17 @@
 //SPA路由 设置
 //404
-import FalsePage from "components/false.vue"
-import Main from "components/main.vue"
-// import Pdf from "components/pdf.vue"  
+import FalsePage from "views/false.vue"
+import Main from "views/main.vue"
+import Pdf from "views/pdf.vue"  
 
 
 
 export default [
-	// {
-	// 	//pdf
-	// 	path: "/pdf",
-	// 	component: Pdf
-	// },
+	{
+		//pdf
+		path: "/pdf",
+		component: Pdf
+	},
 	{
 		//demo
 		path: "/",

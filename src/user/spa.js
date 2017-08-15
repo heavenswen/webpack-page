@@ -2,7 +2,7 @@ import Vue from 'vue'
 //路由
 import VueRouter from 'vue-router'
 import routes from 'assets/js/routes'
-import App from 'components/index.vue'
+import App from 'views/index.vue'
 //css
 import 'assets/css/react.scss'
 

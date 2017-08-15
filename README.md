@@ -28,12 +28,14 @@ npm 操作
 <li>-dist //生成发布目录
 <li>-src //源码
 <li>--assets //资源库
-<li>---js
-<li>----index.js入口为同名js
-<li>---css
+<li>---js //js库
+<li>---css //样式库
 <li>--pages //页面资源
-<li>---user //页面库
-<li>----index.ejs //单页面 生成时对应名称 ejs将生成html
+<li>---index.ejs //单页面 生成时对应名称 ejs将生成html
+<li>--user //页面入口
+<li>---index.js//入口为同名js
+<li>--views //视图模块
+<li>--components /组件库
 </ul>
 
  

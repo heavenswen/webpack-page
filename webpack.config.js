@@ -75,9 +75,14 @@ const config = {
     //路径检索
     extensions: ['.js', '.vue'],
     alias: {
+      //资源
       assets: join(__dirname, '/src/assets'),
+      //组件
       components: join(__dirname, '/src/components'),
+      //视图
+      views: join(__dirname, '/src/views'),
       root: join(__dirname, 'node_modules')
+
     }
   },
   module: {
