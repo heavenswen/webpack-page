@@ -29,7 +29,7 @@ import 'assets/css/pdf.scss'
 
 export default {
     props: {
-        //pdf资源链接
+        //pdf资源链接 无法跨域利用nginx代理到你应用的地址应该可以， 或者后端服务读取远程文件给pdf.js
         url: {
             type: String,
         }
@@ -37,7 +37,7 @@ export default {
     data() {
         return {
             //按照实际尺寸读取
-            scale: 1,
+            scale: 1.5,
             //页面总数
             pageNum: 0,
             //读取完毕的页面数
@@ -54,7 +54,7 @@ export default {
         initPdf(el, callback) {
             //初始化 PDF
             let that = this
-
+       
             //读取pdf数据
             PDFJS.getDocument(this.url).then((pdf) => {
                 //numpages 页面数
