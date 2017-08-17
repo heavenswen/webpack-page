@@ -1,4 +1,5 @@
 //避开谷歌下最小12px的问题 ，尺寸320下5%，640下10%
+//*会导致重绘，
 class init {
     constructor() {
         const docEl = document.documentElement
