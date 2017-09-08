@@ -4,8 +4,10 @@ import $ from "jquery"
 import filters from 'assets/js/filters'
 
 //引入jQ
+
+//vue 多页  jq 使用
 $(function () {
-  console.log('jquery')
+  console.log('jquery1')
 })
 
 //vue

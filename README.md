@@ -16,9 +16,10 @@ npm 操作
 <pre>npm run dev </pre>
 //局域网地址<a href='http://127.0.0.1'>localhost:8010</a>
 
-<h4>npm start <h4>
-监控webpack.config修改 并重启webopack dev
-<p>(如果页面是新添加的会被获取到)</p>
+<h4>npm run work <h4>
+nodemon监控webpack.config 
+<h4>npm run mon <h4>
+nodemon监控webpack.config 和 /pages 并重启webopack dev,但重启应用时间过长，希望还是使用work模式
 
 <h4>发布</h4>
 <pre>npm run build</pre>
@@ -51,7 +52,7 @@ package.json
  }
 
 nodemon.json
-//配置
+//配置表
 {
     "restartable": "rs",
     //忽略
@@ -76,6 +77,7 @@ nodemon.json
     "runOnChangeOnly":true, 
     //监控目标
     "watch": [
+        "src/user/",
         "webpack.config.js"
     ],
     "env": {

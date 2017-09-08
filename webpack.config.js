@@ -21,7 +21,6 @@ const chunks = []
 const pagesList = []
 //logo
 const favicon = "./src/assets/img/logo.png"
-
 // 页面模版
 const entryHtml = []
 
@@ -242,7 +241,7 @@ const config = {
     port: 8010,
     //启动路由功能
     //historyApiFallback: false,
-    //noInfo: true,
+    // noInfo: true,
     hot: false,
     //真实地址 可以用局域访问
     disableHostCheck: true,
@@ -269,6 +268,7 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
+    //压缩单元
     new webpack.optimize.UglifyJsPlugin({
       // 最紧凑的输出
       beautify: false,
