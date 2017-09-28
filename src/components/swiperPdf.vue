@@ -54,9 +54,12 @@ export default {
         initPdf(el, callback) {
             //初始化 PDF
             let that = this
-       
             //读取pdf数据
             PDFJS.getDocument(this.url).then((pdf) => {
+                //目录
+                pdf.getOutline().then((j)=>{
+                    console.log(j)
+                });
                 //numpages 页面数
                 that.pageNum = pdf.numPages
                 //读取pdf转换成图片
@@ -107,7 +110,6 @@ export default {
                 //init
                 getPdf();
 
-
             })
 
         },
@@ -117,7 +119,7 @@ export default {
                 //按键激活
                 keyboardControl: true,
                 //初始化执行
-                onInit: function (swiper) {
+                onInit: function(swiper) {
                     //当前第1页
                     that.pageNow = 1
                 },
@@ -142,11 +144,11 @@ export default {
         let that = this
 
         //获取pdf页数 从1开始
-        this.initPdf(el, function () {
+        this.initPdf(el, function() {
             //隐藏加载层
             that.$root.$children[0].maskRemove();
             //初始化 swiper
-            that.mySwiper =  that.initSwiper();
+            that.mySwiper = that.initSwiper();
 
         })
 
