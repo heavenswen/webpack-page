@@ -1,0 +1,56 @@
+.search-com {
+    position: absolute;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 5px;
+}
+
+.search-com a:hover{
+    background: #f1f1f1;
+
+}
+.search-keys{
+    color: #39f;
+}
+
+.search-tip,.search-com a{
+    padding: 5px;
+}
+.search-tip,.search-cell> li{
+    border-bottom: 1px solid #ccc;
+}
+
+/* 分类 */
+.search-item {
+    position: relative;
+    /* border-top: 1px solid #ccc; */
+}
+
+/* 详情 */
+.search-cell{
+    width: 100%;
+    padding-left: 60px;
+}
+.search-cell> li{
+    width: 100%;
+
+}
+.search-cell> li a{
+    overflow: hidden;  
+    white-space: nowrap;  
+    text-overflow: ellipsis; 
+
+}
+.search-com a{
+    display: block;
+    height: 100%;
+}
+/* 分类标题 */
+.search-item>.search-tit {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width:60px; 
+    border-right: 1px solid #ccc;
+}

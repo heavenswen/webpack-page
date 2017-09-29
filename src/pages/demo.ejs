@@ -6,20 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>demo</title>
+    <link href="/assets/css/search-wyy.css" rel="stylesheet">
     <style>
+        body {
+            height: 1000px;
+        }
+
         td {
             font-size: 40px;
             background: linear-gradient(to bottom, white, black);
             -webkit-text-fill-color: transparent;
             -webkit-background-clip: text;
         }
+
+        #search {
+            padding: 10px;
+            border: 1px solid #ccc;
+            height: 100px;
+        }
+
+        .container {
+            position: fixed;
+            margin: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            ;
+            width: 200px;
+            height: 200px;
+        }
     </style>
 </head>
 
 <body>
-
-
+    <div class="container">
+        <input type="search" id="search" placeholder="内容搜索">
+    </div>
+    <script src="/assets/js/search-wyy.js"></script>
     <script>
+        //图片加载api
         var img = new Image();
 
         img.src = 'http://upload.jianshu.io/users/upload_avatars/7546905/78074ab0-e638-4658-9cd1-9cbc96ed1453?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120';
@@ -28,10 +52,62 @@
             // console.log('图片加载成功', e)
         }
         img.onerror = function (e) {
-            console.log('图片加载失败', e)
+            // console.log('图片加载失败', e)
 
         }
-        document.body.appendChild(img)
+
+        //仿网易云搜索
+        var dataJson = [
+            {
+                title: "视频",
+                list: [
+                    {
+                        name: "3d制作",
+                        value: "url"
+                    },
+                    {
+                        name: "3d制作",
+                        value: "url"
+                    }
+                ]
+            },
+            {
+                title: "视频",
+                list: [
+                    {
+                        name: "3d制作3d制作3d制作3d制作",
+                        value: "url"
+                    },
+                    {
+                        name: "3d制作",
+                        value: "url"
+                    }
+                ]
+            }
+        ];
+
+        //init
+        var dom = document.querySelector("#search");
+        var search = new searchWYY("#search");
+        dom.addEventListener("input", function () {
+            let value = this.value
+            //为空时删除
+            if (!value) {
+                return search.remove();
+            };
+            //渲染数据
+            search.append(value, dataJson);
+
+        })
+        //失去焦点隐藏
+        dom.addEventListener("blur", function () {
+            search.htm.style.display = 'none'
+        })
+        //获得焦点显示
+        dom.addEventListener("focus", function () {
+            search.htm.style.display = 'block'
+        })
+
     </script>
     <% if(!htmlWebpackPlugin.options.env){ %>
         <!-- 页面自动刷新 -->

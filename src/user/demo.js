@@ -1,6 +1,5 @@
 import 'assets/css/react.scss'
 
-
 //Genneroter 迭代器
 const generators = [{
     no: 1,
@@ -23,7 +22,7 @@ function* generoter() {
     //循环生成 迭代
     for (let i = 1; i < generators.length; i++) {
 
-        //暂停时 传递到value中
+        //暂停时 传递到value中 yield 会将值抛给外部
         yield generators[i]
 
     }
@@ -31,21 +30,25 @@ function* generoter() {
     return { no: 6 }
 
 }
+function fn() {
 
-const g = generoter()
+    //声明一个迭代
+    const g = generoter()
 
-//读取 promise //1
-g.next().value.then((v) => {
-    console.log('promise', v)
-})
-//直接获取值 //2
-console.log('g', g.next().value);
+    //读取 promise //1
+    g.next().value.then((v) => {
+        console.log('promise', v)
+    })
+    //直接获取值 //2
+    console.log('g', g.next().value);
 
-//执行方法 //3
-console.log('g', g.next());
-console.log('g', g.next().value);//4
-g.next();//不执行
+    //执行方法 //3
+    console.log('g', g.next());
+    console.log('g', g.next().value);//4
+    g.next();//不执行
 
-const a = generoter()
-console.log('a', a.next().value);//first
+    //新的迭代
+    const a = generoter()
+    console.log('a', a.next().value);//first
+}
 
