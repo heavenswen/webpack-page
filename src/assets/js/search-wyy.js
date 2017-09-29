@@ -29,7 +29,7 @@ var searchWYY = function (obj) {
             for (let i = 0; i < cls['list'].length; i++) {
                 let li = cls['list'][i]
                 let content = li['name'];
-
+                //标记关键字
                 content = content.replace(reg, "<span class='search-keys'>" + value + "</span>");
                 ul += " <li><a>" + content + "</a></li>"
 
