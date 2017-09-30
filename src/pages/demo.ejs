@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>demo</title>
     <link href="/assets/css/search-wyy.css" rel="stylesheet">
+    <link href="/assets/css/DPlayer.min.css" rel="stylesheet">
     <style>
-        body {
+        .page {
             height: 1000px;
+            padding-top: 80px;
         }
 
         td {
@@ -22,26 +24,35 @@
         #search {
             padding: 10px;
             border: 1px solid #ccc;
-            height: 100px;
+            height: 40px;
         }
 
         .container {
             position: fixed;
-            margin: 100px;
             padding: 10px;
+            top: 0;
             border: 1px solid #ccc;
-            ;
-            width: 200px;
-            height: 200px;
+            width: 100%;
+            background: #fff;
+            z-index: 10;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <input type="search" id="search" placeholder="内容搜索">
+    <div class="page">
+        <fieldset class="container">
+            <legend>仿网易云搜索</legend>
+            <input type="search" id="search" placeholder="内容搜索">
+        </fieldset>
+        <fieldset>
+            <legend>弹幕视频</legend>
+            <div id="player1"></div>
+        </fieldset>
     </div>
+
     <script src="/assets/js/search-wyy.js"></script>
+    <script src="/assets/js/DPlayer.min.js"></script>
     <script>
         //图片加载api
         var img = new Image();
@@ -88,7 +99,7 @@
             },
         ];
 
-        //init
+        //search init
         var dom = document.querySelector("#search");
         var search = new searchWYY("#search");
 
@@ -131,6 +142,22 @@
                 dom.dispatchEvent(trigger)
             }
         })
+        //右键隐藏
+        document.addEventListener("contextmenu",function(){
+            search.htm.style.display = 'none'
+        })
+        //视频播放
+        var dp = new DPlayer({
+            element: document.getElementById('player1'),
+            video: {
+                url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
+                pic: 'https://moeplayer.b0.upaiyun.com/dplayer/dplayer.png'
+            },
+            danmaku: {
+                id: 'testid',
+                api: 'https://api.prprpr.me/dplayer/'
+            }
+        });
     </script>
     <% if(!htmlWebpackPlugin.options.env){ %>
         <!-- 页面自动刷新 -->

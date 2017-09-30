@@ -6,10 +6,11 @@ var searchWYY = function (obj) {
     // 获得目标参数
     this.xy = {
         h: this.dom.clientHeight,
+        //作为显示栏宽度
         w: this.dom.clientWidth,
         //get xy relative to parent
-        x: this.dom.offsetTop,
-        y: this.dom.offsetLeft
+        y: this.dom.offsetTop,
+        x: this.dom.offsetLeft
     };
     //content dom 展示框
     this.htm = document.createElement("section");
