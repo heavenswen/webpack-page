@@ -19,7 +19,7 @@ var searchWYY = function (obj) {
     //生成展示框 (查询的值,数据) 
     function addHtmFn(value, json) {
         let htm = '<p class="search-tip">搜索“' + value + '”相关内容</p>';
-        let reg = RegExp(value,'ig');
+        let reg = RegExp(value, 'ig');
         //class
         for (let k in json) {
             //item
@@ -28,16 +28,16 @@ var searchWYY = function (obj) {
             //获得详情
             for (let i = 0; i < cls['list'].length; i++) {
                 let li = cls['list'][i]
-                let content = li['name'];
+                let content = li['value'];
                 //标记关键字
                 content = content.replace(reg, "<span class='search-keys'>" + value + "</span>");
-                ul += " <li><a>" + content + "</a></li>"
+                ul += " <li><a href = '" + li['href'] + "'>" + content + "</a></li>"
 
             }
 
             htm += "<div class=\"search-item\">"
                 +
-                "<h4 class='search-tit'><a>" + cls['title'] + "</a></h4><ul class='search-cell'>" +
+                "<h4 class='search-tit'><a href='" + cls['href'] + "'>" + cls['title'] + "</a></h4><ul class='search-cell'>" +
                 ul
                 + "</ul></div>";
 
