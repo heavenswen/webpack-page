@@ -1,4 +1,6 @@
 import 'assets/css/react.scss'
+import Swiper from 'swiper'
+import Search from "assets/js/search-wyy"
 
 //Genneroter 迭代器
 const generators = [{
