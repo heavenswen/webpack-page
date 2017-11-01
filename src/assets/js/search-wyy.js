@@ -12,22 +12,16 @@
      * @param {object} obj config data
      */
     var searchWYY = function (seleted, obj) {
-
-
         /**
          * 获取目标对象
          * @public 
          */
         this.dom = document.querySelector(seleted);
-
-
         /**
          *菜单将插入容器中
          * @private
          */
-
         this.parent = this.dom.offsetParent;
-
         /**
          * 获取目标的位置
          * @private
@@ -40,19 +34,15 @@
             y: this.dom.offsetTop,
             x: this.dom.offsetLeft
         };
-
         /**
          * 菜单对象
          * @public
          */
         this.htm = document.createElement("section");
-
         //添加样式组
         this.htm.classList.add("search-com");
-
         //用于函数内热操作
         var that = this;
-
         /**
          * 保存自动 宽度配置
          * @public
@@ -148,17 +138,17 @@
          * @param {object} json 菜单值  
          */
         this.append = function (value, json) {
-            
-            this.htm.style.width = this.xy.w + "px";
-            
-            this.htm.style.top = Number(this.xy.y) + Number(this.xy.h) + Number(that.config.margin) + "px";
+
+            //设置菜单宽度
+            this.htm.style.width = this.config.w + "px";
+
+            this.htm.style.top = Number(this.xy.y) + Number(this.xy.h) + Number(this.config.margin) + "px";
             
             this.htm.style.left = Number(this.xy.x) + "px";
             
             this.htm.innerHTML = addHtmFn(value, json)
-            
-            
-            //添加dom
+
+            //生成菜单
             this.parent.appendChild(this.htm)
         }
         //自定义dom

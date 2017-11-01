@@ -37,7 +37,7 @@ glob.sync("./src/pages/**/*.{ejs,html}").forEach(path => {
   let js = path
 
   //js路径
-  js = js.replace(/\/pages/ig, '/user');
+  js = js.replace(/\/pages/ig, '/entry');
   js = js.replace(/\.(ejs|html)/gi, '.js');
   entries[chunk] = js
   //入口js名称名称
@@ -196,9 +196,9 @@ const config = {
     ]
   },
   plugins: [
-      new LiveReloadPlugin({
-        
-      }),
+    new LiveReloadPlugin({
+
+    }),
     new HappyPack({
       id: 'js',
       // @see https://github.com/amireh/happypack
@@ -208,7 +208,7 @@ const config = {
     new HappyPack({
       id: 'styles',
       threadPool: HappyThreadPool,
-      loaders: ['style-loader', 'css-loader', 'postcss-loader','sass-loader']
+      loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
     }),
     //获取公用模块生成js
     new CommonsChunkPlugin({
@@ -222,7 +222,7 @@ const config = {
       filename: (getPath) => {
         //获得地址
         let name = getPath('[name]')
-        
+
         if (!name.match(/vendors/ig)) {
           let arr = name.split('/')
           name = arr[arr.length - 1]//获得文件名
