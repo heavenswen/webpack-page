@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>demo</title>
-    <link href="/assets/css/search-wyy.css" rel="stylesheet">
-    <link href="/assets/css/DPlayer.min.css" rel="stylesheet">
+    <!-- <link href="/assets/css/search-wyy.css" rel="stylesheet"> -->
+    <!-- <link href="/assets/css/DPlayer.min.css" rel="stylesheet"> -->
     <style>
         .page {
             height: 1000px;
@@ -21,29 +21,24 @@
             -webkit-background-clip: text;
         }
 
-        #search {
+        input {
             padding: 10px;
             border: 1px solid #ccc;
             height: 40px;
         }
 
-        .container {
-            position: fixed;
-            padding: 10px;
-            top: 0;
-            border: 1px solid #ccc;
-            width: 100%;
-            background: #fff;
-            z-index: 10;
-        }
     </style>
 </head>
 
 <body>
     <div class="page">
-        <fieldset class="container">
+        <fieldset  >
             <legend>仿网易云搜索</legend>
             <input type="search" id="search" placeholder="内容搜索">
+        </fieldset>
+        <fieldset  >
+            <legend>焦点提示框</legend>
+            <input type="search" id="tip" data-title='说明' data-content="内容" placeholder="焦点提示框">
         </fieldset>
         <fieldset>
             <legend>弹幕视频</legend>
@@ -51,116 +46,105 @@
         </fieldset>
     </div>
 
-    <script src="/assets/js/search-wyy.js"></script>
-    <script src="/assets/js/DPlayer.min.js"></script>
+    <!-- <script src="/assets/js/search-wyy.js"></script> -->
+    <!-- <script src="/assets/js/DPlayer.min.js"></script> -->
     <script>
-        //图片加载api
-        var img = new Image();
+  
 
-        img.src = 'http://upload.jianshu.io/users/upload_avatars/7546905/78074ab0-e638-4658-9cd1-9cbc96ed1453?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120';
+        // //仿网易云搜索
+        // var dataJson = [
+        //     {
+        //         title: "视频",
+        //         href: "#",
+        //         list: [
+        //             {
+        //                 value: "3d制作",
+        //                 href: "url"
+        //             },
+        //             {
+        //                 value: "3d制作",
+        //                 href: "url"
+        //             }
+        //         ]
+        //     },
+        //     {
+        //         title: "视频",
+        //         href: "#",
+        //         list: [
+        //             {
+        //                 value: "3d制作",
+        //                 href: "url"
+        //             },
+        //             {
+        //                 value: "3d制作",
+        //                 href: "url"
+        //             }
+        //         ]
+        //     },
+        // ];
 
-        img.onload = function (e) {
-            // console.log('图片加载成功', e)
-        }
-        img.onerror = function (e) {
-            // console.log('图片加载失败', e)
+        // //search init
+        // var dom = document.querySelector("#search");
+        // var search = new SearchWYY("#search");
 
-        }
+        // function initSearch() {
+        //     let value = this.value
+        //     //为空时删除
+        //     if (!value) {
+        //         return search.remove();
+        //     };
+        //     //渲染数据
+        //     search.append(value, dataJson);
+        // }
+        // //自定义事件
+        // var trigger = new Event("trigger", { "bubbles": true, "cancelable": false });
 
-        //仿网易云搜索
-        var dataJson = [
-            {
-                title: "视频",
-                href: "#",
-                list: [
-                    {
-                        value: "3d制作",
-                        href: "url"
-                    },
-                    {
-                        value: "3d制作",
-                        href: "url"
-                    }
-                ]
-            },
-            {
-                title: "视频",
-                href: "#",
-                list: [
-                    {
-                        value: "3d制作",
-                        href: "url"
-                    },
-                    {
-                        value: "3d制作",
-                        href: "url"
-                    }
-                ]
-            },
-        ];
+        // dom.addEventListener("trigger", initSearch)
 
-        //search init
-        var dom = document.querySelector("#search");
-        var search = new searchWYY("#search");
+        // dom.addEventListener("input", function () {
+        //     dom.dispatchEvent(trigger)
+        // })
 
-        function initSearch() {
-            let value = this.value
-            //为空时删除
-            if (!value) {
-                return search.remove();
-            };
-            //渲染数据
-            search.append(value, dataJson);
-        }
-        //自定义事件
-        var trigger = new Event("trigger", { "bubbles": true, "cancelable": false });
+        // //失去焦点隐藏显示层
+        // function hide() {
+        //     search.htm.style.display = 'none'
+        // }
+        // dom.addEventListener("blur", hide, false)
+        // //防止无法点击跳转
+        // search.htm.addEventListener("mouseenter", function () {
+        //     dom.removeEventListener("blur", hide, false)
+        // })
+        // search.htm.addEventListener("mouseleave", function () {
+        //     dom.addEventListener("blur", hide, false)
+        // })
 
-        dom.addEventListener("trigger", initSearch)
-
-        dom.addEventListener("input", function () {
-            dom.dispatchEvent(trigger)
-        })
-
-        //失去焦点隐藏显示层
-        function hide() {
-            search.htm.style.display = 'none'
-        }
-        dom.addEventListener("blur", hide, false)
-        //防止无法点击跳转
-        search.htm.addEventListener("mouseenter", function () {
-            dom.removeEventListener("blur", hide, false)
-        })
-        search.htm.addEventListener("mouseleave", function () {
-            dom.addEventListener("blur", hide, false)
-        })
-
-        //获得焦点显示
-        dom.addEventListener("focus", function () {
-            search.htm.style.display = 'block'
-            if (!search.htm.innerHTML) {
-                //jq.trigger()
-                dom.dispatchEvent(trigger)
-            }
-        })
-        //右键隐藏
-        document.addEventListener("contextmenu",function(){
-            search.htm.style.display = 'none'
-        })
+        // //获得焦点显示
+        // dom.addEventListener("focus", function () {
+        //     search.htm.style.display = 'block'
+        //     if (!search.htm.innerHTML) {
+        //         //jq.trigger()
+        //         dom.dispatchEvent(trigger)
+        //     }
+        // })
+        // //右键隐藏
+        // document.addEventListener("contextmenu",function(){
+        //     search.htm.style.display = 'none'
+        // })
 
 
         
-        //视频播放
-        var dp = new DPlayer({
-            element: document.getElementById('player1'),
-            video: {
-                url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
-                pic: 'https://moeplayer.b0.upaiyun.com/dplayer/dplayer.png'
-            },
-            danmaku: {
-                id: 'testid',
-                api: 'https://api.prprpr.me/dplayer/'
-            }
-        });
+        // //视频播放
+        // var dp = new DPlayer({
+        //     element: document.getElementById('player1'),
+        //     video: {
+        //         url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
+        //         pic: 'https://moeplayer.b0.upaiyun.com/dplayer/dplayer.png'
+        //     },
+        //     danmaku: {
+        //         id: 'testid',
+        //         api: 'https://api.prprpr.me/dplayer/'
+        //     }
+        // });
     </script>
     <% if(!htmlWebpackPlugin.options.env){ %>
         <!-- 页面自动刷新 -->

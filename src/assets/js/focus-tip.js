@@ -1,4 +1,6 @@
 /**
+ * new FocusTip()配置
+ * .initObj("")执行绑定事件
  * @file 表单获得焦点提示说明
  * @author qiu(423822728@qq.com)
  * @class
@@ -19,19 +21,19 @@
         /**
          * 默认配置
          * @const
+         * @type {OBject} 
          */
         var CONFIG = {
             visible: false,
             marginTop: 0,
             marginBottom: 0,
             time: 0,
-            callback: function (o) {
+            callback: function (obj) {
                 var data = '';
-                var obj = o.parentNode;
                 //获得显示内容
                 var content = obj.dataset.content || '';
                 //获得标题
-                var title =  obj.dataset.title || '';
+                var title = obj.dataset.title || '';
 
                 if (content && title) {
                     data = { title: title, content: content };
@@ -39,13 +41,17 @@
                 return data;
             }
         }
+
         //合并配置
+        if (!object) object = {};
+
         for (var k in CONFIG) {
-            var data = CONFIG[k];
-            if (!object[k]) {
-                object[k] = data;
+            var data = object[k];
+            if (!data) {
+                object[k] = CONFIG[k];
             }
         }
+
 
         /**
          *配置 
@@ -53,12 +59,13 @@
          */
         this.CONFIG = object;
 
+
         //创建显示对象
         this.obj = document.createElement("div");
         this.obj.classList.add("focus-tip");
-        if (this.CONFIG.visible){
+        if (this.CONFIG.visible) {
             this.obj.classList.add("isshow");
-        } 
+        }
         //内容模块
         this.title = document.createElement("div");
         this.title.classList.add("focus-t-top");
@@ -181,7 +188,7 @@
     function positionBodyHeight(dom) {
         var h = 0;
         var obj = dom;
-        while (obj.nodeName !== "BODY") {
+        if (obj.nodeName !== "BODY") {
             h += obj.offsetTop
             obj = obj.offsetParent;
         }
