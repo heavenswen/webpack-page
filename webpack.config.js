@@ -196,9 +196,9 @@ const config = {
     ]
   },
   plugins: [
-    new LiveReloadPlugin({
-
-    }),
+    //会跟 webpack-dev-server 冲突，导致js修改时找不到修改对象
+    // new LiveReloadPlugin({
+    // }),
     new HappyPack({
       id: 'js',
       // @see https://github.com/amireh/happypack

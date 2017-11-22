@@ -6,37 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>demo</title>
-    <!-- <link href="/assets/css/search-wyy.css" rel="stylesheet"> -->
-    <!-- <link href="/assets/css/DPlayer.min.css" rel="stylesheet"> -->
-    <style>
-        .page {
-            height: 1000px;
-            padding-top: 80px;
-        }
-
-        td {
-            font-size: 40px;
-            background: linear-gradient(to bottom, white, black);
-            -webkit-text-fill-color: transparent;
-            -webkit-background-clip: text;
-        }
-
-        input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            height: 40px;
-        }
-
-    </style>
+    <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 </head>
+<style>
+    body {
+
+        font-size: 16px;
+    }
+
+    .page {
+        /* height: 1000px; */
+        padding-top: 80px;
+    }
+
+    td {
+        font-size: 40px;
+        background: linear-gradient(to bottom, white, black);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+    }
+
+    input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        height: 40px;
+    }
+</style>
 
 <body>
     <div class="page">
-        <fieldset  >
+        <fieldset>
             <legend>仿网易云搜索</legend>
             <input type="search" id="search" placeholder="内容搜索">
         </fieldset>
-        <fieldset  >
+        <fieldset class="">
             <legend>焦点提示框</legend>
             <input type="search" id="tip" data-title='说明' data-content="内容" placeholder="焦点提示框">
         </fieldset>
@@ -44,112 +48,79 @@
             <legend>弹幕视频</legend>
             <div id="player1"></div>
         </fieldset>
+        <fieldset>
+            <legend>html 转 pdf
+                <button type="button" class="sub">保存</button>
+            </legend>
+            <div class="pdf-wrapper con">
+                <p>
+                    Just as higher states of energy seek a lower level, the Spectre known as Mercurial is a being of intense and violent energy
+                    who finds herself irresistibly drawn to scenes of strife as they unfold in the physical world. While
+                    her normal spectral state transcends sensory limitations, each time she takes on a physical manifestation,
+                    she is stricken by a loss of self--though not of purpose. In the clash of combat, her identity shatters
+                    and reconfigures, and she begins to regain awareness. She grasps that she is Mercurial the Spectre--and
+                    that all of her Haunts are but shadows of the one true Spectre. Focus comes in the struggle for survival;
+                    her true mind reasserts itself; until in the final moments of victory or defeat, she transcends matter
+                    and is restored once more to her eternal form.
+                </p>
+                <p>
+                    和所有强大的能量都喜欢欺凌弱小一样，被称为墨丘利的幽鬼也是一个拥有着强横能量的存在，同样的，她对现实世界中的冲突和纷争无比着迷。然而她平时的幽鬼形态超越了常人的感知范围，因此每当她以实体形态出现时，她不得不损失一部分自我能量——尽管她也不愿意。在战斗中，她的自我意识逐渐散落并重新聚合，她也开始有了意识。她意识到了自己是幽鬼墨丘利——其他所有的鬼影都只是她自我的阴影。出于重新凝聚的打算，她开始专注，她的心智也在不断的成熟。只有等到她取得胜利或者彻底失败时，她那超物质的形态才会得以重聚。
+                </p>
+                <img src="<%= require(`assets/img/big.png`) %>" alt="">
+                <p>
+                    Just as higher states of energy seek a lower level, the Spectre known as Mercurial is a being of intense and violent energy
+                    who finds herself irresistibly drawn to scenes of strife as they unfold in the physical world. While
+                    her normal spectral state transcends sensory limitations, each time she takes on a physical manifestation,
+                    she is stricken by a loss of self--though not of purpose. In the clash of combat, her identity shatters
+                    and reconfigures, and she begins to regain awareness. She grasps that she is Mercurial the Spectre--and
+                    that all of her Haunts are but shadows of the one true Spectre. Focus comes in the struggle for survival;
+                    her true mind reasserts itself; until in the final moments of victory or defeat, she transcends matter
+                    and is restored once more to her eternal form.
+                </p>
+                <p>
+                    和所有强大的能量都喜欢欺凌弱小一样，被称为墨丘利的幽鬼也是一个拥有着强横能量的存在，同样的，她对现实世界中的冲突和纷争无比着迷。然而她平时的幽鬼形态超越了常人的感知范围，因此每当她以实体形态出现时，她不得不损失一部分自我能量——尽管她也不愿意。在战斗中，她的自我意识逐渐散落并重新聚合，她也开始有了意识。她意识到了自己是幽鬼墨丘利——其他所有的鬼影都只是她自我的阴影。出于重新凝聚的打算，她开始专注，她的心智也在不断的成熟。只有等到她取得胜利或者彻底失败时，她那超物质的形态才会得以重聚。
+                </p>
+                <img src="<%= require(`assets/img/big.png`) %>" alt="">
+                <p>
+                    Just as higher states of energy seek a lower level, the Spectre known as Mercurial is a being of intense and violent energy
+                    who finds herself irresistibly drawn to scenes of strife as they unfold in the physical world. While
+                    her normal spectral state transcends sensory limitations, each time she takes on a physical manifestation,
+                    she is stricken by a loss of self--though not of purpose. In the clash of combat, her identity shatters
+                    and reconfigures, and she begins to regain awareness. She grasps that she is Mercurial the Spectre--and
+                    that all of her Haunts are but shadows of the one true Spectre. Focus comes in the struggle for survival;
+                    her true mind reasserts itself; until in the final moments of victory or defeat, she transcends matter
+                    and is restored once more to her eternal form.
+                </p>
+                <p>
+                    和所有强大的能量都喜欢欺凌弱小一样，被称为墨丘利的幽鬼也是一个拥有着强横能量的存在，同样的，她对现实世界中的冲突和纷争无比着迷。然而她平时的幽鬼形态超越了常人的感知范围，因此每当她以实体形态出现时，她不得不损失一部分自我能量——尽管她也不愿意。在战斗中，她的自我意识逐渐散落并重新聚合，她也开始有了意识。她意识到了自己是幽鬼墨丘利——其他所有的鬼影都只是她自我的阴影。出于重新凝聚的打算，她开始专注，她的心智也在不断的成熟。只有等到她取得胜利或者彻底失败时，她那超物质的形态才会得以重聚。
+                </p>
+                <img src="<%= require(`assets/img/big.png`) %>" alt="">
+                <p>
+                    Just as higher states of energy seek a lower level, the Spectre known as Mercurial is a being of intense and violent energy
+                    who finds herself irresistibly drawn to scenes of strife as they unfold in the physical world. While
+                    her normal spectral state transcends sensory limitations, each time she takes on a physical manifestation,
+                    she is stricken by a loss of self--though not of purpose. In the clash of combat, her identity shatters
+                    and reconfigures, and she begins to regain awareness. She grasps that she is Mercurial the Spectre--and
+                    that all of her Haunts are but shadows of the one true Spectre. Focus comes in the struggle for survival;
+                    her true mind reasserts itself; until in the final moments of victory or defeat, she transcends matter
+                    and is restored once more to her eternal form.
+                </p>
+                <p>
+                    和所有强大的能量都喜欢欺凌弱小一样，被称为墨丘利的幽鬼也是一个拥有着强横能量的存在，同样的，她对现实世界中的冲突和纷争无比着迷。然而她平时的幽鬼形态超越了常人的感知范围，因此每当她以实体形态出现时，她不得不损失一部分自我能量——尽管她也不愿意。在战斗中，她的自我意识逐渐散落并重新聚合，她也开始有了意识。她意识到了自己是幽鬼墨丘利——其他所有的鬼影都只是她自我的阴影。出于重新凝聚的打算，她开始专注，她的心智也在不断的成熟。只有等到她取得胜利或者彻底失败时，她那超物质的形态才会得以重聚。
+                </p>
+                <img src="<%= require(`assets/img/big.png`) %>" alt="">
+            </div>
+            <!-- <script src="/assets/js/cpdf.js"></script> -->
+        </fieldset>
+        <fieldset class="pdf-wrapper">
+            <legend>焦点提示框</legend>
+            <input type="search"  data-title='说明' data-content="内容" placeholder="焦点提示框">
+        </fieldset>
     </div>
-
-    <!-- <script src="/assets/js/search-wyy.js"></script> -->
-    <!-- <script src="/assets/js/DPlayer.min.js"></script> -->
-    <script>
-  
-
-        // //仿网易云搜索
-        // var dataJson = [
-        //     {
-        //         title: "视频",
-        //         href: "#",
-        //         list: [
-        //             {
-        //                 value: "3d制作",
-        //                 href: "url"
-        //             },
-        //             {
-        //                 value: "3d制作",
-        //                 href: "url"
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         title: "视频",
-        //         href: "#",
-        //         list: [
-        //             {
-        //                 value: "3d制作",
-        //                 href: "url"
-        //             },
-        //             {
-        //                 value: "3d制作",
-        //                 href: "url"
-        //             }
-        //         ]
-        //     },
-        // ];
-
-        // //search init
-        // var dom = document.querySelector("#search");
-        // var search = new SearchWYY("#search");
-
-        // function initSearch() {
-        //     let value = this.value
-        //     //为空时删除
-        //     if (!value) {
-        //         return search.remove();
-        //     };
-        //     //渲染数据
-        //     search.append(value, dataJson);
-        // }
-        // //自定义事件
-        // var trigger = new Event("trigger", { "bubbles": true, "cancelable": false });
-
-        // dom.addEventListener("trigger", initSearch)
-
-        // dom.addEventListener("input", function () {
-        //     dom.dispatchEvent(trigger)
-        // })
-
-        // //失去焦点隐藏显示层
-        // function hide() {
-        //     search.htm.style.display = 'none'
-        // }
-        // dom.addEventListener("blur", hide, false)
-        // //防止无法点击跳转
-        // search.htm.addEventListener("mouseenter", function () {
-        //     dom.removeEventListener("blur", hide, false)
-        // })
-        // search.htm.addEventListener("mouseleave", function () {
-        //     dom.addEventListener("blur", hide, false)
-        // })
-
-        // //获得焦点显示
-        // dom.addEventListener("focus", function () {
-        //     search.htm.style.display = 'block'
-        //     if (!search.htm.innerHTML) {
-        //         //jq.trigger()
-        //         dom.dispatchEvent(trigger)
-        //     }
-        // })
-        // //右键隐藏
-        // document.addEventListener("contextmenu",function(){
-        //     search.htm.style.display = 'none'
-        // })
-
-
-        
-        // //视频播放
-        // var dp = new DPlayer({
-        //     element: document.getElementById('player1'),
-        //     video: {
-        //         url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
-        //         pic: 'https://moeplayer.b0.upaiyun.com/dplayer/dplayer.png'
-        //     },
-        //     danmaku: {
-        //         id: 'testid',
-        //         api: 'https://api.prprpr.me/dplayer/'
-        //     }
-        // });
-    </script>
-    <!-- <% if(!htmlWebpackPlugin.options.env){ %> -->
-        <!-- 页面自动刷新 -->
-        <!-- <script src="http://localhost:35729/livereload.js"></script> -->
-        <!-- <%}%> -->
+    <!-- <% if(!htmlWebpackPlugin.options.env){ %>
+    <!-- 页面自动刷新 -->
+    <!-- <script src="http://localhost:35729/livereload.js"></script> -->
+    <!-- <%}%> -->
 </body>
 
 </html>
