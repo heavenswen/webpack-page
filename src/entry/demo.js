@@ -7,11 +7,9 @@ import Search from "assets/js/search-wyy"
 import 'assets/css/Focus-tip.css'
 import Tip from "assets/js/Focus-tip.js"
 
-import "assets/js/cpdf.js"
 //搜索框
 var search = new Search("#search", {
     callBack: function (v, fn) {
-
         return [
             {
                 title: "视频",
@@ -47,7 +45,7 @@ var search = new Search("#search", {
 
 //焦点提示
 var tip = new Tip();
-
+//焦点提示促使对象
 tip.initObj("input");
 
 

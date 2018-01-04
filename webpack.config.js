@@ -196,9 +196,8 @@ const config = {
     ]
   },
   plugins: [
-    //会跟 webpack-dev-server 冲突，导致js修改时找不到修改对象
-    // new LiveReloadPlugin({
-    // }),
+    //页面即时刷新 会跟--hot冲突，导致js修改时找不到修改对象
+    new LiveReloadPlugin({}),
     new HappyPack({
       id: 'js',
       // @see https://github.com/amireh/happypack

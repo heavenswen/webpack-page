@@ -1,7 +1,8 @@
 /**
  * new FocusTip()配置
- * .initObj("")执行绑定事件
- * @file 表单获得焦点提示说明
+ * 开发模式-模板模式 （配置init（））；
+ * .initObj("")执行绑定事件  
+ * @file 表单选中获得焦点提示说明
  * @author qiu(423822728@qq.com)
  * @class
  */
