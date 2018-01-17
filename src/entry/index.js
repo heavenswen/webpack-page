@@ -16,9 +16,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import App from 'views/app.vue'
 
-import Common from 'assets/js/common';
+import Q from 'assets/js/common';
 
-console.log(Common.winHref);
 
 Vue.use(ElementUI)
 new Vue({

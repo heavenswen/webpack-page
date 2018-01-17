@@ -58,8 +58,8 @@
                         //跳出循环
                         b = true;
                         //li同级class
-                        var siblings = this.siblings(li, active);
-                        setClass(siblings,"remove",active);
+                        var li_s = this.siblings(li, active);
+                        setClass(li_s,"remove",active);
                         li.classList.add(active);
                         //a同级class
                         var a_siblings = this.siblings(a, active);
@@ -76,9 +76,9 @@
          *同级选择器
          *@param {DOM} dom 对象
          *@param {String} str 要查找的同级选择器
-         *@return {Array} DOM 对象list 
+         *@return {Array} 对象列表
         */
-        siblings = function (dom, str) {
+        siblings:function (dom, str) {
             var list = dom.parentNode().querySelectorAll(str);
             var doms = undefined;
             for (var k in list) {
@@ -91,7 +91,7 @@
             return doms;
         },
         /**
-         * class 批量操作
+         * className 批量操作
          * @param {String} type toggle,add ,remove 三种
          */
         setClass:function(dom,type,className){
@@ -99,8 +99,22 @@
                 var obj = dom[key];
                 obj.classList[type](className);
             }
+        },
+        /**
+         * 多对象点击事件
+         * @param {String} traget css选择器
+         * @param {String} trigger Event
+         * @param {function} fn 函数
+         */
+        addEvent:function(traget,trigger,fn){
+            var list = document.querySelectorAll(traget);
+            if(!list.length)return undefined;
+            for(var i = 0;i<list.length;i++){
+                var li = list[i];
+                li.addEventListener(traget,trigger,fn,false);
+            }
+            return list;
         }
-
     }
     window.Common = common;
 })()
