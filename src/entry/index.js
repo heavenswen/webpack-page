@@ -18,6 +18,7 @@ import App from 'views/app.vue'
 
 import Q from 'assets/js/common';
 
+// Q.siblings(document.querySelector(".o"),"li");
 
 Vue.use(ElementUI)
 new Vue({
@@ -25,4 +26,7 @@ new Vue({
   render: h => h(App)
 })
 
+for(let fn of [1,2,3]){
+  console.log(fn);
+}
 
