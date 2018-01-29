@@ -14,17 +14,14 @@
     <a>页面导航</a>
     <% for(let v of htmlWebpackPlugin.options.list){ %>
       <% if( (v+'.html') != htmlWebpackPlugin.options.filename ){ %>
-
-        <a style='color:#f00' href="<%= v%>">
-          <%= v%>应用</a>
+        <div>
+          <a style='color:#f00' href="<%= v%>">
+            <%= v%>应用</a>
+        </div>
 
         <%}%>
           <%}%>
   </nav>
-  <fieldset>
-    <legend>vue 引入演示</legend>
-    <div id="app"></div>
-  </fieldset>
   <ol>
     <h3>htmlWebpackPlugin 参数
       <%= htmlWebpackPlugin %>

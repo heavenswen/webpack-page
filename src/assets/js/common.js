@@ -30,7 +30,7 @@
          * @param {String} className 
          */
         setClass(list, type = 'add', className) {
-            for (let obj in list) {
+            for (let obj of list) {
                 obj.classList[type](className);
             }
         },
@@ -75,7 +75,7 @@
             document.addEventListener('DOMContentLoaded', recalc, false)
         },
         /**
-         * 自动选中导航链接 请默认设置在 index页 应该到空时无法检索到
+         * 自动选中导航链接,正则比对 请默认设置在 index页 应该到空时无法检索到
          * @param {string} traget 导航列表组对象
          * @param {string} find 链接对象 
          * @param {string} active className 默认“active”
@@ -89,7 +89,7 @@
 
             for (let obj of list) {
 
-                //子集搜索
+                //间接集搜索
                 let as = obj.querySelectorAll(find);
 
                 for (var a of as) {
@@ -102,10 +102,10 @@
                     //匹配最接近的一个
                     if (win.match(reg)) {
                         //obj同级class
-                        setClass(this.siblings(obj, active), "remove", active);
+                        this.setClass(this.siblings(obj, active), "remove", active);
                         obj.classList.add(active);
                         //a同级class
-                        setClass(this.siblings(a, active), "remove", active);
+                        this.setClass(this.siblings(a, active), "remove", active);
                         a.classList.add(active);
                     }
                 }
