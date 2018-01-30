@@ -4,9 +4,9 @@
  * 采用es6 编译 在线编译 http://google.github.io/traceur-compiler/demo/repl.html#const%20a%20%3D%201%0Alet%20b%20%3D%201%0Avar%20c%20%3D%20%60123%24%7Bb%7D%60
  */
 ; (function () {
-    // classList 兼容 ie9+
-    if (!("class1" in document.documentElement)) {
-        Object.defineProperty(HTMLElement.prototype, 'class1', {
+    // classList对象 兼容 ie9+
+    if (!("classList" in document.documentElement)) {
+        Object.defineProperty(HTMLElement.prototype, 'classList', {
             get() {
                 //获得当前DOM节点
                 let obj = this;
@@ -22,11 +22,11 @@
                     // 暴露接口
                     return function (value) {
                         //当前index
-                         let  index = classes.indexOf(value);
+                        let index = classes.indexOf(value);
                         //type 处理
                         fn(index, value);
                         //合并数组classname
-                        if(classes)obj.className = classes.join(" ");
+                        if (classes) obj.className = classes.join(" ");
                     }
                 }
                 /**
@@ -39,23 +39,23 @@
                         this.value = obj.className//classList.value 真实的值 "classname classname"
                         //添加
                         this.add = update(function (index, value) {
-                            if(classes.length==1&&classes[0] == '')classes = [];
-                                //按位取反 布尔取反 
-                                if (!~index) classes.push(value);
+                            if (classes.length == 1 && classes[0] == '') classes = [];
+                            //按位取反 布尔取反 
+                            if (!~index) classes.push(value);
                         })
                         // 删除
                         this.remove = update(function (index) {
-                                //按位取反 ~-1 == 0
-                                if (~index) classes.splice(index, 1);
+                            //按位取反 ~-1 == 0
+                            if (~index) classes.splice(index, 1);
                         })
                         // 切换
                         this.toggle = update(function (index, value) {
                             //toggle 时只能有一个值
-                            if (~index){
+                            if (~index) {
                                 classes.splice(index, 1);
                             }
-                            else{
-                                   classes.push(value);
+                            else {
+                                classes.push(value);
                             }
                         })
                         // 检查
@@ -74,14 +74,44 @@
             }
         });
     }
-    //dataset 兼容
+    //dataset对象 兼容 ie9+
     if (!("dataset" in document.documentElement)) {
         Object.defineProperty(HTMLElement.prototype, 'dataset', {
             get() {
                 //获得当前DOM节点
                 let obj = this
+                let datasetObj = obj.attributes
+                /**
+                 * dataset 对象
+                 * @namespace
+                 */
+                let dataset = {};
+                for (let value of datasetObj) {
+                    let key = value.nodeName
+                    if (/^data-\w+$/.test(key)) {
+                        setObj(value)
+                    }
+                }
+                /**
+                 * dataset 对象
+                 * 生成双向绑定对象
+                 * @param {DOM} value 内容节点 
+                 */
+                function setObj(value) {
+                    //获得键名
+                    let name =  value.nodeName.match(/^data-(\w+)/)[1]
+                    Object.defineProperty(dataset, name, {
+                        enumerable:true,
+                        get() {
+                            return value.nodeValue
+                        },
+                        set(v) {
+                            value.nodeValue = v;
+                        }
+                    })
+                }
 
-                return {}
+                return dataset
             }
 
 
