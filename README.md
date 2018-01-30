@@ -23,7 +23,7 @@
         </p>
         <P>
             <code>
-                <img src="<%= require(`assets/img/big.png`) %>" alt="">
+                &lt;img src="<%= require(`assets/img/big.png`) %>" alt=""&elt;
             </code>
         </P>
         <P>
