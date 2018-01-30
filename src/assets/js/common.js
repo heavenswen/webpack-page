@@ -119,6 +119,7 @@
     }
 
     /**
+     * 公共类
      * @namespace
      */
     const COMMON = {

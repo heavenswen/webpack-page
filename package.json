@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "mon": "nodemon  --watch src/user/ --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
-    "work": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
+    "config": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "dev": "webpack-dev-server --inline ",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules  --colors "
   },
