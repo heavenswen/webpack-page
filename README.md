@@ -1,4 +1,3 @@
-#webpack-page config说明：
 <h2>
     webpack 多页环境搭建
 </h2>
@@ -55,7 +54,6 @@
 
 <h4>发布</h4>
 <code>
-
     <pre>npm run build</pre>
 </code>
 

@@ -18,6 +18,12 @@ import App from 'views/app.vue'
 
 import Q from 'assets/js/common';
 
+import S from 'assets/js/scrollAdd';
+
+new S({
+  target:"li",
+  modal:"img"
+});
 
 Vue.use(ElementUI)
 new Vue({

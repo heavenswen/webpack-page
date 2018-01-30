@@ -1,123 +1,10 @@
 /**
  * @file 公共类 单体模式
  * @author qiu(423822728@qq.com)
- * 采用es6 编译 在线编译 http://google.github.io/traceur-compiler/demo/repl.html#const%20a%20%3D%201%0Alet%20b%20%3D%201%0Avar%20c%20%3D%20%60123%24%7Bb%7D%60
+ * 采用es6 编译 在线编译 https://babeljs.cn/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&lineWrap=true&presets=es2015%2Ces2016%2Ces2017%2Creact%2Cstage-0%2Cstage-1%2Cstage-2%2Cstage-3%2Ces2015-loose&prettier=false&targets=&version=6.26.0&envVersion=
+ * 同级对象，多对象class操作，多对象实际绑定事件，rem适应方案，导航条获得焦点，
  */
 ; (function () {
-    // classList对象 兼容 ie9+
-    if (!("classList" in document.documentElement)) {
-        Object.defineProperty(HTMLElement.prototype, 'classList', {
-            get() {
-                //获得当前DOM节点
-                let obj = this;
-
-                /**
-                 * 处理函数
-                 * @param {Function} 回调具体执行方法
-                 * @return {Function}  
-                 */
-                //数组所有classname
-                let classes = obj.className.split(/\s+/g)
-                function update(fn) {
-                    // 暴露接口
-                    return function (value) {
-                        //当前index
-                        let index = classes.indexOf(value);
-                        //type 处理
-                        fn(index, value);
-                        //合并数组classname
-                        if (classes) obj.className = classes.join(" ");
-                    }
-                }
-                /**
-                 * classList 对象
-                 * @namespace
-                 */
-                class ClassObj extends Array {
-                    constructor(...val) {
-                        super(...val);
-                        this.value = obj.className//classList.value 真实的值 "classname classname"
-                        //添加
-                        this.add = update(function (index, value) {
-                            if (classes.length == 1 && classes[0] == '') classes = [];
-                            //按位取反 布尔取反 
-                            if (!~index) classes.push(value);
-                        })
-                        // 删除
-                        this.remove = update(function (index) {
-                            //按位取反 ~-1 == 0
-                            if (~index) classes.splice(index, 1);
-                        })
-                        // 切换
-                        this.toggle = update(function (index, value) {
-                            //toggle 时只能有一个值
-                            if (~index) {
-                                classes.splice(index, 1);
-                            }
-                            else {
-                                classes.push(value);
-                            }
-                        })
-                        // 检查
-                        this.contains = function (value) {
-                            //~0 == -1 !!-1 == true 
-                            return !!~obj.className.split(/\s+/g).indexOf(value);
-                        }
-                        //获取指定
-                        this.item = function (i) {
-                            return obj.className.split(/\s+/g)[i] || null;
-                        }
-                    }
-                }
-
-                return new ClassObj(...classes);
-            }
-        });
-    }
-    //dataset对象 兼容 ie9+
-    if (!("dataset" in document.documentElement)) {
-        Object.defineProperty(HTMLElement.prototype, 'dataset', {
-            get() {
-                //获得当前DOM节点
-                let obj = this
-                let datasetObj = obj.attributes
-                /**
-                 * dataset 对象
-                 * @namespace
-                 */
-                let dataset = {};
-                for (let value of datasetObj) {
-                    let key = value.nodeName
-                    if (/^data-\w+$/.test(key)) {
-                        setObj(value)
-                    }
-                }
-                /**
-                 * dataset 对象
-                 * 生成双向绑定对象
-                 * @param {DOM} value 内容节点 
-                 */
-                function setObj(value) {
-                    //获得键名
-                    let name =  value.nodeName.match(/^data-(\w+)/)[1]
-                    Object.defineProperty(dataset, name, {
-                        enumerable:true,
-                        get() {
-                            return value.nodeValue
-                        },
-                        set(v) {
-                            value.nodeValue = v;
-                        }
-                    })
-                }
-
-                return dataset
-            }
-
-
-        })
-    }
-
     /**
      * 公共类
      * @namespace
@@ -127,12 +14,12 @@
         /** 
          *同级选择器
          *@param {DOM} dom 对象
-         *@param {String} traget 要查找的同级选择器
+         *@param {String} target 要查找的同级选择器
          *@return {Array} 同级对象列表
         */
-        siblings(dom, traget) {
+        siblings(dom, target) {
             //父级
-            let list = dom.parentNode.querySelectorAll(traget)
+            let list = dom.parentNode.querySelectorAll(target)
             let arr = []
             for (let obj of list) {
                 if (obj != dom) {
@@ -154,27 +41,27 @@
         },
         /**
          * 多对象事件
-         * @param {String} traget css选择器
+         * @param {String} target css选择器
          * @param {String} trigger Event
          * @param {function} fn 函数
          */
-        addEvent(traget, trigger, fn) {
-            let list = document.querySelectorAll(traget)
+        addEvent(target, trigger, fn) {
+            let list = document.querySelectorAll(target)
             for (let obj of list) {
-                obj.addEventListener(traget, trigger, fn, false);
+                obj.addEventListener(target, trigger, fn, false);
             }
             return list;
         },
         /**
          * 多对象删除事件
-         * @param {String} traget css选择器
+         * @param {String} target css选择器
          * @param {String} trigger Event
          * @param {function} fn 函数
          */
-        removeEvent(traget, trigger, fn) {
-            let list = document.querySelectorAll(traget)
+        removeEvent(target, trigger, fn) {
+            let list = document.querySelectorAll(target)
             for (let obj of list) {
-                obj.removeEventListener(traget, trigger, fn, false);
+                obj.removeEventListener(target, trigger, fn, false);
             }
             return list;
         },
@@ -194,16 +81,16 @@
         },
         /**
          * 自动选中导航链接,正则比对 请默认设置在 index页 应该到空时无法检索到
-         * @param {string} traget 导航列表组对象
+         * @param {string} target 导航列表组对象
          * @param {string} find 链接对象 
          * @param {string} active className 默认“active”
          * @param {Function} fn 回调事件
          */
-        navActive(traget, find = "a", active = 'active', fn) {
+        navActive(target, find = "a", active = 'active', fn) {
             //当前链接
             let win = this.winHref
             //获得导航列表组
-            let list = document.querySelectorAll(traget)
+            let list = document.querySelectorAll(target)
 
             for (let obj of list) {
 
