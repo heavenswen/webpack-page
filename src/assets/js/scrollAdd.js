@@ -22,7 +22,7 @@
         }
         /**
          * 添加触发对象
-         * @param {string} css 选择器
+         * @param {string} target css选择器字符串
          * @public
          */
         add(target) {
@@ -31,6 +31,9 @@
         }
         /**
          * 图片懒加载
+         * @param {Object} data 对象数据
+         * @param {DOM}  data.obj dom对象
+         * @param {string} data.val data-img ||data-src 
          */
         setImageScroll(data) {
             // 执行缓存图片
@@ -46,36 +49,9 @@
                 // console.log(obj);
             }
         }
-
-        /**
-        * 执行匹配
-        * @event Select#scroll
-        *@private
-        */
-        targetFn() {
-            let winT = document.documentElement.scrollTop || document.body.scrollTop
-            //当前高度
-            winT += window.innerHeight
-            let arr = []
-            for (let val of that.datas) {
-                if (winT > val.top - that.ad) {
-                    //执行fn
-                    if (that.modal == "img" || that.modal == "src") {
-                        that.setImageScroll(val)
-                    } else {
-                        //普通模式
-                        if (that.scrollFn) that.scrollFn(val)
-                    }
-                } else {
-                    // 获得未触发数据
-                    arr.push(val);
-                }
-            }
-            //循环结束刷新对象数组
-            that.isDataFn(arr)
-        }
         /**
          * 判断数据状态，并执行
+         * @param {Array} data 数组对象
          */
         isDataFn(data) {
             this.datas = data
@@ -85,11 +61,12 @@
              *@private
             */
             let that = this
-            let targetFn = function() {
+            let targetFn = function () {
                 let winT = document.documentElement.scrollTop || document.body.scrollTop
                 //当前高度
                 winT += window.innerHeight
                 let arr = []
+                //遍历数组
                 for (let val of that.datas) {
                     if (winT > val.top - that.ad) {
                         //执行fn
@@ -105,37 +82,38 @@
                     }
                 }
                 //循环结束刷新对象数组
-                that.isDataFn(arr)
+                that.datas = arr
+                if (!that.datas.length) {
+                    that.isScroll = false;
+                    window.removeEventListener("scroll", targetFn, false)
+                }
             }
-
-            if (this.datas.length && !this.isScroll) {
+            //主动触发 第一次加载和add 时触发
+            if (that.datas.length && !that.isScroll) {
                 //主动检测
-                this.isScroll = true;
+                that.isScroll = true;
                 window.addEventListener("scroll", targetFn, false)
-                targetFn()
-            }else
-            if(!this.datas.length){
-                //（无效）每次执行当前方法时 targetFn 会被重新声明，因此执行remove方法的时候 targetFn !== 原有的方法了
-                // this.isScroll = false;
-                // window.removeEventListener("scroll", targetFn, false)
+                targetFn();
             }
 
         }
-
         /**
-         * 获得节点距离顶部的距离
+         * 获得节点距离顶部的距离的对象
          * @param {string} target css选择器
          */
         getDomTop(target) {
             let objs = document.querySelectorAll(target)
             /**
-             * 操作对象
+             * 操作对象组
              * @namespace
              */
             let data = []
 
             for (let obj of objs) {
-                //对象参数
+                /**
+                 * 操作对象 
+                 * @namespace
+                 */
                 let objData = {};
                 //距离顶部高度
                 objData.top = this.getDomOffset(obj)
@@ -144,6 +122,7 @@
                     // 懒加载
                     if (!obj.dataset[this.modal]) continue;
                     objData.value = obj.dataset[this.modal]
+                    // 清空数组
                     obj.dataset[this.modal] = '';
                 }
                 objData['obj'] = obj

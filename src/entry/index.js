@@ -31,11 +31,3 @@ new Vue({
   render: h => h(App)
 })
 
-
-let s = new S({
-  target:"li",
-  scrollFn(data){
-    console.log("li",data)
-  }
-});
-
