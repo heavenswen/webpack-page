@@ -31,17 +31,11 @@ new Vue({
   render: h => h(App)
 })
 
-let fn =  function(){
-  console.log("a")
-  document.removeEventListener("scroll",fn,false)
-}
-document.addEventListener("scroll",fn,false)
 
 let s = new S({
   target:"li",
   scrollFn(data){
-    console.log(data)
+    console.log("li",data)
   }
 });
 
-s.add(".dd");
