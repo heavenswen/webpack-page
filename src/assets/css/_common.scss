@@ -1,15 +1,17 @@
 //Q基础库
 //@import "*";
-//常量
-$sm: 768; //小屏幕比例
-$md: 992; //中屛
-$lg: 1200; //屏幕
-$mobile:true;//是否应用于手机端
-$flex:true;//使用flex布局
-$rem:100;
+//采用BEM 规则 （block）区块 （elements）元素 （Modifiers）修饰符
 
-//size math rem
-@function size($p,$u:px,$r:$rem) {
+//默认常量
+$SM: 768; //小屏幕比例
+$MD: 992; //中屛
+$LG: 1200; //屏幕
+$IE:10;//ie特效 flex ie10+
+$REM:100;//rem 比例
+
+
+//size math rem(数值,单位,比例) size()
+@function size($p,$u:px,$r:$REM) {
     @if $u == px{
         //普通
         @return $p+$u; 
@@ -18,20 +20,23 @@ $rem:100;
     }
 }
 
-//font style
-$f-style:'Microsoft YaHei',Arial, Helvetica, sans-serif;
-$f:16px;//font default
-$f-sm:12px; //font small
+//font
+// family
+$F-F:'Microsoft YaHei',Arial, Helvetica, sans-serif;
+//default
+$F-S_defaulet:szie(16);//font default
+$F-S_min:size(12); //font small
 
 //color
-$blue:#39f;
-$red:#f00;
-$orange:#ff9600;
-$green:green;
+$BLUE:#39f;
+$RED:#f00;
+$ORGAE:#ff9600;
+$GREEN:green;
 
 //标签  数组是从1开始的 引用nth($hs,1)
-$hs: h1,h2,h3,h4,h5,h6; 
-$all:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,textarea;
+$H: h1,h2,h3,h4,h5,h6; 
+// 常用标签
+$ALL:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,textarea;
 
 
 //transition time
@@ -69,6 +74,14 @@ $transition-t:.3;
     justify-content: center;
     align-items: center;
 }
+
+
+//container 类bs
+@mixin bs(){
+
+
+}
+
 
 //外观
 //三角形 （方向，宽，高,颜色）@include triangle()
@@ -126,6 +139,7 @@ $transition-t:.3;
            display: flex;
            $w:100%/($n+1);
             @if $new == 1 {
+                //回到根级
                 @at-root(without:all){
                     @keyframes scaleY {
                         0%,100%{

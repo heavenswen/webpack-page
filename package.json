@@ -47,5 +47,13 @@
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.5.1",
     "webpack-livereload-plugin": "^0.11.0"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie < 10",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ]
 }

@@ -1,49 +1,44 @@
-@import "~./_common.scss";  
-
-
-
+@import "~./_common.scss";
 //my.css
- 
-
-#{$all} {
-	margin: 0;
-	padding: 0;
+#{$ALL} {
+    margin: 0;
+    padding: 0;
 }
 
 * {
-	outline: 0 !important;
+    outline: 0 !important;
 }
 
-#{$hs}{
-	font-weight:normal; 
+#{$H} {
+    font-weight: normal;
 }
+
 button,
 input[type=radio],
 input[type=checkbox],
 a {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 a {
-	text-decoration: none;
-	background: transparent;
-	color: inherit;
-	font-size: inherit
+    text-decoration: none;
+    background: transparent;
+    color: inherit;
+    font-size: inherit
 }
 
 a img {
-	border: 0 none;
+    border: 0 none;
 }
 
 ul {
-	list-style: none;
+    list-style: none;
 }
 
-
 html {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 audio,
@@ -51,147 +46,152 @@ canvas,
 progress,
 video,
 .row {
-	display: inline-block;
-	vertical-align: baseline;
+    display: inline-block;
+    vertical-align: baseline;
 }
 
 *,
 *:after,
 *:before {
-	box-sizing: inherit;
-	-moz-box-sizing: inherit;
-	-webkit-box-sizing: inherit;
+    box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    -webkit-box-sizing: inherit;
 }
 
 .row {
-	clear: both;
-	width: 100%;
+    clear: both;
+    width: 100%;
 }
 
 *:after {
-	content: '';
-	clear: both;
-	height: 0;
+    content: '';
+    clear: both;
+    height: 0;
 }
-
 
 /*text*/
 
 .small {
-	font-size: $f-sm;
+    font-size: $f-sm;
 }
 
 .normal {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 .bold {
-	font-weight: 700;
+    font-weight: 700;
 }
 
 .f-blue {
-	color: $blue;
+    color: $blue;
 }
 
 .f-red {
-	color:$red;
+    color: $red;
 }
 
 .f-orange {
-	color:$orange;
+    color: $orange;
 }
-.f-green{
-	color: $green
+
+.f-green {
+    color: $green
 }
 
 .text-left {
-	text-align: left;
+    text-align: left;
 }
 
 .text-right {
-	text-align: right;
+    text-align: right;
 }
 
 .text-center {
-	text-align: center;
+    text-align: center;
 }
 
 /*container*/
+
 .pull-right {
-	float: right;
+    float: right;
 }
 
 .pull-left {
-	float: left;
-}
-.block{
-	display: block;
-}
-.none{
-	display: none;
-}
-@if $flex == true{
-//flex 下 text-align pull-right 无效
-//并排
-.flex-center,.flex-left,.flex-right,.flex,.flex-auto{
-	display: flex;
-}
-.flex-center{
-	justify-content:center;
-}
-.flex-left{
-	justify-content:flex-start;
-}
-.flex-right{
-	justify-content:flex-end;
+    float: left;
 }
 
-
-//中对齐 
-.flex-auto{
-	justify-content:center;
-	align-items: center ;
-	flex:0 0 auto;
-}
-.flex-middle{
-	align-items: center ;
-}
-//上对齐
-.flex-top{
-	align-items: flex-start ;
-}
-//下对齐
-.flex-bottom{
-	align-items: flex-end ;
-}
-.item-inline{
-	display: inline-flex;
-}
-//父级为flex 
-.item-center{
-align-self:center;
-}
-.item-top{
-	align-self:flex-start;
-}
-.item-bottom{
-	align-self:flex-end;
+.block {
+    display: block;
 }
 
+.none {
+    display: none;
 }
-@if $mobile == true {
-	.container{
-		margin-left:15px;
-		margin-right:15px; 
-	}
-    
-} 
-.box img{
-	max-width:100%;
+
+@if $IE10==true {
+    //flex 下 text-align pull-right 无效
+    //并排
+    .flex-center,
+    .flex-left,
+    .flex-right,
+    .flex,
+    .flex-auto {
+        display: flex;
+    }
+    .flex-center {
+        justify-content: center;
+    }
+    .flex-left {
+        justify-content: flex-start;
+    }
+    .flex-right {
+        justify-content: flex-end;
+    }
+    //中对齐 
+    .flex-auto {
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 auto;
+    }
+    .flex-middle {
+        align-items: center;
+    }
+    //上对齐
+    .flex-top {
+        align-items: flex-start;
+    }
+    //下对齐
+    .flex-bottom {
+        align-items: flex-end;
+    }
+    .item-inline {
+        display: inline-flex;
+    }
+    //父级为flex 
+    .item-center {
+        align-self: center;
+    }
+    .item-top {
+        align-self: flex-start;
+    }
+    .item-bottom {
+        align-self: flex-end;
+    }
 }
+
+.container {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.box img {
+    max-width: 100%;
+}
+
 /*page*/
-body{
-	font-family: $f-style;
-	font-size: size(14,px);
-}
 
+body {
+    font-family: $f-style;
+    font-size: size(14, px);
+}
