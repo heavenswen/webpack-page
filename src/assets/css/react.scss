@@ -1,6 +1,6 @@
 @import "~./_common.scss";
 //my.css
-#{$ALL} {
+#{$All} {
     margin: 0;
     padding: 0;
 }
@@ -31,10 +31,6 @@ a img {
     border: 0 none;
 }
 
-ul {
-    list-style: none;
-}
-
 html {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -45,7 +41,7 @@ audio,
 canvas,
 progress,
 video,
-.row {
+{
     display: inline-block;
     vertical-align: baseline;
 }
@@ -57,141 +53,27 @@ video,
     -moz-box-sizing: inherit;
     -webkit-box-sizing: inherit;
 }
-
-.row {
-    clear: both;
-    width: 100%;
-}
-
+//去浮动
 *:after {
-    content: '';
-    clear: both;
-    height: 0;
+	content: '';
+	clear: both;
+	height: 0;
 }
+
+
 
 /*text*/
 
-.small {
-    font-size: $f-sm;
-}
-
-.normal {
-    font-weight: normal;
-}
-
-.bold {
-    font-weight: 700;
-}
-
-.f-blue {
-    color: $blue;
-}
-
-.f-red {
-    color: $red;
-}
-
-.f-orange {
-    color: $orange;
-}
-
-.f-green {
-    color: $green
-}
-
-.text-left {
-    text-align: left;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.text-center {
-    text-align: center;
-}
-
 /*container*/
+@include container();
+@include css-flex();
+@include css-flex-media();
 
-.pull-right {
-    float: right;
-}
-
-.pull-left {
-    float: left;
-}
-
-.block {
-    display: block;
-}
-
-.none {
-    display: none;
-}
-
-@if $IE10==true {
-    //flex 下 text-align pull-right 无效
-    //并排
-    .flex-center,
-    .flex-left,
-    .flex-right,
-    .flex,
-    .flex-auto {
-        display: flex;
-    }
-    .flex-center {
-        justify-content: center;
-    }
-    .flex-left {
-        justify-content: flex-start;
-    }
-    .flex-right {
-        justify-content: flex-end;
-    }
-    //中对齐 
-    .flex-auto {
-        justify-content: center;
-        align-items: center;
-        flex: 0 0 auto;
-    }
-    .flex-middle {
-        align-items: center;
-    }
-    //上对齐
-    .flex-top {
-        align-items: flex-start;
-    }
-    //下对齐
-    .flex-bottom {
-        align-items: flex-end;
-    }
-    .item-inline {
-        display: inline-flex;
-    }
-    //父级为flex 
-    .item-center {
-        align-self: center;
-    }
-    .item-top {
-        align-self: flex-start;
-    }
-    .item-bottom {
-        align-self: flex-end;
-    }
-}
-
-.container {
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.box img {
-    max-width: 100%;
-}
+//并排
 
 /*page*/
 
 body {
-    font-family: $f-style;
+    font-family: $F-F;
     font-size: size(14, px);
 }

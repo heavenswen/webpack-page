@@ -1,8 +1,9 @@
 /**
  * @file 公共类 单体模式
  * @author qiu(423822728@qq.com)
- * 采用es6 编译 在线编译 https://babeljs.cn/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&lineWrap=true&presets=es2015%2Ces2016%2Ces2017%2Creact%2Cstage-0%2Cstage-1%2Cstage-2%2Cstage-3%2Ces2015-loose&prettier=false&targets=&version=6.26.0&envVersion=
+ * 采用es6 编译 在线编译 https://babeljs.cn/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=6.26.0&envVersion=
  * 同级对象，多对象class操作，多对象实际绑定事件，rem适应方案，导航条获得焦点，
+ * classlist dataset ie11+
  */
 ; (function () {
     /**
@@ -80,41 +81,61 @@
             document.addEventListener('DOMContentLoaded', recalc, false)
         },
         /**
-         * 自动选中导航链接,正则比对 请默认设置在 index页 应该到空时无法检索到
+         * 自动选中导航链接,正则比对,尾部匹配
          * @param {string} target 导航列表组对象
          * @param {string} find 链接对象 
          * @param {string} active className 默认“active”
-         * @param {Function} fn 回调事件
+         * @param {string} index 导航上首页地址 / || index.* 
+         * @param {Function} fn 回调匹配的对象 和链接对象
          */
-        navActive(target, find = "a", active = 'active', fn) {
+        navActive(target,index='', find = "a", active = 'active',fn) {
+
+      
             //当前链接
             let win = this.winHref
+
             //获得导航列表组
             let list = document.querySelectorAll(target)
 
+            // win = `http://192.168.1.107:8010/index.html?a=index&b=nav`
+            // 检测 ‘/’状态
+            win = win.replace(/\/$/i, "\/"+index)
+
+
             for (let obj of list) {
-
-                //间接集搜索
                 let as = obj.querySelectorAll(find);
-
+                //链接集搜索
                 for (var a of as) {
                     //链接目标对象
                     var href = a.href;
                     if (!href) return;
                     //转义
-                    href = href.replace(/(\?|\.)/g, "\\$1");
+                    href = href.replace(/(\?|\.)/g, "\\$1")+'$';
                     var reg = RegExp(href, "ig");
                     //匹配最接近的一个
                     if (win.match(reg)) {
-                        //obj同级class
-                        this.setClass(this.siblings(obj, active), "remove", active);
-                        obj.classList.add(active);
-                        //a同级class
-                        this.setClass(this.siblings(a, active), "remove", active);
-                        a.classList.add(active);
+                        if (fn) {
+                            fn(obj, a);
+                        } else {
+                            let sibs = this.siblings(obj, "." + active)
+                            this.setClass(sibs, "remove", active);
+                            obj.classList.add(active);
+                            //a同级class
+                            this.setClass(this.siblings(a, active), "remove", active);
+                            a.classList.add(active);
+                        }
                     }
                 }
             }
+
+            /**
+             * 链接数据获取
+             */
+            function foreach(obj) {
+
+            }
+
+
         },
 
     }

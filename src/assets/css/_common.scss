@@ -1,66 +1,82 @@
 //Q基础库
 //@import "*";
-//采用BEM 规则 （block）区块 （elements）元素 （Modifiers）修饰符
-
+//采用BEM 规则 （block）区块 （elements）元素 （Modifiers）修饰符 block-element_Mod
+//1页面上不建议出现空className
+//2js不建议用data-来操控,因为它表示为自定义数据，可以用[rel='']或id
 //默认常量
-$SM: 768; //小屏幕比例
-$MD: 992; //中屛
-$LG: 1200; //屏幕
-$IE:10;//ie特效 flex ie10+
-$REM:100;//rem 比例
+//手机,小屏幕比例,中屛,屏幕
 
-
+$WIN:(sm:562,md:768,lg:992,xl:1200);
+$IE:10; //兼容到n
+$Rem:100; //rem 比例
+$Container-margin:15; //容器默认边距
 //size math rem(数值,单位,比例) size()
-@function size($p,$u:px,$r:$REM) {
-    @if $u == px{
+@function size($p, $u:px, $r:$Rem) {
+    @if $u==px {
         //普通
-        @return $p+$u; 
-    }@else if $u == rem{
+        @return $p+$u;
+    }
+    @else if $u==rem {
         @return ($p/$r)+$u;
     }
 }
 
 //font
 // family
-$F-F:'Microsoft YaHei',Arial, Helvetica, sans-serif;
+$F-F:'Microsoft YaHei',
+Arial,
+Helvetica,
+sans-serif;
 //default
-$F-S_defaulet:szie(16);//font default
-$F-S_min:size(12); //font small
-
+$F-size_defaulet:szie(16); //font default
+$F-size_min:size(12); //font small
 //color
-$BLUE:#39f;
-$RED:#f00;
-$ORGAE:#ff9600;
-$GREEN:green;
-
+$Blue:#39f;
+$Red:#f00;
+$Orage:#ff9600;
+$Greem:green;
 //标签  数组是从1开始的 引用nth($hs,1)
-$H: h1,h2,h3,h4,h5,h6; 
+$H: h1,
+h2,
+h3,
+h4,
+h5,
+h6;
 // 常用标签
-$ALL:body,h1,h2,h3,h4,h5,h6,label,ul,li,dl,dt,dd,p,span,strong,input,select,textarea;
-
-
-//transition time
-$transition-t:.3;
-
-//定位
-// 利用absolute 上下居中 @include position-mid()
-@mixin position-mid($position:absolute){
+$All:body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+ul,
+li,
+dl,
+dt,
+dd,
+p,
+span,
+strong,
+input,
+select,
+textarea;
+//transition time 默认过渡时间
+$Transition-time:.3s;
+//排版
+// 利用absolute,fixed +transform上下居中 @include position-mid()
+@mixin position_mid($position:absolute) {
     position: $position;
     top: 50%;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     margin: auto;
-   transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
-//使用flex 父级
-@mixin flex-auto(){
-    display:flex;
-    align-content: center;
-}
-
-//absolute and margin 上下左右居中 必须有宽高
-@mixin position-auto($position:absolute) {
+//absolute and margin 上下左右居中 必须有宽高,否则全屏
+@mixin position_center($position:absolute) {
     position: $position;
     top: 0;
     bottom: 0;
@@ -68,20 +84,119 @@ $transition-t:.3;
     right: 0;
     margin: auto;
 }
-//使用flex 父级
-@mixin flex-auto(){
-    display:flex;
-    justify-content: center;
-    align-items: center;
+
+//生成css 代码块 flex 布局 ie10+
+@mixin css-flex() {
+    //允许换行
+    .flex-row,
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+    } //抵消container padding
+    .flex-row {
+        margin-left: $Container-margin*-1+px;
+        margin-right: $Container-margin*-1+px;
+    } //去除边框
+    .no-gutters {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .no-gutters>.col,
+    .no-gutters>[class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    [class*="col-"] {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    } //自动填充
+    .col {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+    } //默认当前大小
+    .col_auto {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: none;
+    }
+    @for $i from 1 to 12 {
+        //$i到9
+        .col_#{$i} {
+            flex: $i*(100/12)+%;
+            max-width: $i*(100/12)+%;
+        }
+        .order_#{$i} {
+            order: $i;
+        }
+        .offset_#{$i} {
+            margin-left: $i*(100/12)+%;
+        }
+    } //排在第一个
+    .order_first {
+        order: -1;
+    } //排在第最后一个
+    .order_last {
+        order: 13;
+    }
 }
 
+//flex 响应
+@mixin css-flex-media() {
 
-//container 类bs
-@mixin bs(){
+    @each $w,$v in $WIN{
+        @media (min-width: $v+px) {
+            .col-#{$w} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+            .col-#{$w}_auto {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: none;
+            }
+            @for $i from 1 to 12 {
+                //$i到9
+                .col-#{$w}_#{$i} {
+                    flex: $i*(100/12)+%;
+                    max-width: $i*(100/12)+%;
+                }
+                .order-#{$w}_#{$i} {
+                    order: $i;
+                }
+                .offset-#{$w}_#{$i} {
+                    margin-left: $i*(100/12)+%;
+                }
+            }
+            .order-#{$w}_first {
+                order: -1;
+            } //排在第最后一个
+            .order-#{$w}_last {
+                order: 13;
+            }
 
+        }
 
+    }
+   
+    
 }
 
+//container 响应式布局 类bs
+@mixin container() {
+    .container {
+        max-width: map-get($WIN,xl)+px;
+        padding-right: $Container-margin+px;
+        padding-left: $Container-margin+px;
+    } //图片不能超过自己的真实大小，会失真
+    .img-fluid {
+        max-width: 100%;
+    }
+}
 
 //外观
 //三角形 （方向，宽，高,颜色）@include triangle()
@@ -94,91 +209,86 @@ $transition-t:.3;
     border-#{$t}-color: $c;
 }
 
-
-
-//打×图标 div>i*3 状态 颜色
-@mixin icon-close-btn($active:active,$c:#000){
-    overflow:hidden;
-
-    &>i{
+//打×图标 element>i*3 焦点 颜色 需要宽高
+@mixin icon-close($active:active, $c:#000) {
+    overflow: hidden;
+    &>* {
         border-radius: 5px;
-        display:block;
+        display: block;
         margin: auto;
         width: 80%;
         height: 10%;
         margin-top: 17.28%;
-        background-color:$c;
+        background-color: $c;
         @include transition();
     }
-    &.#{$active}{
-        &>i{
+}
 
-            &:nth-of-type(1){
+//生成一个X按钮
+@mixin btn-icon-close($active:active, $c:#000) {
+    @include icon-close($active, $c);
+    &.#{$active} {
+        &>* {
+            &:nth-of-type(1) {
                 // width: calc( 100%*1.4142 );
                 // transform-origin:0 center ;
-                transform:translateY(272.8%) rotate(45deg) ;
+                transform: translateY(272.8%) rotate(45deg);
             }
-            &:nth-of-type(2){
-                transform: translate3D(100%,0,0);
+            &:nth-of-type(2) {
+                transform: translate3D(100%, 0, 0);
                 opacity: 0;
             }
-            &:nth-of-type(3){
+            &:nth-of-type(3) {
                 // width: calc( 100%*1.4142 );
                 // transform-origin:0 center;
-                transform:translateY(-272.8%)  rotate(-45deg);
+                transform: translateY(-272.8%) rotate(_45deg);
             }
-
         }
     }
 }
 
-
 //加载图标 div>i*3  @include  必须设置狂傲 
-@mixin icon-loading($c:#39c,$n:3,$new:1){
-            //kf end
-           display: flex;
-           $w:100%/($n+1);
-            @if $new == 1 {
-                //回到根级
-                @at-root(without:all){
-                    @keyframes scaleY {
-                        0%,100%{
-                            transform: scaleY(.3)
-                        }
-                        50%{
-                            transform: scaleY(1)
-                        }
-                    }
+@mixin icon-loading($c:#39c, $n:3, $new:1) {
+    //kf end
+    display: flex;
+    $w: 100%/($n+1);
+    @if $new==1 {
+        //回到根级
+        @at-root(without: all) {
+            @keyframes scaleY {
+                0%, 100% {
+                    transform: scaleY(.3)
+                }
+                50% {
+                    transform: scaleY(1)
                 }
             }
-
-            &>i{
-
-                width:$w;
-                height: 100%;
-                margin-right:$w/($n - 1) ;
-                background-color:$c; 
-                animation: scaleY 1s linear infinite;
-                transform-origin:center bottom; 
-                &:nth-last-of-type(1){
-                    margin-right: 0;
-                }
-                @for $i from 0 to $n{
-                    &:nth-of-type(#{$i+1}){
-                        animation-delay: -0.3*$i+s;
-                    }
-
-                }
-
+        }
+    }
+    &>i {
+        width: $w;
+        height: 100%;
+        margin-right: $w/($n - 1);
+        background-color: $c;
+        animation: scaleY 1s linear infinite;
+        transform-origin: center bottom;
+        &:nth-last-of-type(1) {
+            margin-right: 0;
+        }
+        @for $i from 0 to $n {
+            &:nth-of-type(#{$i+1}) {
+                animation-delay: -0.3*$i+s;
             }
+        }
+    }
 }
 
 //蒙板 (active焦点，背后颜色，进入效果，消失效果)
 //document.querySelector("").classList.toggle('active')
-@mixin mask-bg($showCl:active,$c:rgba(0,0,0,.6),$leave:scale(1),$enter:scale(1)){
+@mixin mask-bg($showCl:active, $c:rgba(0, 0, 0, .6), $leave:scale(1), $enter:scale(1)) {
     position: fixed;
     left: 0;
-    top:0;
+    top: 0;
     width: 100%;
     height: 100%;
     @include transition();
@@ -187,54 +297,48 @@ $transition-t:.3;
     transform: $leave;
     background-color: $c;
     pointer-events: none;
-    &.#{$showCl}{
-        opacity:1;
-        transform:$enter;
+    &.#{$showCl} {
+        opacity: 1;
+        transform: $enter;
         pointer-events: auto;
     }
 }
 
 //变形
-
 //快速过渡@include transition()
 @mixin transition($type:all, $s:$transition-t, $ease:ease) {
     transition: $type $s+s $ease;
 }
-
 
 //媒体
 //@content 可以用来解决css3的@media等带来的问题。它可以使@mixin接受一整块样式
 //@include max-media(480px) {
 //body { color: red }
 //}
-
 //最大尺寸（npx）
 @mixin max-media($w) {
-    @media( max-width: $w ) {
+    @media( max-width: $w) {
         @content;
     }
 }
+
 //最小尺寸小（npx）
 @mixin min-media($w) {
-    @media( min-width: $w ) {
+    @media( min-width: $w) {
         @content;
     }
 }
-//animate
 
+//animate
 //循环
 //@each $child in $array{ //child... }
 //@for $i from 1 to 10{ //$i到9}
-
 //跳出嵌套 @at-root
 //@at-root (without: media)，@at-root (without: support)。这个语法的关键词有四个：all（表示所有），rule（表示常规css），media（表示media），support（表示support，因为@support目前还无法广泛使用，所以在此不表）。我们默认的@at-root其实就是@at-root (without:rule)。
 //继承 @extend h1; 继承选择器的样式
-
 //function @function pxToRem($px) {@return $px / $baseFontSize * 1rem;}
 //引用 body{font-size:pxToRem(16px);}
-
 //if @if $type == ocean {color: blue;} 
 //@else if $type == matador {color: red;}
 // @else {  color: black;}
-
-//@extend 引用已有的样式 @extend h1 
+//@extend 引用已有的样式 @extend h1

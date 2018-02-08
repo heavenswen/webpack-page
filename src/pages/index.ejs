@@ -19,13 +19,46 @@
         <li>修改webpack.config自动重启webpack（$ npm start），js热更新，页面需改自动刷新 http://localhost:35729/livereload.js</li>
     </ol>
 
-    <h2>图片引入</h2>
-    <div class="box">
+    <h3>图片引入</h3>
+    <div class="box" style="width: 200px">
         <!-- 引入图片 -->
-        <img src="<%= require(`assets/img/big.png`) %>" alt="">
+        <img class="img-fluid" src="<%= require(`assets/img/big.png`) %>" alt="">
     </div>
-    <h2>vue引入</h2>
+    <h3>vue引入</h3>
     <div id="app"></div>
+    <div class="container">
+        <fieldset >
+            <legend>css demo</legend>
+            <p>css 引入BEM 思想 方面定制和管理css</p>
+
+            <h4>col 删栏布局</h4>
+            <style>
+                .col:nth-of-type(odd){
+                    background: #f33;
+                }
+                .col:nth-of-type(even){
+                    background: #ff3;
+                }
+            </style>
+            <div class="flex">
+                <div class="col col-sm_4 order_last">1</div>
+                <div class="col col-sm_4">2</div>
+                <div class="col col-sm_4">3</div>
+                <div class="col col-sm_4">4</div>
+                <div class="col col-sm_4">5</div>
+                <div class="col col-sm_4">6</div>
+                <div class="col col-sm_4">7</div>
+                <div class="col col-sm_4">8</div>
+                <div class="col col-sm_4">9</div>
+                <div class="col col-sm_4">10</div>
+                <div class="col col-sm_4">11</div>
+                <div class="col col-sm_4">12</div>
+            </div>
+
+    
+        </fieldset>
+    </div>
+
     <!-- <% if(!htmlWebpackPlugin.options.env){ %> -->
     <!-- 页面自动刷新 -->
     <!-- <script src="http://localhost:35729/livereload.js"></script> -->
