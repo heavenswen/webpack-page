@@ -5,8 +5,8 @@
 //2js不建议用data-来操控,因为它表示为自定义数据，可以用[rel='']或id
 //默认常量
 //手机,小屏幕比例,中屛,屏幕
-
-$WIN:(sm:562,md:768,lg:992,xl:1200);
+$WIN:(sm:562, md:768, lg:992, xl:1200);
+// map-get($arr,key) map 数组调用
 $IE:10; //兼容到n
 $Rem:100; //rem 比例
 $Container-margin:15; //容器默认边距
@@ -33,7 +33,7 @@ $F-size_min:size(12); //font small
 //color
 $Blue:#39f;
 $Red:#f00;
-$Orage:#ff9600;
+$Orange:#ff9600;
 $Greem:green;
 //标签  数组是从1开始的 引用nth($hs,1)
 $H: h1,
@@ -83,11 +83,9 @@ $Transition-time:.3s;
     left: 0;
     right: 0;
     margin: auto;
-}
-
-//生成css 代码块 flex 布局 ie10+
+} //生成css 代码块 flex 布局 ie10+
 @mixin css-flex() {
-    //允许换行
+    //弹性布局
     .flex-row,
     .flex {
         display: flex;
@@ -106,7 +104,7 @@ $Transition-time:.3s;
         padding-right: 0;
         padding-left: 0;
     }
-    [class*="col-"] {
+    [class^="col"] {
         position: relative;
         width: 100%;
         min-height: 1px;
@@ -123,15 +121,105 @@ $Transition-time:.3s;
         width: auto;
         max-width: none;
     }
+    //水平
+    // 对齐left
+    .justify-content_start {
+        justify-content: flex-start ;
+    }
+    // 对齐right    
+    .justify-content_end {
+        justify-content: flex-end ;
+    }
+    // 居中
+    .justify-content_center {
+        justify-content: center ;
+    }
+    .justify-content_between {
+        justify-content: space-between ;
+    }
+    .justify-content_around {
+        justify-content: space-around ;
+    }
+    //垂直方向
+    .align-items_start {
+        align-items: flex-start;
+      }
+      
+      .align-items_end {
+        align-items: flex-end;
+      }
+      
+      .align-items_center {
+        align-items: center;
+      }
+      
+      .align-items_baseline {
+        align-items: baseline;
+      }
+      
+      .align-items_stretch {
+        align-items: stretch;
+      }
+      
+      .align-content_start {
+        align-content: flex-start;
+      }
+      
+      .align-content_end {
+        align-content: flex-end;
+      }
+      
+      .align-content_center {
+        align-content: center;
+      }
+      
+      .align-content_between {
+        align-content: space-between;
+      }
+      
+      .align-content_around {
+        align-content: space-around;
+      }
+      
+      .align-content_stretch {
+        align-content: stretch;
+      }
+      
+      .align-self_auto {
+        align-self: auto;
+      }
+      
+      .align-self_start {
+        align-self: flex-start;
+      }
+      
+      .align-self_end {
+        align-self: flex-end;
+      }
+      
+      .align-self_center {
+        align-self: center;
+      }
+      
+      .align-self_baseline {
+        align-self: baseline;
+      }
+      
+      .align-self_stretch {
+        align-self: stretch;
+      }
+
     @for $i from 1 to 12 {
         //$i到9
         .col_#{$i} {
             flex: $i*(100/12)+%;
             max-width: $i*(100/12)+%;
         }
+        // 排位
         .order_#{$i} {
             order: $i;
         }
+        // 间隔
         .offset_#{$i} {
             margin-left: $i*(100/12)+%;
         }
@@ -142,12 +230,10 @@ $Transition-time:.3s;
     .order_last {
         order: 13;
     }
-}
-
-//flex 响应
+} //flex 响应
 @mixin css-flex-media() {
-
-    @each $w,$v in $WIN{
+    @each $w,
+    $v in $WIN {
         @media (min-width: $v+px) {
             .col-#{$w} {
                 flex-basis: 0;
@@ -172,29 +258,38 @@ $Transition-time:.3s;
                     margin-left: $i*(100/12)+%;
                 }
             }
+            //排在第一个
             .order-#{$w}_first {
                 order: -1;
             } //排在第最后一个
             .order-#{$w}_last {
                 order: 13;
             }
-
         }
-
     }
-   
-    
 }
 
 //container 响应式布局 类bs
 @mixin container() {
+    // container
     .container {
-        max-width: map-get($WIN,xl)+px;
+        max-width: map-get($WIN, xl)+px;
         padding-right: $Container-margin+px;
         padding-left: $Container-margin+px;
+        margin-right: auto;
+        margin-left: auto;
     } //图片不能超过自己的真实大小，会失真
-    .img-fluid {
+    .img_fluid {
         max-width: 100%;
+    } //text
+    .text_left {
+        text-align: left;
+    }
+    .text_right {
+        text-align: right;
+    }
+    .text_center {
+        text-align: center;
     }
 }
 

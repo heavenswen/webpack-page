@@ -61,19 +61,12 @@ video,
 }
 
 
-
-/*text*/
-
-/*container*/
-@include container();
-@include css-flex();
-@include css-flex-media();
-
-//并排
-
 /*page*/
 
 body {
     font-family: $F-F;
     font-size: size(14, px);
 }
+@include container();
+@include css-flex();
+@include css-flex-media();

@@ -10,52 +10,192 @@
 </head>
 
 <body>
-    <h1>webpack 多页应用</h1>
-    <ol>
-        <li>集成了js、css、img压缩</li>
-        <li class="o">编译es6、sass、vue</li>
-        <li>自动添浏览器前缀postcss</li>
-        <li>资源小于100时自动嵌入</li>
-        <li>修改webpack.config自动重启webpack（$ npm start），js热更新，页面需改自动刷新 http://localhost:35729/livereload.js</li>
-    </ol>
-
-    <h3>图片引入</h3>
-    <div class="box" style="width: 200px">
-        <!-- 引入图片 -->
-        <img class="img-fluid" src="<%= require(`assets/img/big.png`) %>" alt="">
-    </div>
-    <h3>vue引入</h3>
-    <div id="app"></div>
     <div class="container">
-        <fieldset >
-            <legend>css demo</legend>
+        <h1 class="text_center">webpack 多页应用</h1>
+        <ol>
+            <li>集成了js、css、img压缩</li>
+            <li class="o">编译es6、sass、vue</li>
+            <li>自动添浏览器前缀postcss</li>
+            <li>资源小于100时自动嵌入</li>
+            <li>修改webpack.config自动重启webpack（$ npm start），js热更新，页面需改自动刷新 http://localhost:35729/livereload.js</li>
+        </ol>
+
+        <h3 class="text_center">图片引入</h3>
+        <div class="box" style="width: 200px">
+            <!-- 引入图片 -->
+            <img class="img_fluid" src="<%= require(`assets/img/big.png`) %>" alt="">
+        </div>
+
+        <h3 class="text_center">vue引入</h3>
+        <div id="app"></div>
+        <h3 class="text_center">FLEX弹性布局</h3>
+
+        <fieldset>
+            <legend class="text_center">
+                <big>
+                    IE10+
+                </big>
+            </legend>
             <p>css 引入BEM 思想 方面定制和管理css</p>
 
-            <h4>col 删栏布局</h4>
             <style>
-                .col:nth-of-type(odd){
+                .flex {
+                    margin-bottom: 10px;
+                    background-color: rgba(255, 255, 255, .2)
+                }
+
+                .h {
+                    height: 80px;
+                }
+                
+
+                [class^="col"] {
+                    height: 40px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                }
+
+                [class^="col"]:nth-of-type(odd) {
+                    background: #39f;
+                }
+
+                [class*="col"]:nth-of-type(even) {
                     background: #f33;
                 }
-                .col:nth-of-type(even){
-                    background: #ff3;
-                }
+              
             </style>
+            <h4 class="text_center">col col-*_n 删栏布局</h4>
             <div class="flex">
-                <div class="col col-sm_4 order_last">1</div>
-                <div class="col col-sm_4">2</div>
-                <div class="col col-sm_4">3</div>
-                <div class="col col-sm_4">4</div>
-                <div class="col col-sm_4">5</div>
-                <div class="col col-sm_4">6</div>
-                <div class="col col-sm_4">7</div>
-                <div class="col col-sm_4">8</div>
-                <div class="col col-sm_4">9</div>
-                <div class="col col-sm_4">10</div>
-                <div class="col col-sm_4">11</div>
-                <div class="col col-sm_4">12</div>
+                <div class="col_6 col-sm_1 col-md_4 ">1</div>
+                <div class="col_6 col-sm_1 col-md_4">2</div>
+                <div class="col_6 col-sm_1 col-md_4">3</div>
+                <div class="col_6 col-sm_1 col-md_4">4</div>
+                <div class="col_6 col-sm_1 col-md_4">5</div>
+                <div class="col_6 col-sm_1 col-md_4">6</div>
+                <div class="col_6 　col-sm_1 col-md_4">7</div>
+                <div class="col_6 　col-sm_1 col-md_4">8</div>
+                <div class="col_6 　col-sm_1 col-md_4">9</div>
+                <div class="col_6 　col-sm_1 col-md_4">10</div>
+                <div class="col_6 　col-sm_1 col-md_4">11</div>
+                <div class="col_6 　col-sm_1 col-md_4">12</div>
+            </div>
+            <h4 class="text_center">order-*_n 弹性布局排序</h4>
+            <div class="flex">
+                <div class="col order-sm_last">1</div>
+                <div class="col order-sm_3">2</div>
+                <div class="col order-sm_2">3</div>
+                <div class="col order-sm_1">4</div>
+                <div class="col order-md_3">5</div>
+                <div class="col order-md_3">6</div>
+                <div class="col  order-md_last">7</div>
+                <div class="col">8</div>
+                <div class="col">9</div>
+                <div class="col">10</div>
+                <div class="col">11</div>
+                <div class="col order-sm_first">12</div>
+            </div>
+            <h3 class="text_center">offset-*_n 间隔</h3>
+            <div class="flex">
+                <div class="col_1 offset_1">1</div>
+                <div class="col_1 offset_1">1</div>
+                <div class="col_1 offset_1">1</div>
+                <div class="col_1 offset_1">1</div>
+                <div class="col_1 offset_1">1</div>
+                <div class="col_1 offset_1">1</div>
+            </div>
+            <h4 class="text_center">justify-content 子容器水平对齐</h4>
+            <p>start 开始位置</p>
+            <div class="flex justify-content_start">
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+            </div>
+            <p>end 结束位置</p>
+            <div class="flex justify-content_end">
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+            </div>
+            <p>center 居中</p>
+            <div class="flex justify-content_center">
+                <div class="col_1 "></div>
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+            </div>
+            <p>center 居中 + offset 间隔 </p>
+            <div class="flex justify-content_center">
+                <div class="col_1 offset_1"></div>
+                <div class="col_1 offset_1"></div>
+                <div class="col_1 offset_1"></div>
+            </div>
+            <p>between 之间(间隔等距离)</p>
+            <div class="flex justify-content_between">
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+            </div>
+            <p>around 围绕</p>
+            <div class="flex justify-content_around">
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+                <div class="col_1"></div>
+            </div>
+            <h4 class="text_center">align-items 子容器垂直对齐</h4>
+            <p>start 上</p>
+            <div class="flex h align-items_start">
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
             </div>
 
-    
+            <p>cenetr 中</p>
+            <div class="flex h align-items_center">
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+            </div>
+            <p>end 下</p>
+            <div class="flex h align-items_end">
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+                <div class="col_1 "></div>
+            </div>
+            <p>baseline 第一行文字的基线对齐</p>
+            <div class="flex h align-items_baseline">
+                <div class="col_1 ">
+                    <big>
+                        text
+                    </big>
+                    <p>
+                        <big>
+                            text
+                        </big>
+                    </p>
+                </div>
+                <div class="col_1 ">
+                    <small>text</small>
+                    <p>
+                    <small>text</small>
+                        
+                    </p>
+                </div>
+                <div class="col_1 ">
+                    text
+                    <p>text</p>
+                </div>
+                <div class="col_1 "></div>
+            </div>
+            <p>stretch 高度auto时默认添满</p>
+            <div class="flex h align-items_stretch">
+                <div class="col" style="height: auto;">auto</div>
+                <div class="col "></div>
+                <div class="col"></div>
+                <div class="col"></div>
+            </div>
         </fieldset>
     </div>
 
