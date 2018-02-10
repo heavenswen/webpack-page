@@ -141,14 +141,15 @@ $Transition-time:.3s;
         justify-content: space-around ;
     }
     //垂直方向
+    // 上
     .align-items_start {
         align-items: flex-start;
       }
-      
+    //   中
       .align-items_end {
         align-items: flex-end;
       }
-      
+    //   下
       .align-items_center {
         align-items: center;
       }
