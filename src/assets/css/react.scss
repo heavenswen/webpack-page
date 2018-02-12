@@ -70,3 +70,9 @@ body {
 @include container();
 @include css-flex();
 @include css-flex-media();
+
+ul{
+    button{
+        @include icon-loading();
+    }
+}

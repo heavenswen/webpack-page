@@ -1,6 +1,6 @@
 //Q基础库
 //@import "*";
-//采用BEM 规则 （block）区块 （elements）元素 （Modifiers）修饰符 block-element_Mod
+//采用BEM 规则 （block）区块 （elements）元素 （Modifiers）修饰符 block__element--Mod
 //1页面上不建议出现空className
 //2js不建议用data-来操控,因为它表示为自定义数据，可以用[rel='']或id
 //默认常量
@@ -100,7 +100,7 @@ $Transition-time:.3s;
         margin-right: 0;
     }
     .no-gutters>.col,
-    .no-gutters>[class*="col-"] {
+    .no-gutters>[class^="col"] {
         padding-right: 0;
         padding-left: 0;
     }
@@ -116,119 +116,119 @@ $Transition-time:.3s;
         flex-grow: 1;
         max-width: 100%;
     } //默认当前大小
-    .col_auto {
+    .col--auto {
         flex: 0 0 auto;
         width: auto;
         max-width: none;
     }
     //水平
     // 对齐left
-    .justify-content_start {
+    .justify-content--start {
         justify-content: flex-start ;
     }
     // 对齐right    
-    .justify-content_end {
+    .justify-content--end {
         justify-content: flex-end ;
     }
     // 居中
-    .justify-content_center {
+    .justify-content--center {
         justify-content: center ;
     }
-    .justify-content_between {
+    .justify-content--between {
         justify-content: space-between ;
     }
-    .justify-content_around {
+    .justify-content--around {
         justify-content: space-around ;
     }
     //垂直方向
     // 上
-    .align-items_start {
+    .align-items--start {
         align-items: flex-start;
       }
     //   中
-      .align-items_end {
+      .align-items--end {
         align-items: flex-end;
       }
     //   下
-      .align-items_center {
+      .align-items--center {
         align-items: center;
       }
       
-      .align-items_baseline {
+      .align-items--baseline {
         align-items: baseline;
       }
       
-      .align-items_stretch {
+      .align-items--stretch {
         align-items: stretch;
       }
       
-      .align-content_start {
+      .align-content--start {
         align-content: flex-start;
       }
       
-      .align-content_end {
+      .align-content--end {
         align-content: flex-end;
       }
       
-      .align-content_center {
+      .align-content--center {
         align-content: center;
       }
       
-      .align-content_between {
+      .align-content--between {
         align-content: space-between;
       }
       
-      .align-content_around {
+      .align-content--around {
         align-content: space-around;
       }
       
-      .align-content_stretch {
+      .align-content--stretch {
         align-content: stretch;
       }
       
-      .align-self_auto {
+      .align-self--auto {
         align-self: auto;
       }
       
-      .align-self_start {
+      .align-self--start {
         align-self: flex-start;
       }
       
-      .align-self_end {
+      .align-self--end {
         align-self: flex-end;
       }
       
-      .align-self_center {
+      .align-self--center {
         align-self: center;
       }
       
-      .align-self_baseline {
+      .align-self--baseline {
         align-self: baseline;
       }
       
-      .align-self_stretch {
+      .align-self--stretch {
         align-self: stretch;
       }
 
     @for $i from 1 to 12 {
         //$i到9
-        .col_#{$i} {
-            flex: $i*(100/12)+%;
-            max-width: $i*(100/12)+%;
+        .col--#{$i} {
+            flex: percentage($i*(1/12));
+            max-width:  percentage($i*(1/12));
         }
         // 排位
-        .order_#{$i} {
+        .order--#{$i} {
             order: $i;
         }
         // 间隔
-        .offset_#{$i} {
-            margin-left: $i*(100/12)+%;
+        .offset--#{$i} {
+            margin-left: percentage($i*(1/12));
         }
     } //排在第一个
-    .order_first {
+    .order--first {
         order: -1;
     } //排在第最后一个
-    .order_last {
+    .order--last {
         order: 13;
     }
 } //flex 响应
@@ -236,34 +236,34 @@ $Transition-time:.3s;
     @each $w,
     $v in $WIN {
         @media (min-width: $v+px) {
-            .col-#{$w} {
+            .col_#{$w} {
                 flex-basis: 0;
                 flex-grow: 1;
                 max-width: 100%;
             }
-            .col-#{$w}_auto {
+            .col_#{$w}--auto {
                 flex: 0 0 auto;
                 width: auto;
                 max-width: none;
             }
             @for $i from 1 to 12 {
                 //$i到9
-                .col-#{$w}_#{$i} {
-                    flex: $i*(100/12)+%;
-                    max-width: $i*(100/12)+%;
+                .col_#{$w}--#{$i} {
+                    flex:  percentage($i*(1/12));
+                    max-width:  percentage($i*(1/12));
                 }
-                .order-#{$w}_#{$i} {
+                .order_#{$w}--#{$i} {
                     order: $i;
                 }
-                .offset-#{$w}_#{$i} {
-                    margin-left: $i*(100/12)+%;
+                .offset_#{$w}--#{$i} {
+                    margin-left:  percentage($i*(1/12));
                 }
             }
             //排在第一个
-            .order-#{$w}_first {
+            .order_#{$w}--first {
                 order: -1;
             } //排在第最后一个
-            .order-#{$w}_last {
+            .order_#{$w}--last {
                 order: 13;
             }
         }
@@ -280,16 +280,16 @@ $Transition-time:.3s;
         margin-right: auto;
         margin-left: auto;
     } //图片不能超过自己的真实大小，会失真
-    .img_fluid {
+    .img--fluid {
         max-width: 100%;
     } //text
-    .text_left {
+    .text--left {
         text-align: left;
     }
-    .text_right {
+    .text--right {
         text-align: right;
     }
-    .text_center {
+    .text--center {
         text-align: center;
     }
 }
@@ -349,8 +349,9 @@ $Transition-time:.3s;
     display: flex;
     $w: 100%/($n+1);
     @if $new==1 {
-        //回到根级
-        @at-root(without: all) {
+        
+        //全局过渡效果 回到根级
+        @at-root \(without:all\) {
             @keyframes scaleY {
                 0%, 100% {
                     transform: scaleY(.3)
