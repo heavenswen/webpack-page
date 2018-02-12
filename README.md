@@ -16,14 +16,14 @@
     <li>
         资源引入，页面引入(ejs) --index.js
         <p>
-            <code>
+            <pre>
                 <%= require(`../common/_meta.html`)  %>
-            </code>
+            </pre>
         </p>
         <P>
-            <code>
+            <pre>
                 &lt;img src="<%= require(`assets/img/big.png`) %>" alt="" &gt;
-            </code>
+            </pre>
         </P>
         <P>
             <small>无法引入带ejs的页面</small>
@@ -48,25 +48,19 @@
     npm 操作
 </h2>
 <h4>下载依赖</h4>
-<code>
-    <pre>npm i</pre>
-</code>
+<pre>npm i</pre>
 
 <h4>发布</h4>
-<code>
-    <pre>npm run build</pre>
-</code>
+<pre>npm run build</pre>
 
 <h4>实时编译开发</h4>
-<code>
-    <pre>npm run dev </pre>
-</code>
+<pre>npm run dev </pre>
 <a href='http://127.0.0.1'>localhost:8010</a>
 
 <h4>
     config 开发模式
 </h4>
-<code>npm run config</code>
+<pre>npm run config</pre>
 
 <h4>文件结构</h4>
 <ul>
@@ -83,6 +77,31 @@
     <li>--views //vue视图模块</li>
     <li>--components //vue组件库</li>
 </ul>
+
+<h4>CSS BEM規範</h4>
+<p>提高CSS的可读化和oocss思想让css的可复用性更强</p>
+<pre>
+    <code>//写法</code>
+    <code>block_element--modaifer</code>
+    <code>多个单词组成</code>
+    <code>block-name</code>
+</pre>
+<p>
+    <strong>Block 区块</strong>
+   主要描述组件的主体
+</p>
+<p>
+    <strong>Element 元素</strong>
+    用来描述组件的单元
+</p>
+<p>
+    <strong>Modifer 修饰</strong>
+    用来描述样式和修饰，不重写组件基础样式，多种修饰应该分开写
+</p>
+<p>
+    BEM写法虽然会加大代码量，但也很好的实现了OOCSS的思想，并且开服务器开启Gzip时，并不会增大多少体积。
+</p>
+
 
 <h5>nodemon 配置</h5>
 //使用nodemon 监控文件webpack.config ，页面模版 在变化时重新执行 webpack $ npm i nodemon -D package.json //命令 "scripts": { "start": "nodemon
