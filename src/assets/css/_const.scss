@@ -1,0 +1,60 @@
+//默认常量
+//手机,小屏幕比例,中屛,屏幕
+$WIN:(sm:562, md:768, lg:992, xl:1200);
+// map-get($arr,key) map 数组调用
+$IE:10; //兼容到n
+$Rem:100; //rem 比例
+$Container-margin:15; //容器默认边距
+//size math rem(数值,单位,比例) size()
+@function size($p, $u:px, $r:$Rem) {
+    @if $u==px {
+        //普通
+        @return $p+$u;
+    }
+    @else if $u==rem {
+        @return ($p/$r)+$u;
+    }
+}
+
+//font
+// family
+$F-F:'Microsoft YaHei',
+Arial,
+Helvetica,
+sans-serif;
+//default
+$F-size_defaulet:szie(16); //font default
+$F-size_min:size(12); //font small
+//color
+$Blue:#39f;
+$Red:#f00;
+$Orange:#ff9600;
+$Greem:green;
+//标签  数组是从1开始的 引用nth($hs,1)
+$H: h1,
+h2,
+h3,
+h4,
+h5,
+h6;
+// 常用标签
+$All:body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+li,
+dl,
+dt,
+dd,
+p,
+span,
+strong,
+input,
+select,
+textarea;
+//transition time 默认过渡时间
+$TransitionTime:.3s;

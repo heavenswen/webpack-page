@@ -33,8 +33,6 @@ a img {
 
 html {
     box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
 }
 
 audio,
@@ -50,8 +48,6 @@ video,
 *:after,
 *:before {
     box-sizing: inherit;
-    -moz-box-sizing: inherit;
-    -webkit-box-sizing: inherit;
 }
 //去浮动
 *:after {
@@ -67,12 +63,26 @@ body {
     font-family: $F-F;
     font-size: size(14, px);
 }
+
+
 @include container();
 @include css-flex();
 @include css-flex-media();
+$blockWidth :30px;
 
-ul{
-    button{
+[class^='block']{
+    width: $blockWidth;
+    height: $blockWidth;
+}
+.block-loading{
         @include icon-loading();
-    }
+}
+.block-sjx{
+    @include icon-sjx();
+}
+.block-list{
+    @include icon-list();
+}
+.block-close{
+    @include icon-close();
 }

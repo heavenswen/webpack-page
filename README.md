@@ -82,7 +82,7 @@
 <p>提高CSS的可读化和oocss思想让css的可复用性更强</p>
 <pre>
     <code>//写法</code>
-    <code>block_element--modaifer</code>
+    <code>block__element--modaifer</code>
     <code>多个单词组成</code>
     <code>block-name</code>
 </pre>
