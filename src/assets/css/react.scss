@@ -68,9 +68,10 @@ body {
 @include container();
 @include css-flex();
 @include css-flex-media();
-$blockWidth :30px;
+$blockWidth :50px;
 
-[class^='block']{
+[class*='block']{
+    background-color: rgba(255,255,255,.5);
     width: $blockWidth;
     height: $blockWidth;
 }
@@ -85,4 +86,11 @@ $blockWidth :30px;
 }
 .block-close{
     @include icon-close();
+}
+.btn-close{
+    appearance: none;
+    padding: 0;
+    margin: 0;
+    border: 0 none;
+    @include btn-icon-close();
 }

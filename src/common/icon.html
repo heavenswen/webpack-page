@@ -1,0 +1,55 @@
+<fieldset class="myicon">
+        <style>
+            .myicon h5 {
+                margin-bottom: 5px;
+            }
+        </style>
+        <legend class="text--center">
+            <big>
+                icon
+            </big>
+        </legend>
+        <ul class="list--unstyled flex justify-content--around">
+            <li class="col--1">
+                <h5>加载效果</h5>
+                <div class="block-loading">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+            </li>
+            <li class="col--1">
+                <h5>三角形</h5>
+                <div class="block-sjx"></div>
+            </li>
+            <li class="col--1">
+                <h5>列表</h5>
+                <div class="block-list">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+            </li>
+            <li class="col--1">
+                <h5>关闭</h5>
+                <div class="block-close">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+            </li>
+            <li class="col--1">
+                <h5>点击触发</h5>
+                <button class="btn-close block">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </button>
+                <script>
+                    document.querySelector(".block").addEventListener("click", function () {
+                        this.classList.toggle("active")
+                    }, false)
+                </script>
+            </li>
+
+    </fieldset>

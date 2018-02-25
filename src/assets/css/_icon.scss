@@ -1,0 +1,91 @@
+//三角形 （方向，宽，高,颜色）@include triangle()
+@mixin icon-sjx($t:bottom, $w:10px, $h:10px, $c:#000) {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: $h $w;
+    border-color: transparent;
+    border-#{$t}-color: $c;
+}
+
+//加载图标 div>i*3  @include  必须设置宽高
+@mixin icon-loading($c:#39c, $n:3, $new:1) {
+    //kf end
+    display: flex;
+    $w: 100%/($n+1);
+    @if $new==1 {
+        
+        //全局过渡效果 回到根级
+        @at-root \(without:all\) {
+            @keyframes scaleY {
+                0%, 100% {
+                    transform: scaleY(.3)
+                }
+                50% {
+                    transform: scaleY(1)
+                }
+            }
+        }
+    }
+    &>i {
+        width: $w;
+        height: 100%;
+        margin-right: $w/($n - 1);
+        background-color: $c;
+        animation: scaleY 1s linear infinite;
+        transform-origin: center bottom;
+        &:nth-last-of-type(1) {
+            margin-right: 0;
+        }
+        @for $i from 0 to $n {
+            &:nth-of-type(#{$i+1}) {
+                animation-delay: -0.3*$i+s;
+            }
+        }
+    }
+}
+
+//打×图标 element>i*3 焦点 颜色 需要宽高
+@mixin transform-close(){
+    &>* {
+        &:nth-of-type(1) {
+            transform-origin:0% 50%; 
+            transform:translate3D(15%, 0, 0) rotate(45deg);
+        }
+        &:nth-of-type(2) {
+            transform: translate3D(100%, 0, 0);
+            opacity: 0;
+        }
+        &:nth-of-type(3) {
+            transform-origin:0% 50%; 
+            transform:translate3D(15%, 0, 0)  rotate(-45deg);
+        }
+    }
+}
+//图标
+@mixin icon-list($c:#000) {
+    overflow: hidden;
+    &>* {
+        border-radius: 5px;
+        display: block;
+        margin: auto;
+        width: 80%;
+        height:  percentage(1/7);
+        margin-top:  percentage(1/7);
+        background-color: $c;
+        @include transition();
+    }
+}
+//生成一个X图标
+@mixin icon-close($c:#000){
+    @include icon-list($c);
+    @include transform-close()
+}
+
+//点击时触发
+@mixin btn-icon-close($active:active, $c:#000) {
+    @include icon-list($c);
+    &.#{$active} {
+        @include transform-close()
+    }
+}
