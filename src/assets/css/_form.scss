@@ -1,0 +1,26 @@
+//类bs 
+@mixin form-bs(){
+    //list
+    .form-list-group li{
+        margin-bottom:$FMarginBottom;
+    }
+    //原件
+    .form-control {
+        padding: $FPadding;
+        font-size: inherit;
+        line-height:$FLine;
+        color: inherit;
+        background-color:$FBg;
+        background-clip: padding-box;
+        border: $FBorder;
+        border-radius: $FborderRadius;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+      .form-control:only-child{
+          width: 100%;
+      }
+}
+//类bs 媒体查询
+@mixin form-bs-media(){
+
+}

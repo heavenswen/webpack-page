@@ -6,7 +6,7 @@
 }
 
 * {
-    outline: 0 !important;
+    outline: 0;
 }
 
 #{$H} {
@@ -39,7 +39,7 @@ audio,
 canvas,
 progress,
 video,
-{
+    {
     display: inline-block;
     vertical-align: baseline;
 }
@@ -49,13 +49,41 @@ video,
 *:before {
     box-sizing: inherit;
 }
+
 //去浮动
 *:after {
-	content: '';
-	clear: both;
-	height: 0;
+    content: '';
+    clear: both;
+    height: 0;
 }
 
+small {
+    font-size: 80%;
+}
+
+button {
+    border-radius: 0;
+}
+
+button:focus {
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+}
+textarea {
+    overflow: auto;
+    resize: vertical;
+  }
+
+input,
+button,
+select,
+optgroup,
+textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
 
 /*page*/
 
@@ -64,30 +92,32 @@ body {
     font-size: size(14, px);
 }
 
-
-@include container();
-@include css-flex();
-@include css-flex-media();
-$blockWidth :50px;
-
-[class*='block']{
-    background-color: rgba(255,255,255,.5);
-    width: $blockWidth;
-    height: $blockWidth;
+@include container-bs();
+@include flex-bs();
+@include flex-bs-media();
+@include form-bs();
+@include form-bs-media();
+.block-loading {
+    @include icon-loading();
 }
-.block-loading{
-        @include icon-loading();
-}
-.block-sjx{
+
+.block-sjx {
     @include icon-sjx();
 }
-.block-list{
+
+.block-list {
     @include icon-list();
 }
-.block-close{
+
+.block-close {
     @include icon-close();
 }
-.btn-close{
+
+.block-more {
+    @include icon-more();
+}
+
+.btn-close {
     appearance: none;
     padding: 0;
     margin: 0;

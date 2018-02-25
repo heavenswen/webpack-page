@@ -10,11 +10,8 @@
 
 //加载图标 div>i*3  @include  必须设置宽高
 @mixin icon-loading($c:#39c, $n:3, $new:1) {
-    //kf end
-    display: flex;
-    $w: 100%/($n+1);
+    
     @if $new==1 {
-        
         //全局过渡效果 回到根级
         @at-root \(without:all\) {
             @keyframes scaleY {
@@ -26,11 +23,21 @@
                 }
             }
         }
+    } 
+    @if($IE >= 10) {
+        display: flex;
     }
+    //$n*2 等分间距和宽度，最后一个不需要间距-1
+    $n:$n*2 - 1;
+    $w:percentage(1/$n);
     &>i {
+        @if($IE < 10) {
+            display: block;
+            float: left;
+        }
         width: $w;
         height: 100%;
-        margin-right: $w/($n - 1);
+        margin-right: $w;
         background-color: $c;
         animation: scaleY 1s linear infinite;
         transform-origin: center bottom;
@@ -46,38 +53,63 @@
 }
 
 //打×图标 element>i*3 焦点 颜色 需要宽高
-@mixin transform-close(){
+@mixin transform-close() {
     &>* {
         &:nth-of-type(1) {
-            transform-origin:0% 50%; 
-            transform:translate3D(15%, 0, 0) rotate(45deg);
+            transform-origin: 0% 50%;
+            transform: translate3D(15%, 0, 0) rotate(45deg);
         }
         &:nth-of-type(2) {
             transform: translate3D(100%, 0, 0);
             opacity: 0;
         }
         &:nth-of-type(3) {
-            transform-origin:0% 50%; 
-            transform:translate3D(15%, 0, 0)  rotate(-45deg);
+            transform-origin: 0% 50%;
+            transform: translate3D(15%, 0, 0) rotate(-45deg);
         }
     }
 }
+
 //图标
 @mixin icon-list($c:#000) {
     overflow: hidden;
+    $w: percentage(1/7);
     &>* {
         border-radius: 5px;
         display: block;
         margin: auto;
         width: 80%;
-        height:  percentage(1/7);
-        margin-top:  percentage(1/7);
+        height: $w;
+        margin-top: $w;
         background-color: $c;
         @include transition();
     }
 }
+
+// 更多
+@mixin icon-more($c:#000) {
+    @if($IE>=10) {
+        display: flex;
+    }
+    $w:percentage(1/7);
+    &>* {
+        @if($IE < 10) {
+            display: block;
+            float: left;
+        }
+        border-radius:50%;
+        width: $w;
+        height : $w;
+        margin-left : $w;
+        margin-top: 50%;
+        transform: translateY(-50%);
+        background-color: $c;
+        @include transition();
+    }
+}
+
 //生成一个X图标
-@mixin icon-close($c:#000){
+@mixin icon-close($c:#000) {
     @include icon-list($c);
     @include transform-close()
 }

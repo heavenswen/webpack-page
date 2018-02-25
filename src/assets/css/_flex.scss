@@ -1,6 +1,6 @@
 // 栅格化布局
 //生成css 代码块 flex 布局 ie10+
-@mixin css-flex($align:true, $display:true) {
+@mixin flex-bs($align:true, $display:true) {
     //弹性布局
     .flex-row,
     .flex {
@@ -20,8 +20,8 @@
         flex-direction: column-reverse;
     } //抵消container padding
     .flex-row {
-        margin-left: $Container-margin*-1+px;
-        margin-right: $Container-margin*-1+px;
+        margin-left: -$CMargin;
+        margin-right: -$CMargin;
     } //去除边框
     .no-gutters {
         margin-left: 0;
@@ -171,7 +171,7 @@
         }
     }
 } //flex 响应
-@mixin css-flex-media($align:true, $display:true) {
+@mixin flex-bs-media($align: true, $display: true) {
     @each $w,
     $v in $WIN {
         @media (min-width: $v+px) {

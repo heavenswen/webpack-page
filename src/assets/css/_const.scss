@@ -4,7 +4,7 @@ $WIN:(sm:562, md:768, lg:992, xl:1200);
 // map-get($arr,key) map 数组调用
 $IE:10; //兼容到n
 $Rem:100; //rem 比例
-$Container-margin:15; //容器默认边距
+
 //size math rem(数值,单位,比例) size()
 @function size($p, $u:px, $r:$Rem) {
     @if $u==px {
@@ -16,6 +16,14 @@ $Container-margin:15; //容器默认边距
     }
 }
 
+// container config 
+$CMargin:size(15,px); //container容器
+$FMarginBottom:size(10,px);//form 
+$FPadding:size(8,px);
+$FLine:1.5;
+$FBg:#FFF;
+$FBorder:1px solid #ced4da;
+$FborderRadius:5px;
 //font
 // family
 $F-F:'Microsoft YaHei',
