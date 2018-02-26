@@ -19,7 +19,7 @@ $Rem:100; //rem 比例
 // container config 
 $CMargin:size(15,px); //container容器
 $FMarginBottom:size(10,px);//form 
-$FPadding:size(8,px);
+$FPadding:size(6,px) size(12,px);
 $FLine:1.5;
 $FBg:#FFF;
 $FBorder:1px solid #ced4da;
@@ -33,11 +33,8 @@ sans-serif;
 //default
 $F-size_defaulet:szie(16); //font default
 $F-size_min:size(12); //font small
-//color
-$Blue:#39f;
-$Red:#f00;
-$Orange:#ff9600;
-$Greem:green;
+//color btn
+$Color:(red:#f00,blue:#39f,orange:#ff9600,green:green);
 //标签  数组是从1开始的 引用nth($hs,1)
 $H: h1,
 h2,

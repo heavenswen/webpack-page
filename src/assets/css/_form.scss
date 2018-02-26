@@ -5,7 +5,10 @@
         margin-bottom:$FMarginBottom;
     }
     //原件
+    .btn,
     .form-control {
+        //统一 ios search select 样式 
+        appearance: none;
         padding: $FPadding;
         font-size: inherit;
         line-height:$FLine;
@@ -13,11 +16,31 @@
         background-color:$FBg;
         background-clip: padding-box;
         border: $FBorder;
-        border-radius: $FborderRadius;
+        border-radius: $FborderRadius ;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
       }
+    //   当只有一个时100%
       .form-control:only-child{
           width: 100%;
+      }
+      //针对pc显示高度
+      .form-control[type="color"]{
+          min-height: 35px;
+      }
+      .btn{
+          display: inline-block;
+          &:active,.btn.active{
+            box-shadow: inset 0 0 2px 2px rgba(0,0,0, 0.25);
+          }
+          &:not(:disabled):not(.disabled) {
+            cursor: pointer;
+          }
+          @each $k,$v in $Color{
+            &--#{$k}{
+                background: $v;
+                color: #fff;
+            }
+          }
       }
 }
 //类bs 媒体查询

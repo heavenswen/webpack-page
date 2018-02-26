@@ -25,4 +25,12 @@
         padding: 0;
         list-style: none;
     }
+    
+    .disabled,:disabled{
+        opacity: 0.65;
+    }
+    //不允许点中
+    .disabled{
+        pointer-events: none;
+    }
 }
