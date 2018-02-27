@@ -1,7 +1,7 @@
 // 主内容容器
 <template>
     <section class="main">
-        <header>main</header>
+        <h1 class="text--center">page main</h1>
         <transition :name='aniamte' mode="out-in" appear>
             <router-view></router-view>
         </transition>
@@ -17,8 +17,10 @@ export default {
             path: "/"
         }
     },
+    //创建完成时执行
     created() {
-
+        //直接访问状态
+        console.log(this.$store.state)
     },
     beforeRouteEnter(to, from, next) {
         // 在渲染该组件的对应路由被 confirm 前调用

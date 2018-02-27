@@ -1,10 +1,11 @@
 // 底层
 <template>
     <div id="app">
-        <!--内容过渡层 appear 开始执行过渡-->
+        <!--content 内容过渡层 appear 开始执行过渡-->
         <transition name='show' mode="out-in" appear >
             <router-view ></router-view>
         </transition>
+        <!-- content end -->
         <!--全局加载-->
         <transition name="show" mode="out-in">
             <section v-if="mask" class="mask" @click="maskHide">
@@ -18,6 +19,7 @@
                 </div>
             </section>
         </transition>
+        <!--全局加载 end-->
     </div>
 </template>
 <script>
@@ -39,8 +41,6 @@ export default {
     },
 
     methods: {
-
-
         //通用方法
         //this.$root.$children[0] 调用当前下的方法 
         //加载等待
