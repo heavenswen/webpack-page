@@ -1,0 +1,51 @@
+<style>
+    .rem a {
+        font-size: .18rem;
+        color: #399;
+    }
+
+    .rem P {
+        font-size: .18rem;
+        margin-bottom: .15rem;
+    }
+
+    .rem__box {
+        width: 3.05rem;
+        height: 3.05rem;
+        background: #39f;
+        font-size: .18rem;
+    }
+
+    .box {
+        width: 100px;
+        height: 100px;
+        font-size: 18px;
+        background: #3399cc;
+
+    }
+</style>
+<fieldset class="rem">
+    <legend class="text--center">
+        <big>Rem 响应方案</big>
+    </legend>
+    <p>
+        (IE9+)rem是通过根元素进行适配的，网页中的根元素指的是html我们通过设置html的字体大小就可以控制rem的大小。可以让web在mobile端个屏幕下基本保持同样的效果，但不适合做精确尺寸，rem在不同大小下存在误差。
+        <a href="assets/js/rem.js">依赖rem.js</a>
+
+    </p>
+    <p>
+        rem是可以合并雪碧图的，viewport设置确实简洁，但是过于粗暴，全局都进行缩放，有时候我布局并不希望全局缩放，部分布局希望不用缩放，所以使用rem，
+    </p>
+    <p>建议使用sass 计算 ,js的渲染在css之后，会导致有明显的重绘现象，过大时尤为明显。</p>
+    <h4>rem 尺寸应用</h4>
+    <div class="flex">
+        <div class="rem__box">
+            rem box
+        </div>
+        <div class="rem__box">
+            rem box
+        </div>
+    </div>
+
+
+</fieldset>

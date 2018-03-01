@@ -7,12 +7,12 @@ $Rem:100; //rem 比例
 
 //size math rem(数值,单位,比例) size()
 @function size($p, $u:px, $r:$Rem) {
-    @if $u==px {
+    //rem 方案 ie9+
+    @if $u == rem {
+        @return ($p/$r) + rem;
+    }@else{
         //普通
         @return $p+$u;
-    }
-    @else if $u==rem {
-        @return ($p/$r)+$u;
     }
 }
 

@@ -22,11 +22,17 @@ export default new Vuex.Store({
 		title: "DCUI",
 		//用户名
 		user: "DC-Qiu",
-		path: null,
+        path: null,
+        todos: [
+            { id: 1, text: '...', done: true },
+            { id: 2, text: '...', done: false }
+          ]
 	},
-    //计算属性
+    //计算属性(对状态的处理) 会暴露为 $store.getters[name] 对象
 	getters: {
-
+        doneTodos: state => {
+            return state.todos.filter(todo => todo.done)
+          }
 	},
     //事件 function(state,data) 调用 store.commit([name],data)
 	mutations: {

@@ -20,7 +20,7 @@ export default {
     //创建完成时执行
     created() {
         //直接访问状态
-        console.log(this.$store.state)
+        console.log(this.$store.getters.doneTodos )
     },
     beforeRouteEnter(to, from, next) {
         // 在渲染该组件的对应路由被 confirm 前调用

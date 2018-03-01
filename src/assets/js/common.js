@@ -2,7 +2,7 @@
  * @file 公共类 单体模式
  * @author qiu(423822728@qq.com)
  * 采用es6 编译 在线编译 https://babeljs.cn/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=6.26.0&envVersion=
- * 同级对象，多对象class操作，多对象实际绑定事件，rem适应方案，导航条获得焦点，
+ * 同级对象，多对象class操作，多对象实际绑定事件，导航条获得焦点，
  * classlist dataset ie11+
  */
 ; (function () {
@@ -65,20 +65,6 @@
                 obj.removeEventListener(target, trigger, fn, false);
             }
             return list;
-        },
-        /* rem 方案
-        * 避开谷歌下最小12px的问题 ，尺寸320下5%，640下10%
-        * @param {number} num 比例
-        */
-        rem(num = 100) {
-            let docEl = document.documentElement
-            let resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize'
-            function recalc() {
-                docEl.style.fontSize = num * (docEl.clientWidth / 640) + 'px'
-            }
-            //绑定浏览器旋转与加载 时
-            window.addEventListener(resizeEvt, recalc, false)
-            document.addEventListener('DOMContentLoaded', recalc, false)
         },
         /**
          * 自动选中导航链接,正则比对,尾部匹配
