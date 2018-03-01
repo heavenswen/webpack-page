@@ -3,13 +3,13 @@
 $WIN:(sm:562, md:768, lg:992, xl:1200);
 // map-get($arr,key) map 数组调用
 $IE:10; //兼容到n
-$Rem:100; //rem 比例
+$Rem:0%; //rem 比例 1% 1：100 ,viewprot 1:2,0 不处理
 
 //size math rem(数值,单位,比例) size()
 @function size($p, $u:px, $r:$Rem) {
     //rem 方案 ie9+
-    @if $u == rem {
-        @return ($p/$r) + rem;
+    @if $r>0{
+        @return ($p*$r) + $u;
     }@else{
         //普通
         @return $p+$u;

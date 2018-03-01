@@ -26,8 +26,9 @@
 </style>
 <fieldset class="rem">
     <legend class="text--center">
-        <big>Rem 响应方案</big>
+        <big>js 响应方案</big>
     </legend>
+    <h3>Rem 方案</h3>
     <p>
         (IE9+)rem是通过根元素进行适配的，网页中的根元素指的是html我们通过设置html的字体大小就可以控制rem的大小。可以让web在mobile端个屏幕下基本保持同样的效果，但不适合做精确尺寸，rem在不同大小下存在误差。
         <a href="assets/js/rem.js">依赖rem.js</a>
@@ -46,6 +47,31 @@
             rem box
         </div>
     </div>
+    <h3>viewprot 方案</h3>
+    <p>
+        使用js修改 meta viewport 和设计图 缩放比例来实现自适应，页面内的所有内容都会被缩放，不可以使用resize 事件，适口改变同样会再次触发，同样会引起重绘，相比 rem方案 更加精准。
+    </p>
+    <pre>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    </pre>
+    <ul>
+        <li>
+            width - 宽度 device-width 设备宽度
+        </li>
+        <li>
+            initial-scale - 初始的缩放比例
+        </li>
+        <li>
+            minimum-scale - 允许用户缩放到的最小比例
+        </li>
+        <li>
+            maximum-scale - 允许用户缩放到的最大比例
+        </li>
+        <li>
+            user-scalable - 用户是否可以手动缩放
+        </li>
+    </ul>
+
 
 
 </fieldset>

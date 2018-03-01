@@ -1,0 +1,41 @@
+<style>
+    .vw-box{
+        width: 100px;
+    }
+</style>
+<fieldset>
+    <legend>vw 适应方案</legend>
+    <p>
+        使用vw vh单位实现内容的自适应，
+        <strong>
+            vw, vh, vmin, vmax：IE9+局部支持，chrome/firefox/safari/opera支持，ios safari 8+支持，android browser4.4+支持，chrome for android39支持
+        </strong>
+    </p>
+    <h4>
+        根据CSS3规范，视口单位主要包括以下4个：
+    </h4>
+    <ul>
+        <li>
+            vw : 1vw 等于视口宽度的1%
+
+        </li>
+        <li>
+            vh : 1vh 等于视口高度的1%
+        </li>
+        <li>
+            vmin : 选取 vw 和 vh 中最小的那个
+        </li>
+        <li>
+            vmax : 选取 vw 和 vh 中最大的那个
+        </li>
+    </ul>
+    <div class="flex">
+        <div class="vw-box">
+            vw
+        </div>
+        <div class="vw-box">
+            vw
+        </div>
+    </div>
+
+</fieldset>

@@ -16,6 +16,7 @@ $(function () {
 })
 
 import Q from 'assets/js/common'
+//自适应方案
 import Rem from 'assets/js/rem'
 
 new Rem();

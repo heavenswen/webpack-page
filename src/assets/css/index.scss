@@ -1,12 +1,16 @@
-@import "~./_common.scss";  
-
+@import "~./_common.scss";
 /*index.css*/
-h1{ border:1px solid #fcc;
+
+h1 {
+    border: 1px solid #fcc;
 }
-body,html{
+
+body
+{
     /*'/'根目录  */
-  background-image:url('../img/girl2.jpg');
-    background-size:cover;
-     background-repeat:no-repeat;
-background-position:top center;   
+    background-image: url('../img/girl2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:top right ;
+    background-attachment:fixed;
 }
