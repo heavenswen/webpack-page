@@ -1,9 +1,25 @@
 <style>
-    .vw-box{
-        width: 100px;
+    .wh{
+        font-size:3vw; 
+    }
+    [class^=v]{
+        padding: 10px;
+        margin-top: 10px;
+    }
+    .vw-box {
+        width: 20vw;
+        height: 20vw;
+        color: #fff;
+        background: #312;
+    }
+
+    .vh-box {
+        width: 20vh;
+        height: 20vh;
+        border: 3px solid #312;
     }
 </style>
-<fieldset>
+<fieldset class="wh">
     <legend>vw 适应方案</legend>
     <p>
         使用vw vh单位实现内容的自适应，
@@ -29,13 +45,25 @@
             vmax : 选取 vw 和 vh 中最大的那个
         </li>
     </ul>
-    <div class="flex">
+    <h3 class="win-vw"></h3>
+
+    <div >
         <div class="vw-box">
-            vw
+            2vw
         </div>
-        <div class="vw-box">
-            vw
+        <div class="vh-box">
+            2vh
         </div>
     </div>
+    <script>
+        document.querySelector(".win-vw").innerHTML = `window: ${window.screen.availWidth}/${window.screen.availHeight}`
+        //get width and height
+        let vs = document.querySelectorAll("[class^=v]")
+        for (let v of vs) {
+            
+            let str = `${v.innerHTML}: width:${v.clientWidth} height:${v.clientHeight}`
+            v.innerHTML = str;
+        }
 
+    </script>
 </fieldset>
