@@ -12,6 +12,7 @@ const ROOT = process.cwd();  // 根目录
 // 通过允许您并行转换多个文件， HappyPack使Webpack构建更快。
 const HappyPack = require('happypack');
 const HappyThreadPool = HappyPack.ThreadPool({ size: (Env ? 10 : 4) });
+
 const release = Env ? '/webpack-page/dist/' : '/'//域名文件夹
 //页面对应路口
 const entries = {}
@@ -227,8 +228,10 @@ const config = {
         }
         return 'assets/css/' + name + '.css';
       },
+   
       allChunks: true
     }),
+ 
     //webpack3.0
     new webpack.optimize.ModuleConcatenationPlugin()
   ],
