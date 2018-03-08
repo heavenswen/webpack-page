@@ -6,11 +6,11 @@
 + 兼容 自动添加浏览器前缀 (postcss)，vw单位转换等
 + 压缩：js(webpack),css(webpack),gif,jpg,png,svg(image-webpack-loader) --webpack.config
 + 资源引入，页面引入(ejs) --index.js
-```
+> ```
   <%= require(`../common/_meta.html`)  %>
   <img src="<%= require(`assets/img/big.png`) %>" alt="">
-```
-无法引入带ejs的页面
+> ```
+> 无法引入带ejs的页面
 + 实时代码查看，自动刷新浏览器(livereload) --index.ejs
 + 自动生成分页(glob) --webpack.config
 + 支持引入jquery,vue 公用 --index.js
@@ -82,10 +82,10 @@ BEM写法虽然会加大代码量，但也很好的实现了OOCSS的思想，并
 
 ### postcss说明
 
->#### autoprefixer 配置
+#### autoprefixer 配置
 > autoprefixer可以自动添加浏览器所需要的前缀
->1. postcss.confug.js
-```
+> 1. postcss.confug.js
+> ```
  plugins: [
         require('autoprefixer')({
             // 兼容
@@ -101,18 +101,18 @@ BEM写法虽然会加大代码量，但也很好的实现了OOCSS的思想，并
         //px to vw
         // require('postcss-px2viewport')
     ],
-```
->2. package.json内增加
-```
+> ```
+> 2. package.json内增加
+> ```
 "browserslist": [
    ">= 1%", //全球浏览器使用率大于1%或大于等于1%（上例中则是1%）。
    "last 2 versions", //每个浏览器中最新的两个版本。
    "ie 6-8", //选择包含ie6-8的版本。
   "Firefox > 20" //火狐版本号大于20。
 ]
-```
->3. webpack.config.js使用LoaderOptionsPluginplugins
-```
+> ```
+> 3. webpack.config.js使用LoaderOptionsPluginplugins
+> ```
 
  plugins: [
     new webpack.LoaderOptionsPlugin({
@@ -127,18 +127,19 @@ BEM写法虽然会加大代码量，但也很好的实现了OOCSS的思想，并
         }
     })
 ]
-```
->#### postcss-px2viewport说明
->vw方案是处理手机端自适应解决方案，设置设计稿尺寸，编写时能将我们编写的px转换成vw单位
->postcss.config.js 
-```
+>```
+
+#### postcss-px2viewport说明
+vw方案是处理手机端自适应解决方案，设置设计稿尺寸，编写时能将我们编写的px转换成vw单位
+postcss.config.js 
+> ```
 plugins:[
     require('postcss-px2viewport')
 ]
 postcss: function () {
         return [px2viewport({ viewportWidth: 750,viewportHeight:1334 })];
 }
-```
+> ```
 > .css 标记
 > /*px*/的，则转换为[data-dpr="1"]、[data-dpr="2"]、[data-dpr="3"]三种不同的字体
 > /*no*/的，则不做处理，依然使用px进行布局
