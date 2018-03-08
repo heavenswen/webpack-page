@@ -59,7 +59,12 @@ npm run config
         + index.js//入口为同名js
     + views //vue视图模块
     + components //vue组件库
-
++ postcss.config.js //postcss 配置
++ package-lock.json //锁定安装时的包的版本号，并且需要上传到git，以保证其他人在npm install时大家的依赖能保证一致。
++ webpack.config.js //编译解析逻辑
++ .eslintrc.js  //
++ .gitignore  //git 过滤
++ LICENSE //开源协议
 
 ### CSS BEM規範
 提高CSS的可读化和oocss思想让css的可复用性更强
