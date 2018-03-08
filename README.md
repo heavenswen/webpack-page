@@ -1,111 +1,182 @@
-<h2>
-    webpack 多页环境搭建
-</h2>
-<h4>功能说明</h4>
-<ul>
-    </li>
-    <li>
-        编译：es6 （babel）,scss(node-sass), vue(vue-loader) 语法编译 --webpack.config
-    </li>
-    <li>
-        兼容 自动添加浏览器前缀 (postcss)
-    </li>
-    <li>
-        压缩：js(webpack),css(webpack),gif,jpg,png,svg(image-webpack-loader) --webpack.config
-    </li>
-    <li>
-        资源引入，页面引入(ejs) --index.js
-        <p>
-            <pre>
-                <%= require(`../common/_meta.html`)  %>
-            </pre>
-        </p>
-        <P>
-            <pre>
-                &lt;img src="<%= require(`assets/img/big.png`) %>" alt="" &gt;
-            </pre>
-        </P>
-        <P>
-            <small>无法引入带ejs的页面</small>
-        </P>
-    </li>
-    <li>
-        实时代码查看，自动刷新浏览器(livereload) --index.ejs
-    </li>
-    <li>
-        自动生成分页(glob) --webpack.config
-    </li>
-    <li>
-        支持引入jquery,vue 公用 --index.js
-    </li>
-</ul>
-<h4>问题</h4>
-<ul>
-    <li>开发模式中无法对新建页面进行编译</li>
-</ul>
+# webpack 多页环境搭建
 
-<h2>
-    npm 操作
-</h2>
-<h4>下载依赖</h4>
-<pre>npm i</pre>
+### 功能说明
 
-<h4>发布</h4>
-<pre>npm run build</pre>
++ 编译：es6 （babel）,scss(node-sass), vue(vue-loader) 语法编译 --webpack.config
++ 兼容 自动添加浏览器前缀 (postcss)，vw单位转换等
++ 压缩：js(webpack),css(webpack),gif,jpg,png,svg(image-webpack-loader) --webpack.config
++ 资源引入，页面引入(ejs) --index.js
+```
+  <%= require(`../common/_meta.html`)  %>
+  <img src="<%= require(`assets/img/big.png`) %>" alt="">
+```
+无法引入带ejs的页面
++ 实时代码查看，自动刷新浏览器(livereload) --index.ejs
++ 自动生成分页(glob) --webpack.config
++ 支持引入jquery,vue 公用 --index.js
 
-<h4>实时编译开发</h4>
-<pre>npm run dev </pre>
-<a href='http://127.0.0.1'>localhost:8010</a>
+### 问题
 
-<h4>
-    config 开发模式
-</h4>
-<pre>npm run config</pre>
-
-<h4>文件结构</h4>
-<ul>
-    <li>dist //生成发布目录</li>
-    <li>src //源码</li>
-    <li>--assets //资源库</li>
-    <li>----js //js库</li>
-    <li>----css //样式库</li>
-    <li>--pages //页面模板</li>
-    <li>----index.ejs //单页面 生成时对应名称 ejs将生成html</li>
-    <li>----spa.ejs vue路由dome</li>
-    <li>--entry//页面入口</li>
-    <li>----index.js//入口为同名js</li>
-    <li>--views //vue视图模块</li>
-    <li>--components //vue组件库</li>
-</ul>
-
-<h4>CSS BEM規範</h4>
-<p>提高CSS的可读化和oocss思想让css的可复用性更强</p>
-<pre>
-    <code>//写法</code>
-    <code>block__element--modaifer</code>
-    <code>多个单词组成</code>
-    <code>block-name</code>
-</pre>
-<p>
-    <strong>Block 区块</strong>
-   主要描述组件的主体
-</p>
-<p>
-    <strong>Element 元素</strong>
-    用来描述组件的单元
-</p>
-<p>
-    <strong>Modifer 修饰</strong>
-    用来描述样式和修饰，不重写组件基础样式，多种修饰应该分开写
-</p>
-<p>
-    BEM写法虽然会加大代码量，但也很好的实现了OOCSS的思想，并且开服务器开启Gzip时，并不会增大多少体积。
-</p>
++ 开发模式中无法对新建页面进行编译
 
 
-<h5>nodemon 配置</h5>
-//使用nodemon 监控文件webpack.config ，页面模版 在变化时重新执行 webpack $ npm i nodemon -D package.json //命令 "scripts": { "start": "nodemon
-" } nodemon.json //配置表 { "restartable": "rs", //忽略 "ignore": [ ".git", "node_modules/" ], //输出详细启动与重启信息 "verbose": true,
-//运行服务的后缀名和对应的运行命令 "execMap": { "js": "webpack-dev-server" }, //运行到某些状态时的一些触发事件 "events": { //开始 "start":"webpack-dev-server",
-//重新启动 "restart": "webpack-dev-server" }, // "runOnChangeOnly":true, //监控目标 "watch": [ "src/user/", "webpack.config.js" ],
-"env": { "NODE_ENV": "development", "PORT": "3000" }, //监控的后缀 "ext": "ejs html js", "legacy-watch": false }
+## npm 操作
+
+#### 下载依赖
+```
+npm i
+```
+#### 发布
+```
+npm run build
+```
+
+
+#### 实时编译开发
+```
+npm run dev
+```
+[localhost:8010](http://localhost:8010)
+
+
+####  config 开发模式
+监控配置 nodemon自动重启
+```
+npm run config
+```
+
+### 文件结构
+
++ dist //生成发布目录
++ src //源码
+    + assets //资源库
+        + js //js库
+        + css //样式库
+    + pages //页面模板
+        + index.ejs //单页面 生成时对应名称 ejs将生成html
+        + spa.ejs vue路由dome
+    + entry//页面入口
+        + index.js//入口为同名js
+    + views //vue视图模块
+    + components //vue组件库
+
+
+### CSS BEM規範
+提高CSS的可读化和oocss思想让css的可复用性更强
+
+```
+    //写法 区块__元件--修饰
+    block__element--modaifer
+    //多个单词组成
+    block-name
+```
+###### Block 区块
+主要描述组件的主体
+
+###### Element 元素
+用来描述组件的单元
+###### Modifer 修饰
+用来描述样式和修饰，不重写组件基础样式，多种修饰应该分开写
+
+BEM写法虽然会加大代码量，但也很好的实现了OOCSS的思想，并且开服务器开启Gzip时，并不会增大多少体积。
+
+### postcss说明
+
+>#### autoprefixer 配置
+> autoprefixer可以自动添加浏览器所需要的前缀
+>1. postcss.confug.js
+```
+ plugins: [
+        require('autoprefixer')({
+            // 兼容
+            "browserslist": [
+                "defaults",
+                "not ie < 10",
+                "last 2 versions",
+                "> 1%",
+                "iOS 7",
+                "last 3 iOS versions"
+            ]
+        }),
+        //px to vw
+        // require('postcss-px2viewport')
+    ],
+```
+>2. package.json内增加
+```
+"browserslist": [
+   ">= 1%", //全球浏览器使用率大于1%或大于等于1%（上例中则是1%）。
+   "last 2 versions", //每个浏览器中最新的两个版本。
+   "ie 6-8", //选择包含ie6-8的版本。
+  "Firefox > 20" //火狐版本号大于20。
+]
+```
+>3. webpack.config.js使用LoaderOptionsPluginplugins
+```
+
+ plugins: [
+    new webpack.LoaderOptionsPlugin({
+        options: {
+            postcss: function(){
+                return [
+                    require("autoprefixer")({
+                        browsers: ['ie>=8','>1% in CN']
+                    })
+                ]
+            }
+        }
+    })
+]
+```
+>#### postcss-px2viewport说明
+>vw方案是处理手机端自适应解决方案，设置设计稿尺寸，编写时能将我们编写的px转换成vw单位
+>postcss.config.js 
+```
+plugins:[
+    require('postcss-px2viewport')
+]
+postcss: function () {
+        return [px2viewport({ viewportWidth: 750,viewportHeight:1334 })];
+}
+```
+> .css 标记
+> /*px*/的，则转换为[data-dpr="1"]、[data-dpr="2"]、[data-dpr="3"]三种不同的字体
+> /*no*/的，则不做处理，依然使用px进行布局
+
+
+### nodemon 配置
+使用nodemon 监控文件webpack.config ，页面模版 在变化时重新执行 webpack $ npm i nodemon -D package.json 
+``` 
+"scripts": { 
+    "start": "nodemon
+" }
+``` 
+nodemon.json 
+//配置表 
+```
+{ 
+    "restartable": "rs", 
+    //忽略 
+    "ignore": [ ".git", "node_modules/" ], 
+    //输出详细启动与重启信息 
+    "verbose": true,
+    //运行服务的后缀名和对应的运行命令 
+    "execMap": { 
+        "js": "webpack-dev-server" 
+        }, 
+    //运行到某些状态时的一些触发事件 
+    "events": { 
+        //开始 
+        "start":"webpack-dev-server",
+        //重新启动 
+        "restart": "webpack-dev-server" 
+    },
+    "runOnChangeOnly":true, 
+    //监控目标 
+    "watch": [ "src/user/", "webpack.config.js" ],
+    "env": { "NODE_ENV": "development", "PORT": "3000" }, 
+    //监控的后缀 
+    "ext": "ejs html js", 
+    "legacy-watch": false 
+}
+```
