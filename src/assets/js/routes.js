@@ -26,7 +26,6 @@ export default [
 			{
 
 				path: "404",
-				title:"4o4",
 				component: FalsePage,
 			}
 		]

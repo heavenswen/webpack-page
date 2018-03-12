@@ -8,6 +8,7 @@
     </section>
 </template>
 <script>
+
 export default {
     data() {
         return {
@@ -20,8 +21,9 @@ export default {
     //创建完成时执行
     created() {
         //直接访问状态
-        console.log(this.$store.getters.doneTodos )
-    },
+        // console.log(this.$store.state.title )
+        this.$store.commit("setTitle","set title")
+    },  
     beforeRouteEnter(to, from, next) {
         // 在渲染该组件的对应路由被 confirm 前调用
         // 不！能！获取组件实例 `this`
