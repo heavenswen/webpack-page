@@ -50,6 +50,8 @@ export default new Vuex.Store({
 	},
 	actions: {
 		//异步 提交 mutations 例function(content){context.commit('function')} 触发store.dispatch('function')
+		
 	}
 
 })
+document.querySelector("[content*='ld']").style.color = red;
