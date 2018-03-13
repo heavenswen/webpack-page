@@ -39,10 +39,6 @@ let maskTimeout;
 export default {
   data() {
     return {
-      //加载等待
-      mask: false,
-      maskNum: 0,
-      test: "test props"
     };
   },
   //计算属性
@@ -61,8 +57,13 @@ export default {
       countAlias: "title",
 
       // 为了能够使用 `this` 获取局部状态，必须使用常规函数
-      countPlusLocalState(state) {
-        return state.title + this.localCount;
+      //等待层
+      mask(state) {
+        if (state.axios) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }),
   // 当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。
@@ -76,40 +77,9 @@ export default {
     //通用方法
     //this.$root.$children[0] 调用当前下的方法
     //加载等待
-    maskshow() {
-      return (this.mask = true);
-    },
-    maskAdd() {
-      //添加一个任务记数
-      this.maskNum++;
-      return this.maskshow();
-    },
-    maskRemove() {
-      //减少一个任务记数
-      this.maskNum--;
-      //当0是关闭
-      if (!this.maskNum) this.maskHide();
-    },
     maskHide() {
       //直接关闭
-      return (this.mask = false);
-    },
-    ajax(mode = "get", url = "#", thenfun, catchfun) {
-      this.maskAdd();
-      let that = this;
-
-      Axios[mode]
-        .then(json => {
-          //减少一个任务计数
-          that.maskRemove();
-          //callback
-          if (thenfun) thenfun(json);
-        })
-        .catch(e => {
-          //减少一个任务计数
-          that.maskRemove();
-          if (thenfun) catchfun(e);
-        });
+      return this.$store.commit("axiosClean");
     }
   },
   //监控 参数并响应 Object.set

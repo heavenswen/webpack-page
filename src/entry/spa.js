@@ -42,7 +42,7 @@ router.afterEach((to, from) => {
     let data = router.app.$store
     //触发路由时改变vuex状态 
     data.commit("setNowPath", nowPath)
-    
+
 })
 //全局插件
 Vue.use(VueRouter)
@@ -51,13 +51,7 @@ Vue.use(Vuex)
 
 
 const app = new Vue({
-    data:{
-        g:0,
-    },
     store,
     router,
-    watch: {
-        //监控
-    },
     render: h => h(App)
 }).$mount('#app')

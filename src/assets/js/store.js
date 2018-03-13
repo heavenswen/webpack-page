@@ -5,18 +5,18 @@
 'use strict'
 import Vue from 'vue' //vue
 import Vuex from 'vuex'
+import Axios from "axios";
 
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
-//移动端检测
-var mobile = !!navigator.userAgent.match(/AppleWebKit.*Mobile.*/);
 
 export default new Vuex.Store({
 	strict: debug,
 	//全局状态 不允许直接修改 app.$store.state
 	state: {
-		mobile, //判断
+		axios: 0,
+		mobile: !!navigator.userAgent.match(/AppleWebKit.*Mobile.*/), //移动端检测
 		//产品名称
 		title: "DCUI",
 		//用户名
@@ -37,20 +37,45 @@ export default new Vuex.Store({
 			return getters.doneTodos.length
 		}
 	},
-	//事件 function(state,data) 调用 this.$store.commit([name],data)
+	//同步 事件 function(state,data) 调用 this.$store.commit([name],data) 
 	mutations: {
 		//当前路径
 		setNowPath(state, value) {
 			state.path = value
 		},
-		setTitle(state, value) {
-			state.title = value
+		//设置标题
+		setTitle({title},val){
+			title = val
+			document.title = val
+		},
+		// 数据请求
+		//异步叠加
+		axiosAdd(state) {
+			state.axios++;
+		},
+		//异步减少
+		axiosRemove(state) {
+			state.axios--;
+		},
+		//异步清除
+		axiosClean(state) {
+			state.axios = 0;
 		}
 
 	},
 	actions: {
-		//异步 提交 mutations 例function(content){context.commit('function')} 触发store.dispatch('function')
-		
+		/**
+		 * 异步 提交 mutations 例function({ commit, state }, products){commit('mutations')} 触发*store.dispatch('function')
+		 * 
+		 * */
+		async ajax({ commit, state }, { mode = "get", url = "#", params = {}}) {
+			//执行显示
+			commit("axiosAdd");
+			let data =  await Axios[mode](url, params)
+			commit("axiosRemove");
+			return data
+
+		}
 	}
 
 })
