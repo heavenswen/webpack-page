@@ -54,4 +54,3 @@ export default new Vuex.Store({
 	}
 
 })
-document.querySelector("[content*='ld']").style.color = red;

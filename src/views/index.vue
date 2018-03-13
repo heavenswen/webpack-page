@@ -1,10 +1,12 @@
 // 底层
 <template>
     <div id="app">
-        {{title}},{{countAlias}},{{countPlusLocalState}}
         <!--content 内容过渡层 appear 开始执行过渡-->
         <transition name='show' mode="out-in" appear >
-            <router-view ></router-view>
+            <!-- 如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。 -->
+            <keep-alive>
+                <router-view ></router-view>
+            </keep-alive>
         </transition>
         <!-- content end -->
         <!--全局加载-->
@@ -26,6 +28,7 @@
 <script>
 //axios
 import Axios from "axios";
+import InputDate from "components/inputDate.vue";
 import "assets/css/mask-tip.scss";
 import "assets/css/spa.scss";
 // 在单独构建的版本中辅助函数为 Vuex.mapState
@@ -38,7 +41,8 @@ export default {
     return {
       //加载等待
       mask: false,
-      maskNum: 0
+      maskNum: 0,
+      test: "test props"
     };
   },
   //计算属性
@@ -47,6 +51,7 @@ export default {
     // title() {
     //   return this.$store.state.title;
     // },}
+    // 辅助函数 少写几个字符
     mapState({
       //mapstate show
       // 箭头函数可使代码更简练
@@ -108,7 +113,7 @@ export default {
     }
   },
   //监控 参数并响应 Object.set
-  watch: {}
-  // components: { VMark }
+  watch: {},
+  components: { InputDate }
 };
 </script>
