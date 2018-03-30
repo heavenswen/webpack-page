@@ -113,16 +113,16 @@
 
         })
         /**
-         * 显示
-         * @event focus
+         * 显示列表宽
+         * @event selectd&focus
          */
         this.trigger.addEventListener("focus", function () {
             that.obj.classList.add("isshow");
         })
 
         /**
-         * 隐藏
-         * @event focus
+         * 隐藏列表宽
+         * @event selectd&blur
          */
         this.trigger.addEventListener("blur", function () {
             that.obj.classList.remove("isshow");

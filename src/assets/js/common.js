@@ -11,7 +11,6 @@
      * @namespace
      */
     const COMMON = {
-        winHref: window.location.href,
         /** 
          *同级选择器
          *@param {DOM} dom 对象
@@ -20,109 +19,66 @@
         */
         siblings(dom, target) {
             //父级
-            let list = dom.parentNode.querySelectorAll(target)
             let arr = []
-            for (let obj of list) {
+            dom.parentNode.querySelectorAll(target).forEach(obj => {
+                //获得除以外的对象
                 if (obj != dom) {
                     arr.push(obj);
                 }
-            }
+            })
             return arr;
         },
         /**
-         * className 批量操作
-         * @param {DOM} list 目标对象
-         * @param {String} type toggle,add ,remove 三种
-         * @param {String} className 
+         * 页面滚动，添加事件
+         * @param {Dom} target 选择器
+         * @param {String} dataString data-数据
+         * @param {Function} fn 匹配后触发,不存在事件时添加class = active
+         * @param {Function} falseFn false 回调
+         * @param {string} active 不存在事件时添加class = active
          */
-        setClass(list, type = 'add', className) {
-            for (let obj of list) {
-                obj.classList[type](className);
+        scrollFn(target, dataString = "top", fn, falseFn, className = "active") {
+            //获得当前高度
+            let h = document.body.clientHeight
+            //获得对象位置
+            function getTarget() {
+                let targets = [];
+                //保存对象位置数据 getBoundingClientRect 获取为负数
+                document.querySelectorAll(target).forEach(obj => {
+                    let top = obj.dataset[dataString] === undefined ? obj.offsetTop : obj.dataset[dataString]
+                    targets.push({ top, obj })
+                })
+                return targets;
             }
-        },
-        /**
-         * 多对象事件
-         * @param {String} target css选择器
-         * @param {String} trigger Event
-         * @param {function} fn 函数
-         */
-        addEvent(target, trigger, fn) {
-            let list = document.querySelectorAll(target)
-            for (let obj of list) {
-                obj.addEventListener(target, trigger, fn, false);
-            }
-            return list;
-        },
-        /**
-         * 多对象删除事件
-         * @param {String} target css选择器
-         * @param {String} trigger Event
-         * @param {function} fn 函数
-         */
-        removeEvent(target, trigger, fn) {
-            let list = document.querySelectorAll(target)
-            for (let obj of list) {
-                obj.removeEventListener(target, trigger, fn, false);
-            }
-            return list;
-        },
-        /**
-         * 自动选中导航链接,正则比对,尾部匹配
-         * @param {string} target 导航列表组对象
-         * @param {string} find 链接对象 
-         * @param {string} active className 默认“active”
-         * @param {string} index 导航上首页地址 / || index.* 
-         * @param {Function} fn 回调匹配的对象 和链接对象
-         */
-        navActive(target,index='', find = "a", active = 'active',fn) {
+            let targets = getTarget();
 
-      
-            //当前链接
-            let win = this.winHref
-
-            //获得导航列表组
-            let list = document.querySelectorAll(target)
-
-            // win = `http://192.168.1.107:8010/index.html?a=index&b=nav`
-            // 检测 ‘/’状态
-            win = win.replace(/\/$/i, "\/"+index)
-
-
-            for (let obj of list) {
-                let as = obj.querySelectorAll(find);
-                //链接集搜索
-                for (var a of as) {
-                    //链接目标对象
-                    var href = a.href;
-                    if (!href) return;
-                    //转义
-                    href = href.replace(/(\?|\.)/g, "\\$1")+'$';
-                    var reg = RegExp(href, "ig");
-                    //匹配最接近的一个
-                    if (win.match(reg)) {
+            document.addEventListener("scroll", function () {
+                //获得当前高度
+                let win_top = document.body.getBoundingClientRect().top * -1;
+                //内容高度
+                let content_h = document.body.clientHeight
+                // 当页面内容高度改变时重新计算对象位置
+                if (h != content_h) {
+                    targets = getTarget();
+                }
+                //比对
+                targets.forEach(data => {
+                    if (data.top <= win_top) {
                         if (fn) {
-                            fn(obj, a);
+                            fn(data, win_top)
                         } else {
-                            let sibs = this.siblings(obj, "." + active)
-                            this.setClass(sibs, "remove", active);
-                            obj.classList.add(active);
-                            //a同级class
-                            this.setClass(this.siblings(a, active), "remove", active);
-                            a.classList.add(active);
+                            data.obj.classList.add(className)
+                        }
+                    } else {
+                        if (falseFn) {
+                            falseFn(data, win_top)
+                        } else {
+                            data.obj.classList.remove(className)
                         }
                     }
-                }
-            }
+                })
 
-            /**
-             * 链接数据获取
-             */
-            function foreach(obj) {
-
-            }
-
-
-        },
+            })
+        }
 
     }
     window.Common = COMMON;

@@ -37,6 +37,8 @@
 
 /* 详情 */
 .search-cell{
+    margin: 0;
+    list-style: none;
     width: 100%;
     padding-left: 60px;
 }

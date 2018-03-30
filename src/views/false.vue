@@ -9,15 +9,14 @@
 </template>
 
 <script>
-import "assets/css/404.scss"
+import "assets/css/404.scss";
 export default {
-
-    methods: {
-        //触发路由上1page
-        back() {
-            history.go(-1);
-        }
+  methods: {
+    //触发路由上1page
+    back() {
+      history.go(-1);
     }
-}
+  }
+};
 </script>
 

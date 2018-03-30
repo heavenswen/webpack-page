@@ -1,4 +1,4 @@
-// index.html
+// index.html element demo
 <template>
     <div id="app">
         <div class="dd">

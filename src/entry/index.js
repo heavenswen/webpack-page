@@ -14,12 +14,15 @@ $(function () {
   }
  $("body").on("click",fn);
 })
+//工具方法
+import {scrollFn} from 'assets/js/common'
+scrollFn("fieldset")
 
-import Q from 'assets/js/common'
 //自适应方案
 import Rem from 'assets/js/rem'
 
 new Rem();
+
 
 //引入 vue
 import Vue from 'vue'

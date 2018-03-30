@@ -135,8 +135,6 @@ export default {
     },
     mounted() {
         //dom生产完毕
-        //加载层
-        this.$root.$children[0].maskAdd();
 
         //dom生成后执行
         const el = this.$el
@@ -145,8 +143,6 @@ export default {
 
         //获取pdf页数 从1开始
         this.initPdf(el, function() {
-            //隐藏加载层
-            that.$root.$children[0].maskRemove();
             //初始化 swiper
             that.mySwiper = that.initSwiper();
 
