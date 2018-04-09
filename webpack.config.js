@@ -134,12 +134,12 @@ const config = {
 
       {
         //修改html img路径
-        test: /\.html$/,
+        test: /\.(html|ejs)$/,
         use: [{
           loader: 'html-loader',
           options: {
             root: resolve(__dirname, 'src'),
-            attrs: ['img:src', 'img:data-src', 'img:data-background', 'link:href']
+            attrs: ['img:src', 'img:data-src', 'img:data-background',"video:src","audio:src", "source:src",'link:href']
           }
         }]
       },
@@ -184,7 +184,7 @@ const config = {
       },
       {
         //资源
-        test: /\.(apk|docx|doc|exe)(\?.+)?$/,
+        test: /\.(apk|docx|doc|exe|mp4|org)(\?.+)?$/,
         use: [{
           loader: 'file-loader',
           options: {
