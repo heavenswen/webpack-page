@@ -2,7 +2,6 @@
 <template>
     <section class="main">
         <h1 class="text--center">main</h1>
-            <router-view></router-view>
     </section>
 </template>
 <script>
@@ -31,7 +30,7 @@ export default {
       .then(function(json) {});
   },
   beforeRouteUpdate(to, from, next) {
-    // 当同个组件被调用时触发
+    // 当同个组件被调用时触发 但不会触发过渡
     // 不！能！获取组件实例 `this`
     // 因为当钩子执行前，组件实例还没被创建
     // if (to.path == from.path) {
@@ -49,15 +48,14 @@ export default {
     // }
     next();
   },
-  watch: {
-    //基于当前路由与目标路由的变化关系，动态设置过渡效果：
-    $route(to, from) {
-      console.log(to);
-      const toDepth = to.path.split("/").length;
-      const fromDepth = from.path.split("/").length;
-      //对比层级
-      this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-    }
-  }
+  // watch: {
+  //   //基于当前路由与目标路由的变化关系，动态设置过渡效果：
+  //   $route(to, from) {
+  //     const toDepth = to.path.split("/").length;
+  //     const fromDepth = from.path.split("/").length;
+  //     //对比层级
+  //     this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+  //   }
+  // }
 };
 </script>

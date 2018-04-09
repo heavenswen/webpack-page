@@ -4,7 +4,7 @@ import FalsePage from "views/false.vue"
 //默认首页
 import Main from "views/main.vue"
 //pdf 页面
-import Page from "views/app.vue"  
+import Page from "views/false.vue"
 
 export default [
 	{
@@ -15,19 +15,29 @@ export default [
 		//自定义 页面名称
 		title: "首页",
 		//子集导航
-		children: [
-			{
+		// children: [
+		// 	{
 
-				path: "404",
-				component: FalsePage,
-			},
-			{
+		// 		path: "404",
+		// 		component: FalsePage,
+		// 	},
+		// 	{
 
-				path: "page",
-				component: Page,
-			},
+		// 		path: "page",
+		// 		component: Page,
+		// 	},
 
-		]
+		// ]
+	},
+	{
+
+		path: "/404",
+		component: FalsePage,
+	},
+	{
+
+		path: "/page",
+		component: Page,
 	},
 	{
 		//404

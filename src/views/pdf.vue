@@ -1,9 +1,12 @@
 // PDFJS+Swiperjs 组件
 <template>
-    <s-pdf :url='pdfUrl'></s-pdf>
+    <div>
+        <h4>pdf</h4>
+        <s-pdf :url='pdfUrl'></s-pdf>
+    </div>
 </template>
 <script>
-import SPdf from 'components/swiperPdf.vue'
+import SPdf from '../lib/vue-pdf-swiper/'
 
 export default {
     data() {

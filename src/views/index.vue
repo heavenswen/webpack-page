@@ -2,7 +2,9 @@
 <template>
     <div id="app">
         <!--content 内容过渡层 appear 开始执行过渡-->
-        <transition name='show' mode="out-in" >
+        <router-link to="/page">go to page</router-link>
+        <router-link to="/404">go to 404</router-link>
+        <transition :name='transitionName' mode="out-in" >
             <!--keep-alive 如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。 -->
             <keep-alive>
                 <router-view ></router-view>
@@ -10,7 +12,7 @@
         </transition>
         <!-- content end -->
         <!--全局加载-->
-        <transition name="show" mode="out-in">
+        <transition name="fade" mode="out-in">
             <section v-if="mask" class="mask" @click="maskHide">
                 <div class="mask-tip">
                     <section class='mask-icon'>
@@ -39,14 +41,16 @@ let maskTimeout;
 export default {
   data() {
     return {
+      //过渡效果
+      transitionName: "slide-left"
     };
+  },
+  created(){
+   //创建完成时执行
   },
   //计算属性
   computed:
     //直接从$store 获得并返回给容器
-    // title() {
-    //   return this.$store.state.title;
-    // },}
     // 辅助函数 少写几个字符
     mapState({
       //mapstate show
@@ -83,7 +87,20 @@ export default {
     }
   },
   //监控 参数并响应 Object.set
-  watch: {},
+  watch: {
+    //基于当前路由与目标路由的变化关系，动态设置过渡效果：
+    $route(to, from) {
+     
+    }
+  },
+  beforeRouteUpdate(to, from, next) {
+    //调用同一个组件时触发
+    console.log(to,form)
+    const toDepth = to.path.split("/").length;
+    const fromDepth = from.path.split("/").length;
+    this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+    next();
+  },
   components: { InputDate }
 };
 </script>
