@@ -134,13 +134,13 @@ const config = {
 
       {
         //修改html img路径
-        test: /\.(html|ejs)$/,
+        test: /\.html$/,
         use: [{
           loader: 'html-loader',
-          options: {
-            root: resolve(__dirname, 'src'),
-            attrs: ['img:src', 'img:data-src', 'img:data-background',"video:src","audio:src", "source:src",'link:href']
-          }
+          // options: {
+          //   root: resolve(__dirname, 'src'),
+          //   attrs: ['img:src', 'img:data-src', 'img:data-background','link:href']
+          // }
         }]
       },
       {

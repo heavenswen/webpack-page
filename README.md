@@ -14,7 +14,7 @@
 + 实时代码查看，自动刷新浏览器(livereload) --index.ejs
 + 自动生成分页(glob) --webpack.config
 + 支持引入jquery,vue 公用 --index.js
-
++ 分页模版自己的生成，重启环境 --page.js 
 ### 问题
 
 + 开发模式中无法对新建页面进行编译
@@ -31,7 +31,6 @@ npm i
 npm run build
 ```
 
-
 #### 实时编译开发
 ```
 npm run dev
@@ -39,10 +38,10 @@ npm run dev
 [localhost:8010](http://localhost:8010)
 
 
-####  config 开发模式
-监控配置 nodemon自动重启
+####  分页开发模式
+page-config 添加分页，自动生成对应页面,但使用child_process模块，将无法看到编译过程，重新和开始可能较缓慢，请耐心等待。错误查看请在浏览器F12上查看。
 ```
-npm run config
+npm run page
 ```
 
 ### 文件结构
@@ -65,6 +64,29 @@ npm run config
 + .eslintrc.js  //
 + .gitignore  //git 过滤
 + LICENSE //开源协议
++ page.js //页面生成脚本
++ page-config.js//页面配置文件
+
+### ejs说明
+html-webpack-plugin可以用html作为模版文件，但是这会和全局配置的html-loader冲突造成无法用ejs语法嵌入图片。
+将模版文件全部替换成ejs文件（默认模版，官方推荐）
+
+这样做的原因是即使使用了全局的html-loader来加载html文件，但是它也加载不到.ejs结尾的ejs文件。这样有效避免了html-loader对ejs fallback的影响。
+
+因为有全局html-loader的存在，所以不需要加（html-loader!）前缀
+```
+<%= require('../layout/left.html') %> //如果嵌入文件是html文件
+```
+因为是ejs文件不会被全局html-loader加载，所以要加前缀
+(引入的ejs文件里的ejs并不会生效)
+```
+<%= require('html-loader!../layout/left.ejs') %> //如果嵌入文件是ejs文件
+```
+直接可以使用require来嵌入图片
+```
+<img src=<%= require( '../img/test.jpg') %> />
+```
+[参考](https://www.imooc.com/article/18513?block_id=tuijian_wz)
 
 ### CSS BEM規範
 提高CSS的可读化和oocss思想让css的可复用性更强
@@ -151,14 +173,18 @@ postcss: function () {
 
 
 ### nodemon 配置
-使用nodemon 监控文件webpack.config ，页面模版 在变化时重新执行 webpack $ npm i nodemon -D package.json 
+使用nodemon 监控文件webpack.config ，页面模版 在变化时重新执行 webpack 
+install
+```
+$ npm i nodemon -D 
+```
+--watch 监控文件  --exec 执行命令
 ``` 
 "scripts": { 
-    "start": "nodemon
-" }
+    "start": "nodemon --watch file||path --exec \"node page \"" }
 ``` 
 nodemon.json 
-//配置表 
+配置表说明
 ```
 { 
     "restartable": "rs", 

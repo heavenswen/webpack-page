@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "mon": "nodemon  --watch src/user/ --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
-    "config": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
+    "page": "nodemon --watch page-config.js --watch webpack.config.js  --exec \"node page \"",
     "dev": "webpack-dev-server --inline ",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules  --colors "
   },
@@ -45,7 +45,7 @@
     "url-loader": "^0.5.9",
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.1",
-    "webpack": "^3.4.1",
+    "webpack": "^3.11.0",
     "webpack-dev-server": "^2.5.1",
     "webpack-livereload-plugin": "^0.11.0"
   }
