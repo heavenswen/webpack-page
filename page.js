@@ -1,5 +1,5 @@
-// 页面配置
-const { ext, pages } = require("./page-config")
+// 页面配置 后缀 ，file ，页面模版
+const { ext, pages, htmlTemplate } = require("./page-config")
 //node cmd
 const { exec } = require('child_process')
 const glob = require('glob')
@@ -8,23 +8,6 @@ const fs = require('fs')
 
 const publicPage = "./src/pages/"
 const publicEnrty = "./src/entry/"
-const PageContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= htmlWebpackPlugin.options.filename.replace(/\.html/,'') %></title>
-</head>
-<body>
-   
-    <!-- <% if(!htmlWebpackPlugin.options.env){ %>
-    <!-- 页面自动刷新 -->
-    <!-- <script src="http://localhost:35729/livereload.js"></script> -->
-    <!-- <%}%> -->
-</body>
-
-</html>`
 
 //已存在页面
 let filesPage = [];
@@ -43,7 +26,7 @@ glob.sync(publicEnrty + "**/*.js").forEach(path => {
 pages.forEach(page => {
     let html = `${publicPage}${page}.${ext}`
     let entry = `${publicEnrty}${page}.js`
-    if (filesPage.indexOf(page) == -1) writerFile(html, PageContent)
+    if (filesPage.indexOf(page) == -1) writerFile(html, htmlTemplate)
     if (filesEnrty.indexOf(page) == -1) writerFile(entry)
 })
 
