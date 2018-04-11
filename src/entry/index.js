@@ -14,9 +14,6 @@ $(function () {
   }
  $("body").on("click",fn);
 })
-//工具方法
-import {scrollFn} from 'assets/js/common'
-scrollFn("fieldset")
 
 //自适应方案
 import Rem from 'assets/js/rem'

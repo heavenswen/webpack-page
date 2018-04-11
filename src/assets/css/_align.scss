@@ -1,6 +1,96 @@
-// 栅格化布局
-//生成css 代码块 flex 布局 ie10+
-@mixin flex-bs($align:true, $display:true) {
+//模块 对齐 隐藏
+// 文本对齐
+@mixin text-bs() {
+    //text
+    .text--left {
+        text-align: left;
+    }
+    .text--right {
+        text-align: right;
+    }
+    .text--center {
+        text-align: center;
+    }
+} // 文本对齐 end
+// 显示隐藏
+@mixin display-bs() {
+    .d--none {
+        display: none;
+    }
+    .d--inline {
+        display: inline;
+    }
+    .d--inline-block {
+        display: inline-block;
+    }
+    .d--block {
+        display: block;
+    }
+    .d--table {
+        display: table;
+    }
+    .d--table-row {
+        display: table-row;
+    }
+    .d--table-cell {
+        display: table-cell;
+    }
+    .d--flex {
+        display: flex;
+    }
+    .d--inline-flex {
+        display: inline-flex;
+    }
+} //显示隐藏 end
+//显示隐藏 响应式
+@mixin display-bs-media($text:true) {
+    @each $key,
+    $v in $WIN {
+        @media (min-width: $v+px) {
+            @if($text==true) {
+                //text
+                .text-#{$key}--left {
+                    text-align: left;
+                }
+                .text-#{$key}--right {
+                    text-align: right;
+                }
+                .text-#{$key}--center {
+                    text-align: center;
+                }
+            }
+            .d-#{$key}--none {
+                display: none;
+            }
+            .d-#{$key}--inline {
+                display: inline;
+            }
+            .d-#{$key}--inline-block {
+                display: inline-block;
+            }
+            .d-#{$key}--block {
+                display: block;
+            }
+            .d-#{$key}--table {
+                display: table;
+            }
+            .d-#{$key}--table-row {
+                display: table-row;
+            }
+            .d-#{$key}--table-cell {
+                display: table-cell;
+            }
+            .d-#{$key}--flex {
+                display: flex;
+            }
+            .d-#{$key}--inline-flex {
+                display: inline-flex;
+            }
+        }
+    }
+} // 显示隐藏 响应 end 
+// flex 布局 ie10+ (对齐方式)
+@mixin flex-bs($align:true) {
     //弹性布局
     .flex-row,
     .flex {
@@ -140,186 +230,142 @@
             align-self: stretch;
         }
     }
-    @if($display==true) {
-        //显示隐藏
-        .d--none {
-            display: none;
-        }
-        .d--inline {
-            display: inline;
-        }
-        .d--inline-block {
-            display: inline-block;
-        }
-        .d--block {
-            display: block;
-        }
-        .d--table {
-            display: table;
-        }
-        .d--table-row {
-            display: table-row;
-        }
-        .d--table-cell {
-            display: table-cell;
-        }
-        .d--flex {
-            display: flex;
-        }
-        .d--inline-flex {
-            display: inline-flex;
-        }
-    }
-} //flex 响应
-@mixin flex-bs-media($align: true, $display: true) {
-    @each $w,
+} // flex 布局 end
+//flex 响应 (对齐)
+@mixin flex-bs-media($align: true) {
+    @each $key,
     $v in $WIN {
         @media (min-width: $v+px) {
             // 删栏
-            .col-#{$w} {
+            .col-#{$key} {
                 flex-basis: 0;
                 flex-grow: 1;
                 max-width: 100%;
             }
-            .col-#{$w}--auto {
+            .col-#{$key}--auto {
                 flex: 0 0 auto;
                 width: auto;
                 max-width: none;
             } //排版
             //横排
-            .flex-#{$w}--row {
+            .flex-#{$key}--row {
                 flex-direction: row;
             } // 竖排
-            .flex-#{$w}--column {
+            .flex-#{$key}--column {
                 flex-direction: column;
             } //横排 但顺序相反
-            .flex-#{$w}--row-reverse {
+            .flex-#{$key}--row-reverse {
                 flex-direction: row-reverse;
             } // 与 column 相同，但是以相反的顺序。
-            .flex-#{$w}--column-reverse {
+            .flex-#{$key}--column-reverse {
                 flex-direction: column-reverse;
-            }
+            } //$i到12
             @for $i from 1 to 12 {
-                //$i到9
-                .col-#{$w}--#{$i} {
+                .col-#{$key}--#{$i} {
                     flex: percentage($i*(1/12));
                     max-width: percentage($i*(1/12));
                 }
-                .order-#{$w}--#{$i} {
+                .order-#{$key}--#{$i} {
                     order: $i;
                 }
-                .offset-#{$w}--#{$i} {
+                .offset-#{$key}--#{$i} {
                     margin-left: percentage($i*(1/12));
                 }
             } //排在第一个
-            .order-#{$w}--first {
+            .order-#{$key}--first {
                 order: -1;
             } //排在第最后一个
-            .order-#{$w}--last {
+            .order-#{$key}--last {
                 order: 13;
             } //对齐
             @if($align==true) {
                 //水平
                 // 对齐left
-                .justify-content-#{$w}--start {
+                .justify-content-#{$key}--start {
                     justify-content: flex-start;
                 } // 对齐right    
-                .justify-content-#{$w}--end {
+                .justify-content-#{$key}--end {
                     justify-content: flex-end;
                 } // 居中
-                .justify-content-#{$w}--center {
+                .justify-content-#{$key}--center {
                     justify-content: center;
                 } //之间(间隔等距离)
-                .justify-content-#{$w}--between {
+                .justify-content-#{$key}--between {
                     justify-content: space-between;
                 } //围绕
-                .justify-content-#{$w}--around {
+                .justify-content-#{$key}--around {
                     justify-content: space-around;
                 } //垂直方向
                 // 上
-                .align-items-#{$w}--start {
+                .align-items-#{$key}--start {
                     align-items: flex-start;
                 } //   中
-                .align-items-#{$w}--end {
+                .align-items-#{$key}--end {
                     align-items: flex-end;
                 } //   下
-                .align-items-#{$w}--center {
+                .align-items-#{$key}--center {
                     align-items: center;
                 } //第一行文字的基线对齐
-                .align-items-#{$w}--baseline {
+                .align-items-#{$key}--baseline {
                     align-items: baseline;
                 } // 高度auto时默认添满
-                .align-items-#{$w}--stretch {
+                .align-items-#{$key}--stretch {
                     align-items: stretch;
                 } // 容器内的各项没有占用交叉轴上所有可用的空间时对齐（垂直）
                 //顶部
-                .align-content-#{$w}--start {
+                .align-content-#{$key}--start {
                     align-content: flex-start;
                 } //底部
-                .align-content-#{$w}--end {
+                .align-content-#{$key}--end {
                     align-content: flex-end;
                 } //居中
-                .align-content-#{$w}--center {
+                .align-content-#{$key}--center {
                     align-content: center;
                 } //当中
-                .align-content-#{$w}--between {
+                .align-content-#{$key}--between {
                     align-content: space-between;
                 }
-                .align-content-#{$w}--around {
+                .align-content-#{$key}--around {
                     align-content: space-around;
                 }
-                .align-content-#{$w}--stretch {
+                .align-content-#{$key}--stretch {
                     align-content: stretch;
                 } //单项垂直
-                .align-self-#{$w}--auto {
+                .align-self-#{$key}--auto {
                     align-self: auto;
                 }
-                .align-self-#{$w}--start {
+                .align-self-#{$key}--start {
                     align-self: flex-start;
                 }
-                .align-self-#{$w}--end {
+                .align-self-#{$key}--end {
                     align-self: flex-end;
                 }
-                .align-self-#{$w}--center {
+                .align-self-#{$key}--center {
                     align-self: center;
                 } //基线
-                .align-self-#{$w}--baseline {
+                .align-self-#{$key}--baseline {
                     align-self: baseline;
                 } //等高
-                .align-self-#{$w}--stretch {
+                .align-self-#{$key}--stretch {
                     align-self: stretch;
                 }
-            }
-            @if($display==true) {
-                // 显示隐藏
-                .d-#{$w}--none {
-                    display: none;
-                }
-                .d-#{$w}--inline {
-                    display: inline;
-                }
-                .d-#{$w}--inline-block {
-                    display: inline-block;
-                }
-                .d-#{$w}--block {
-                    display: block;
-                }
-                .d-#{$w}--table {
-                    display: table;
-                }
-                .d-#{$w}--table-row {
-                    display: table-row;
-                }
-                .d-#{$w}--table-cell {
-                    display: table-cell;
-                }
-                .d-#{$w}--flex {
-                    display: flex;
-                }
-                .d-#{$w}--inline-flex {
-                    display: inline-flex;
-                } 
-            } // 显示隐藏 end
-        }//media flex end 
+            } //对齐 end
+        } //media flex end 
     }
-}
+} //flex 响应 end
+
+//引入所有对齐模块
+@mixin align-bs($flex:true){
+    @include text-bs();
+    @include display-bs();
+    @if($flex == true){
+        @include flex-bs();
+    }
+}//
+//引入所有对齐模块的媒体查询
+@mixin align-bs-media($flex:true){
+    @include display-bs-media();
+    @if($flex == true){
+        @include flex-bs-media();
+    }
+}//

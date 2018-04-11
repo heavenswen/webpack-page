@@ -15,10 +15,6 @@
 + 自动生成分页(glob) --webpack.config
 + 支持引入jquery,vue 公用 --index.js
 + 分页模版自己的生成，重启环境 --page.js 
-### 问题
-
-+ 开发模式中无法对新建页面进行编译
-
 
 ## npm 操作
 
@@ -97,6 +93,15 @@ html-webpack-plugin可以用html作为模版文件，但是这会和全局配置
     //多个单词组成
     block-name
 ```
+### css样式库 
+类bs布局
++ _common.scss 样式库
++ _const.scss 样式中的基础数值
++ _align.scss 对齐 flex
++ _container 主容器
++ _form 表单类 
++ _icon 直接用标签生成简单图标
+
 ###### Block 区块
 主要描述组件的主体
 

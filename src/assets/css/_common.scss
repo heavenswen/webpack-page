@@ -23,20 +23,16 @@
     left: 0;
     right: 0;
     margin: auto;
-} 
+}
 
-//栅格化布局
-@import "~./_flex";
-
-//container 响应式布局 类bs
+//栅格化对齐布局
+@import "~./_align";
+//container 响应式容器
 @import "~./_container";
-
 //form
 @import "~./form";
-
 //外观
 @import "~./_icon";
-
 
 //蒙板 (active焦点，背后颜色，进入效果，消失效果)
 //document.querySelector("").classList.toggle('active')
@@ -84,9 +80,8 @@
     }
 }
 
-@mixin iphoneX(){
-
-    @media only screen and (device-width:375px) and (device-height:812px) and (-webkit-device-pixel-ratio:3) {
+@mixin iphoneX() {
+    @media only screen and (device-width: 375px) and (device-height:812px) and (-webkit-device-pixel-ratio:3) {
         /* iPhone X 独有样式写在这里*/
         @content;
     }

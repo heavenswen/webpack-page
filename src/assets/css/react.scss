@@ -1,5 +1,6 @@
 @import "~./_common.scss";
 //my.css
+//基础标签
 #{$All} {
     margin: 0;
     padding: 0;
@@ -8,7 +9,7 @@
 * {
     outline: 0;
 }
-
+//h标签
 #{$H} {
     font-weight: normal;
 }
@@ -92,31 +93,37 @@ body {
     font-size: size(14, px);
 }
 
+// 基础容器
 @include container-bs();
-@include flex-bs();
-@include flex-bs-media();
+//对齐弹性布局
+@include align-bs();
+//对齐响应式弹性布局
+@include align-bs-media();
+//表单
 @include form-bs();
+//响应式 表单
 @include form-bs-media();
+//加载图标
 .block-loading {
     @include icon-loading();
 }
-
+//三角形图标
 .block-sjx {
     @include icon-sjx();
 }
-
+//列表图标
 .block-list {
     @include icon-list();
 }
-
+//关闭图标
 .block-close {
     @include icon-close();
 }
-
+//更多图标
 .block-more {
     @include icon-more();
 }
-
+//list to close
 .btn-close {
     appearance: none;
     padding: 0;

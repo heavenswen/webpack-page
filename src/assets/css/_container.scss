@@ -10,16 +10,7 @@
     } //图片不能超过自己的真实大小，会失真
     .img--fluid {
         max-width: 100%;
-    } //text
-    .text--left {
-        text-align: left;
-    }
-    .text--right {
-        text-align: right;
-    }
-    .text--center {
-        text-align: center;
-    }
+    } 
     //去列表样式
     .list--unstyled{
         padding: 0;
