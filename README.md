@@ -48,8 +48,11 @@ npm run page
         + js //js库
         + css //样式库
     + pages //页面模板
-        + index.ejs //单页面 生成时对应名称 ejs将生成html
-        + spa.ejs vue路由dome
+    生成时对应名称ejs将生成html
+        + index.ejs //样式库demo
+        + spa.ejs //单页程序dome
+        + demo.ejs //模块化js demo
+        + nav.ejs //ejs demo
     + entry//页面入口
         + index.js//入口为同名js
     + views //vue视图模块
@@ -86,7 +89,7 @@ html-webpack-plugin可以用html作为模版文件，但是这会和全局配置
 
 ### CSS BEM規範
 提高CSS的可读化和oocss思想让css的可复用性更强
-
+(推荐)使用 rel='' 表示来做css选择器，避免class的滥用，data-*作为数据的存储
 ```
     //写法 区块__元件--修饰
     block__element--modaifer
