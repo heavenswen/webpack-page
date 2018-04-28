@@ -1,3 +1,4 @@
+'use strict'
 //路由
 import Vue from 'vue'
 // 路由导航

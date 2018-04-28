@@ -6,10 +6,6 @@ import Search from "assets/js/search-wyy"
 //焦点提示框
 import 'assets/css/Focus-tip.css'
 import Tip from "assets/js/Focus-tip.js"
-
-import Com from "../lib/common-qiu"
-import  "../lib/hack-ie9"
-
 //搜索框
 new Search("#search", {
     callBack: function (v, fn) {
@@ -45,13 +41,10 @@ new Search("#search", {
         ];
     }
 });
-
 //焦点提示
 new Tip().initObj("input");
-
 //获得
 let sib = Com.siblings("fieldset")
-
 Com.scrollFn('[rel="scrollTop"]')
 
 
